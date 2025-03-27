@@ -39,41 +39,48 @@ jobs:
       - name: ➕ Bump version from latest tag or input
         id: bump_version
         run: |
+          # Get latest version from git or default to v0.0.0
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "Latest tag: $latest_tag"
+          
           input_version="${{ github.event.inputs.release_version }}"
-
+          
           if [ -z "$input_version" ]; then
-            latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-            echo "Latest tag: $latest_tag"
-
-            version=$(echo $latest_tag | sed 's/^v//' | awk -F. '{ $3 += 1; print $1 "." $2 "." $3 }')
-            new_tag="v$version"
-          else
-            version="$input_version"
-            new_tag="v$version"
+          # Remove leading "v" and bump until an unused tag is found
+          version=$(echo $latest_tag | sed 's/^v//')
+          IFS='.' read -r major minor patch <<< "$version"
+        
+          while true; do
+          patch=$((patch + 1))
+          candidate_tag="v$major.$minor.$patch"
+          if ! git ls-remote --tags origin | grep -q "refs/tags/$candidate_tag$"; then
+          break
           fi
-
-          echo "New tag: $new_tag"
-
+          done
+        
+          new_tag="$candidate_tag"
+          else
+          version="$input_version"
+          new_tag="v$version"
+          fi
+        
+          echo "✅ New tag: $new_tag"
+        
           # Update package.json version
-          jq --arg v "$version" '.version = $v' package.json > package.tmp.json
+          jq --arg v "${new_tag#v}" '.version = $v' package.json > package.tmp.json
           mv package.tmp.json package.json
-
+          
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-
+          
           git add package.json
           git commit -m "chore: bump version to $new_tag"
-
-          # Avoid error if tag already exists
-          if git ls-remote --tags origin | grep -q "refs/tags/$new_tag$"; then
-            echo "⚠️ Tag $new_tag already exists. Skipping tag creation."
-          else
-            git tag $new_tag
-            git push origin HEAD:main --tags
-          fi
-
+          git tag "$new_tag"
+          git push origin HEAD:main --tags
+          
           echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
           echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+
 
       - name: 🏠 Build the library
         run: yarn build:lib
