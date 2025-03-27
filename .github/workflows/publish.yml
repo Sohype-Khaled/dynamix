@@ -85,15 +85,24 @@ jobs:
       - name: 🏠 Build the library
         run: yarn build:lib
 
+      - name: 📁 Prepare publish folder
+        run: |
+          mkdir publish
+          cp -r dist/lib/* publish/
+          cp package.json publish/
+          cp README.md publish/
+
       - name: 📦 Publish to npm Registry
-        run: npm publish --access public
+        run: |
+          cd publish
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: 📄 Upload built .tgz to GitHub Release
+      - name: 📄 Create .tgz for GitHub Release
         run: |
-          npm pack --pack-destination .
-        shell: bash
+          cd publish
+          npm pack --pack-destination ../
 
       - name: 📤 Upload release assets
         uses: softprops/action-gh-release@v1
