@@ -31,6 +31,7 @@ jobs:
         with:
           node-version: '22'
           cache: yarn
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: 📜 Install dependencies
         run: yarn install --frozen-lockfile
@@ -79,16 +80,15 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: 📁 Prepare publish folder
+      - name: 📄 Upload built .tgz to GitHub Release
         run: |
-          yarn prepare:publish
-          cd publish
-          yarn pack --filename ../dynamix.tgz
+          npm pack --pack-destination .
+        shell: bash
 
-      - name: 📄 Upload to GitHub Release
+      - name: 📤 Upload release assets
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.bump_version.outputs.new_tag }}
-          files: dynamix.tgz
+          files: '*.tgz'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
