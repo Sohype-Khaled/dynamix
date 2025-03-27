@@ -1,5 +1,5 @@
 {
-  "name": "@sohype-khaled/dynamix",
+  "name": "admin-dynamix",
   "description": "A vue Library for custom elements and components",
   "publishConfig": {
     "access": "public"
