@@ -9,18 +9,21 @@
   "private": false,
   "version": "0.0.4",
   "type": "module",
-  "main": "dist/lib/dynamix.umd.js",
-  "module": "dist/lib/dynamix.es.js",
-  "types": "dist/lib/index.d.ts",
+  "main": "./dynamix.umd.js",
+  "module": "./dynamix.es.js",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/lib/index.d.ts",
-      "import": "./dist/lib/dynamix.es.js",
-      "require": "./dist/lib/dynamix.umd.js"
+      "types": "./index.d.ts",
+      "import": "./dynamix.es.js",
+      "require": "./dynamix.umd.js"
     },
-    "./index.css": "./dist/lib/index.css",
+    "./index.css": "./index.css",
     "./package.json": "./package.json"
   },
+  "files": [
+    "."
+  ],
   "scripts": {
     "dev": "vite",
     "dev:lib": "vite --mode library",
