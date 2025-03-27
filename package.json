@@ -21,9 +21,6 @@
     "./index.css": "./dist/lib/index.css",
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist/lib"
-  ],
   "scripts": {
     "dev": "vite",
     "dev:lib": "vite --mode library",
