@@ -32,9 +32,6 @@ export default {
       fileName: (format: string) => `dynamix.${format}.js`,
     },
     rollupOptions: {
-      // input: {
-      //   main: path.resolve(__dirname, "src/index.ts"),
-      // },
       external: [
         "vue",
         "axios",

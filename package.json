@@ -9,20 +9,20 @@
   "private": false,
   "version": "0.0.0",
   "type": "module",
-  "main": "./dynamix.umd.js",
-  "module": "./dynamix.es.js",
-  "types": "./index.d.ts",
+  "main": "dist/lib/dynamix.umd.js",
+  "module": "dist/lib/dynamix.es.js",
+  "types": "dist/lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./dynamix.es.js",
-      "require": "./dynamix.umd.js"
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/dynamix.es.js",
+      "require": "./dist/lib/dynamix.umd.js"
     },
-    "./index.css": "./index.css",
+    "./index.css": "./dist/lib/index.css",
     "./package.json": "./package.json"
   },
   "files": [
-    "."
+    "dist/lib"
   ],
   "scripts": {
     "dev": "vite",
@@ -37,7 +37,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-
   },
   "peerDependencies": {
     "@tailwindcss/vite": "^4.0.13",
