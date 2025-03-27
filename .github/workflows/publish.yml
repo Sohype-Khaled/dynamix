@@ -35,7 +35,7 @@ jobs:
           cache: yarn
           registry-url: 'https://npm.pkg.github.com/'
 
-      - name: 📋 Install dependencies
+      - name: 🗌 Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: ➕ Bump version from latest tag or input
@@ -63,8 +63,13 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git commit -am "chore: bump version to $new_tag"
-          git tag $new_tag
-          git push origin $new_tag
+
+          if git ls-remote --tags origin | grep -q "refs/tags/$new_tag$"; then
+            echo "⚠️ Tag $new_tag already exists. Skipping tag creation."
+          else
+            git tag $new_tag
+            git push origin $new_tag
+          fi
 
           echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
           echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
