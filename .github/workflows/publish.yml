@@ -1,40 +1,74 @@
-name: Build & Publish Package
+name: Build, Tag, and Publish Vue Library
 
 on:
   push:
-    tags:
-      - "v*" # Triggers only on version tags like v0.0.1
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'vite.config.*'
 
 jobs:
-  build-and-publish:
-    name: Build and upload release tarball
+  tag-and-release:
+    name: Tag & Build & Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    outputs:
+      new_tag: ${{ steps.bump_version.outputs.new_tag }}
+      latest_tag: ${{ steps.bump_version.outputs.latest_tag }}
 
     steps:
-      - name: Checkout Code
+      - name: 📄 Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node & Yarn
+      - name: ♻️ Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "yarn"
+          node-version: '20'
+          cache: yarn
 
-      - name: Install Dependencies
+      - name: 📋 Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build Library
+      - name: ➕ Bump version from latest tag
+        id: bump_version
+        run: |
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "Latest tag: $latest_tag"
+
+          version=$(echo $latest_tag | sed 's/^v//' | awk -F. '{ $3 += 1; print $1 "." $2 "." $3 }')
+          new_tag="v$version"
+          echo "New tag: $new_tag"
+
+          # Update version in package.json
+          jq --arg v "$version" '.version = $v' package.json > temp && mv temp package.json
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git commit -am "chore: bump version to $new_tag"
+          git tag $new_tag
+          git push origin $new_tag
+
+          echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+
+      - name: 🏠 Build the library
         run: yarn build:lib
 
-      - name: Prepare Package
+      - name: 📁 Prepare publish folder
         run: |
           yarn prepare:publish
           cd publish
           yarn pack --filename ../dynamix.tgz
 
-      - name: Upload Tarball to GitHub Release
+      - name: 📄 Upload to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.bump_version.outputs.new_tag }}
           files: dynamix.tgz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
