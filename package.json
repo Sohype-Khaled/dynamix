@@ -1,6 +1,9 @@
 {
-  "name": "dynamix",
+  "name": "@sohypekhaled/dynamix",
   "description": "A vue Library for custom elements and components",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "author": "Sohype Khaled <sohype.mop@gmail.com>",
   "license": "MIT",
   "private": false,
