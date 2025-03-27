@@ -10,7 +10,6 @@ on:
   push:
     branches:
       - main
-      - dev
 
 jobs:
   tag-and-release:
@@ -18,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: write
 
     outputs:
       new_tag: ${{ steps.bump_version.outputs.new_tag }}
@@ -33,9 +31,8 @@ jobs:
         with:
           node-version: '22'
           cache: yarn
-          registry-url: 'https://npm.pkg.github.com/'
 
-      - name: 🗌 Install dependencies
+      - name: 📜 Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: ➕ Bump version from latest tag or input
@@ -77,10 +74,10 @@ jobs:
       - name: 🏠 Build the library
         run: yarn build:lib
 
-      - name: 📦 Publish to GitHub Packages
-        run: npm publish
+      - name: 📦 Publish to npm Registry
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 📁 Prepare publish folder
         run: |
