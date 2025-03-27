@@ -32,7 +32,7 @@
     "build:lib": "vue-tsc -b && vite build --mode library",
     "build:ce": "vue-tsc -b && vite build --mode custom-element",
     "build": "yarn clean && yarn build:lib && yarn build:ce",
-    "prepare:publish": "rm -rf publish && mkdir publish && cp -r dist/lib/* publish/ && cp package.json publish/",
+    "prepare:publish": "rm -rf publish && mkdir publish && rsync -a dist/ publish/ && cp package.json README.md publish/",
     "pack:lib": "yarn build:lib && yarn prepare:publish && cd publish && yarn pack",
     "preview": "vite preview"
   },

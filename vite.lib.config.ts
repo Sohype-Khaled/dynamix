@@ -23,7 +23,7 @@ export default {
     }),
   ],
   build: {
-    outDir: "dist/lib",
+    outDir: "dist",
     cssCodeSplit: true,
     lib: {
       entry: "./src/index.ts",

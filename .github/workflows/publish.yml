@@ -49,7 +49,7 @@ jobs:
           # Remove leading "v" and bump until an unused tag is found
           version=$(echo $latest_tag | sed 's/^v//')
           IFS='.' read -r major minor patch <<< "$version"
-        
+          
           while true; do
           patch=$((patch + 1))
           candidate_tag="v$major.$minor.$patch"
@@ -57,15 +57,15 @@ jobs:
           break
           fi
           done
-        
+          
           new_tag="$candidate_tag"
           else
           version="$input_version"
           new_tag="v$version"
           fi
-        
+          
           echo "✅ New tag: $new_tag"
-        
+          
           # Update package.json version
           jq --arg v "${new_tag#v}" '.version = $v' package.json > package.tmp.json
           mv package.tmp.json package.json
@@ -86,11 +86,7 @@ jobs:
         run: yarn build:lib
 
       - name: 📁 Prepare publish folder
-        run: |
-          mkdir publish
-          cp -r dist/lib/* publish/
-          cp package.json publish/
-          cp README.md publish/
+        run: yarn prepare:publish
 
       - name: 📦 Publish to npm Registry
         run: |
