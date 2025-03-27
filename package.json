@@ -4,7 +4,7 @@
   "author": "Sohype Khaled <sohype.mop@gmail.com>",
   "license": "MIT",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "main": "./dynamix.umd.js",
   "module": "./dynamix.es.js",
@@ -33,9 +33,7 @@
     "pack:lib": "yarn build:lib && yarn prepare:publish && cd publish && yarn pack",
     "preview": "vite preview"
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "peerDependencies": {
     "@tailwindcss/vite": "^4.0.13",
     "axios": "^1.8.2",
