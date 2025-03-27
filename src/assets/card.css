@@ -1,0 +1,23 @@
+.card {
+    @apply flex flex-col shadow  rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800;
+}
+
+.card-header {
+    @apply flex items-center justify-between px-5 py-3 border-b border-gray-200 dark:border-gray-700;
+}
+
+.card-title {
+    @apply text-lg font-semibold text-gray-900 dark:text-white;
+}
+
+.card-toolbar {
+    @apply flex items-center gap-2;
+}
+
+.card-body {
+    @apply p-5;
+}
+
+.card-footer {
+    @apply px-5 py-3 border-t border-gray-200 dark:border-gray-700;
+}

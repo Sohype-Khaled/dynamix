@@ -1,0 +1,40 @@
+name: Build & Publish Package
+
+on:
+  push:
+    tags:
+      - "v*" # Triggers only on version tags like v0.0.1
+
+jobs:
+  build-and-publish:
+    name: Build and upload release tarball
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node & Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Library
+        run: yarn build:lib
+
+      - name: Prepare Package
+        run: |
+          yarn prepare:publish
+          cd publish
+          yarn pack --filename ../dynamix.tgz
+
+      - name: Upload Tarball to GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dynamix.tgz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

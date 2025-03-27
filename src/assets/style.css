@@ -1,0 +1,155 @@
+@import "tailwindcss";
+@import "flowbite/src/themes/default.css";
+
+@import "./button.css";
+@import "./card.css";
+
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@theme {
+
+    --color-primary: oklch(63.913% 0.11533 221.13);
+    --color-primary-50: oklch(86.511% 0.0887 214.88);
+    --color-primary-100: oklch(84.533% 0.10053 215.84);
+    --color-primary-200: oklch(81.038% 0.12031 216.53);
+    --color-primary-300: oklch(77.786% 0.13285 219.07);
+    --color-primary-400: oklch(73.149% 0.13268 221.5);
+    --color-primary-500: oklch(63.913% 0.11533 221.13);
+    --color-primary-600: oklch(50.543% 0.09051 220.96);
+    --color-primary-700: oklch(36.175% 0.0628 219.33);
+    --color-primary-800: oklch(20.17% 0.03301 216.34);
+    --color-primary-900: oklch(0% 0 none);
+    --color-primary-950: oklch(0% 0 none);
+
+    --color-secondary: oklch(85.351% 0.17442 88.773);
+    --color-secondary-50: oklch(95.133% 0.07478 94.272);
+    --color-secondary-100: oklch(93.956% 0.09519 94.8);
+    --color-secondary-200: oklch(91.569% 0.12981 94.371);
+    --color-secondary-300: oklch(89.582% 0.1562 93.792);
+    --color-secondary-400: oklch(87.578% 0.17159 91.788);
+    --color-secondary-500: oklch(85.351% 0.17442 88.773);
+    --color-secondary-600: oklch(70.839% 0.14476 89.183);
+    --color-secondary-700: oklch(55.536% 0.11349 89.884);
+    --color-secondary-800: oklch(39.078% 0.0799 91.356);
+    --color-secondary-900: oklch(20.291% 0.04158 93.679);
+    --color-secondary-950: oklch(4.2201% 0.01732 29.234);
+
+    --color-neutral: oklch(42.958% 0.02513 237.37);
+    --color-neutral-50: oklch(74.154% 0.02302 235.12);
+    --color-neutral-100: oklch(70.856% 0.02684 237.01);
+    --color-neutral-200: oklch(64.198% 0.03296 239.14);
+    --color-neutral-300: oklch(57.346% 0.03544 236.83);
+    --color-neutral-400: oklch(50.301% 0.03093 238.14);
+    --color-neutral-500: oklch(42.958% 0.02513 237.37);
+    --color-neutral-600: oklch(32.26% 0.01842 238.68);
+    --color-neutral-700: oklch(20.613% 0.00857 240.33);
+    --color-neutral-800: oklch(0% 0 none);
+    --color-neutral-900: oklch(0% 0 none);
+    --color-neutral-950: oklch(0% 0 none);
+
+
+    --colot-warning: #facc15;
+    --color-warning-50: #fef3c7;
+    --color-warning-100: #fde68a;
+    --color-warning-200: #fcd34d;
+    --color-warning-300: #fbbf24;
+    --color-warning-400: #f59e0b;
+    --color-warning-500: #facc15;
+    --color-warning-600: #eab308;
+    --color-warning-700: #ca8a04;
+    --color-warning-800: #a16207;
+    --color-warning-900: #854d0e;
+
+    --color-danger-50: #fee2e2;
+    --color-danger-100: #fecaca;
+    --color-danger-200: #fca5a5;
+    --color-danger-300: #f87171;
+    --color-danger-400: #ef4444;
+    --color-danger-500: #dc2626;
+    --color-danger-600: #b91c1c;
+    --color-danger-700: #991b1b;
+    --color-danger-800: #7f1d1d;
+    --color-danger-900: #5f1a1a;
+
+    --color-info-50: #eef2ff;
+    --color-info-100: #e0e7ff;
+    --color-info-200: #c7d2fe;
+    --color-info-300: #a5b4fc;
+    --color-info-400: #818cf8;
+    --color-info-500: #6366f1;
+    --color-info-600: #4f46e5;
+    --color-info-700: #4338ca;
+    --color-info-800: #3730a3;
+    --color-info-900: #312e81;
+
+    --color-success-50: #ecfdf5;
+    --color-success-100: #d1fae5;
+    --color-success-200: #a7f3d0;
+    --color-success-300: #6ee7b7;
+    --color-success-400: #34d399;
+    --color-success-500: #22c55e;
+    --color-success-600: #16a34a;
+    --color-success-700: #15803d;
+    --color-success-800: #166534;
+    --color-success-900: #14532d;
+
+    --color-background: #ffffff;
+    --color-text: #000000;
+
+    --tw-ring-color: var(--color-primary-500);
+
+
+}
+
+.dark {
+    --color-primary: oklch(85.351% 0.17442 88.773);
+    --color-primary-50: oklch(95.133% 0.07478 94.272);
+    --color-primary-100: oklch(93.956% 0.09519 94.8);
+    --color-primary-200: oklch(91.569% 0.12981 94.371);
+    --color-primary-300: oklch(89.582% 0.1562 93.792);
+    --color-primary-400: oklch(87.578% 0.17159 91.788);
+    --color-primary-500: oklch(85.351% 0.17442 88.773);
+    --color-primary-600: oklch(70.839% 0.14476 89.183);
+    --color-primary-700: oklch(55.536% 0.11349 89.884);
+    --color-primary-800: oklch(39.078% 0.0799 91.356);
+    --color-primary-900: oklch(20.291% 0.04158 93.679);
+    --color-primary-950: oklch(4.2201% 0.01732 29.234);
+
+
+    --color-secondary: oklch(70.444% 0.18719 23.186);
+    --color-secondary-50: oklch(100% 0 none);
+    --color-secondary-100: oklch(100% 0 none);
+    --color-secondary-200: oklch(100% 0 none);
+    --color-secondary-300: oklch(100% 0 none);
+    --color-secondary-400: oklch(100% 0 none);
+    --color-secondary-500: oklch(100% 0 none);
+    --color-secondary-600: oklch(97.792% 0.01075 17.34);
+    --color-secondary-700: oklch(88.968% 0.05799 18.3);
+    --color-secondary-800: oklch(80.724% 0.10961 19.739);
+    --color-secondary-900: oklch(73.464% 0.16265 21.864);
+    --color-secondary-950: oklch(70.444% 0.18719 23.186);
+
+    --color-neutral-clay: oklch(26.745% 0.01814 220.33);
+    --color-neutral-clay-50: oklch(89.85% 0.01357 214.36);
+    --color-neutral-clay-100: oklch(86.653% 0.01825 223.63);
+    --color-neutral-clay-200: oklch(80.62% 0.02651 221.65);
+    --color-neutral-clay-300: oklch(74.509% 0.03487 220.7);
+    --color-neutral-clay-400: oklch(68.318% 0.04325 220.25);
+    --color-neutral-clay-500: oklch(62.113% 0.0506 220.62);
+    --color-neutral-clay-600: oklch(54.726% 0.04384 221.2);
+    --color-neutral-clay-700: oklch(47.33% 0.03705 219.06);
+    --color-neutral-clay-800: oklch(39.371% 0.02967 219.51);
+    --color-neutral-clay-900: oklch(30.985% 0.02179 220.38);
+    --color-neutral-clay-950: oklch(26.745% 0.01814 220.33);
+
+    --color-warning-500: #eab308;
+    --color-danger-500: #b91c1c;
+    --color-info-500: #4f46e5;
+    --color-success-500: #16a34a;
+    --color-background: #111827;
+    --color-text: #ffffff;
+}
