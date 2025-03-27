@@ -7,6 +7,10 @@ on:
         description: "Manually specify next release version (leave empty for auto)"
         required: false
         default: ""
+  push:
+    branches:
+      - main
+      - dev
 
 jobs:
   tag-and-release:
@@ -26,7 +30,7 @@ jobs:
       - name: ♻️ Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: yarn
 
       - name: 📋 Install dependencies
