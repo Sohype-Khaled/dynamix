@@ -2,7 +2,8 @@
 
 import {computed, onMounted, ref, watch} from "vue";
 import {DXAlert} from "@/components";
-import DXAlertPreview from "@/previews/DXAlertPreview.vue";
+import AlertPreview from "@/app/modules/alerts/AlertPreview.vue";
+import DefaultLayout from "@/app/layouts/default/DefaultLayout.vue";
 
 
 const radio = ref<string>();
@@ -62,48 +63,48 @@ const form = ref({
 </script>
 
 <template>
+	<DefaultLayout>
+		<RouterView />
+	</DefaultLayout>
 
-	<div class="p-2 mb-3">
-		<DXAlertPreview/>
-	</div>
-		<div class="p-2 mb-3">
-			<div class="card">
-				<div class="card-header">
-					<div class="card-title">Card Title</div>
-					<div class="card-toolbar">
-						<div class="flex items-center gap-2 p-2">
-							<DXToggle v-model="isDark" id="dark-mode-toggle"/>
-							<label for="dark-mode-toggle" class="text-sm font-medium text-gray-900 dark:text-gray-300">
-								{{ isDark ? "☀️ Light Mode" : "🌙 Dark Mode" }}
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="card-body space-y-4">
-					<DXInput label="email" type="email" v-model="form.email"/>
-					<DXTextarea
-						v-model="form.bio"
-						label="Your Bio"
-						state="default"
-						message="Tell us about yourself"
-						name="user_bio"
-						rows="4"
-					/>
-					<DXTagInput
-						v-model="form.tags"
-						label="Tags"
-						message="Press Tab or comma to add"
-						state="default"
-					/>
-				</div>
-				<div class="card-footer">
-					<DXButton label="Submit" severity="primary"/>
-					<DXButton label="Cancel" text severity="danger"/>
-				</div>
-			</div>
+<!--		<div class="p-2 mb-3">-->
+<!--			<div class="card">-->
+<!--				<div class="card-header">-->
+<!--					<div class="card-title">Card Title</div>-->
+<!--					<div class="card-toolbar">-->
+<!--						<div class="flex items-center gap-2 p-2">-->
+<!--							<DXToggle v-model="isDark" id="dark-mode-toggle"/>-->
+<!--							<label for="dark-mode-toggle" class="text-sm font-medium text-gray-900 dark:text-gray-300">-->
+<!--								{{ isDark ? "☀️ Light Mode" : "🌙 Dark Mode" }}-->
+<!--							</label>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="card-body space-y-4">-->
+<!--					<DXInput label="email" type="email" v-model="form.email"/>-->
+<!--					<DXTextarea-->
+<!--						v-model="form.bio"-->
+<!--						label="Your Bio"-->
+<!--						state="default"-->
+<!--						message="Tell us about yourself"-->
+<!--						name="user_bio"-->
+<!--						rows="4"-->
+<!--					/>-->
+<!--					<DXTagInput-->
+<!--						v-model="form.tags"-->
+<!--						label="Tags"-->
+<!--						message="Press Tab or comma to add"-->
+<!--						state="default"-->
+<!--					/>-->
+<!--				</div>-->
+<!--				<div class="card-footer">-->
+<!--					<DXButton label="Submit" severity="primary"/>-->
+<!--					<DXButton label="Cancel" text severity="danger"/>-->
+<!--				</div>-->
+<!--			</div>-->
 
-			{{ form }}
-		</div>
+<!--			{{ form }}-->
+<!--		</div>-->
 
 
 	<!--	<div class="p-2 mb-3">-->
@@ -166,16 +167,6 @@ const form = ref({
 	<!--		</div>-->
 	<!--	</div>-->
 
-	<!--	<DXListing-->
-	<!--		list-url="http://localhost:8081/3efcbcf7-d0a9-4154-ba41-922c989edf57/sessions"-->
-	<!--		axios-config=""-->
-	<!--		:columns="[-->
-	<!--			{name: 'id', label: 'ID', extraClass: 'w-[20px]'},-->
-	<!--			{name: 'title', label: 'title', extraClass: 'min-w-[200px] max-w-[300px]'},-->
-	<!--			{name: 'start_time', label: 'Start Time'},-->
-	<!--			{name: 'end_time', label: 'End Time'},-->
 
-	<!--		]"-->
-	<!--		type="table"/>-->
 </template>
 

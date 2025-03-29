@@ -3,7 +3,7 @@ import {ref} from 'vue';
 import {DXCheckbox, DXInput, DXTextarea} from "@/components/inputs";
 
 const label = ref('Heads up!');
-const message = ref('This is an alert preview.');
+const message = ref('This is an alerts preview.');
 const html = ref('');
 const severity = ref('info');
 const icon = ref('heroicons:information-circle');

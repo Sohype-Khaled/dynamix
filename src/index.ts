@@ -24,7 +24,15 @@ import {
   DXTableRow
 } from "@/components/listing";
 
-import {DXAlert, DXLoader} from "@/components/index";
+import {
+  DXAlert,
+  DXDialog,
+  DXDialogBody,
+  DXDialogConfirmation,
+  DXDialogFooter,
+  DXLoader,
+  DXOverlay,
+} from "@/components/index";
 
 const components = {
   DXButton,
@@ -46,7 +54,12 @@ const components = {
   DXPaginationInfo,
   DXPaginationControls,
   DXPaginationSize,
-  DXAlert
+  DXAlert,
+  DXOverlay,
+  DXDialog,
+  DXDialogBody,
+  DXDialogFooter,
+  DXDialogConfirmation,
 };
 
 const DynamixPlugin = {
@@ -79,9 +92,17 @@ export {
   DXPaginationSize,
 
   DXAlert,
-  DXLoader
+  DXLoader,
+  DXOverlay,
+  DXDialog,
+  DXDialogBody,
+  DXDialogFooter,
+  DXDialogConfirmation,
 };
 
 
 export {useParsedOptions} from "@/composables/useParsedOptions";
 export {useForm} from "@/composables/useForm";
+export {useDialog} from "@/composables/useDialog.ts";
+export {useOverlay} from "@/composables/useOverlay.ts";
+export {useConfirmation} from "@/composables/useConfirmation.ts";
