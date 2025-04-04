@@ -2,8 +2,8 @@
 import {useDialog} from "@/composables/useDialog.ts";
 import ExampleDialog from "./ExampleDialog.vue";
 import {DXButton} from "@/components/DXButton";
-import CodeBlock from "@/app/CodeBlock.vue";
-import ApiTable from "@/app/ApiTable.vue";
+import CodeBlock from "@/app/components/CodeBlock.vue";
+import ApiTable from "@/app/components/ApiTable.vue";
 
 const {open} = useDialog();
 

@@ -14,5 +14,9 @@ export const menu: Array<Record<string, any>> = [
   {
     label: "Overlay & Dialogs",
     to: "/dialogs",
+  },
+  {
+    label: "Inputs",
+    to: "/inputs",
   }
 ];
