@@ -74,7 +74,7 @@ const messageClasses = computed(() => {
 </script>
 
 <template>
-	<div class="relative w-full">
+	<div class="w-full">
 		<div class="flex items-center">
 			<!-- Outer Left Slot -->
 			<slot name="outer-left"/>
@@ -85,18 +85,19 @@ const messageClasses = computed(() => {
 					<slot name="inner-left"/>
 				</div>
 
+				<label :for="inputId" class="" :class="labelClasses">
+					{{ label }}
+				</label>
+
 				<slot
 					name="control"
 					:id="inputId"
-					:class="['peer w-full px-3', inputClasses]"
+					:class="['peer w-full', inputClasses]"
 					:value="modelValue"
 					@input="(event: Event) => emit('update:modelValue', (event.target as HTMLInputElement).value)"
 				/>
 
 
-				<label :for="inputId" class="" :class="labelClasses">
-					{{ label }}
-				</label>
 
 				<div class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
 					<!-- Inner Right Slot -->
