@@ -1,69 +1,32 @@
 <script setup lang="ts">
-import PreviewBlock from "@/app/components/PreviewBlock.vue";
-import {DXInput} from "@/components/inputs";
-import CodeBlock from "@/app/components/CodeBlock.vue";
-import ApiTable from "@/app/components/ApiTable.vue";
-import {ref} from "vue";
-
-const apiDXInput = [
-	{
-		name: "label",
-		description: "The label to show above the input."
-	},
-	{
-		name: "state",
-		description: "`'default' | 'success' | 'error'` — controls the input's visual state."
-	},
-	{
-		name: "message",
-		description: "Optional helper or error message shown below the input."
-	},
-	{
-		name: "v-model / modelValue",
-		description: "Two-way bound value of the input."
-	},
-	{
-		name: "[...attrs]",
-		description: "Any native input attributes like `type`, `autocomplete`, etc."
-	}
-]
-const examples = {
-	dxInput: `
- <DXInput
-    v-model="name"
-    label="Your Name"
-    placeholder="Enter your name"
-  />
-	`.trim()
-}
-
-const name =
-	ref('')
+import DXInputDocs from "@/app/modules/inputs/DXInputDocs.vue";
+import DXTextareaDocs from "@/app/modules/inputs/DXTextareaDocs.vue";
+import DXCheckboxDocs from "@/app/modules/inputs/DXCheckboxDocs.vue";
+import DXToggleDocs from "@/app/modules/inputs/DXToggleDocs.vue";
+import DXRadioDocs from "@/app/modules/inputs/DXRadioDocs.vue";
 </script>
 
 <template>
-	<h2 class="text-xl font-semibold mb-4"><code>&lt;DXInput /&gt;</code></h2>
-	<PreviewBlock title="DXInput" class="mb-8">
-		<DXInput label="Name" type="text" v-model="name"/>
-	</PreviewBlock>
+	<div class="max-w-5xl mx-auto px-4 ">
+		<h1 class="text-3xl font-bold mb-2">Inputs</h1>
+		<hr class="mb-8 mt-12">
 
+		<DXInputDocs/>
 
-	<p class="text-gray-600 mb-8">
-		A wrapper around <code>&lt;DXFloatingLabel /&gt;</code> that renders a standard input with consistent styling and
-		validation state.
-	</p>
+		<hr class="mb-8 mt-12">
 
-	<!-- Code Block -->
-	<section class="mb-12">
-		<h2 class="text-xl font-semibold mb-4">Usage Code</h2>
-		<CodeBlock :code="examples.dxInput" language="vue"/>
-	</section>
+		<DXTextareaDocs/>
 
-	<!-- API Table -->
-	<section>
-		<h2 class="text-xl font-semibold mb-4">API Reference</h2>
-		<ApiTable :items="apiDXInput"/>
-	</section>
+		<hr class="mb-8 mt-12">
 
+		<DXCheckboxDocs/>
+
+		<hr class="mb-8 mt-12">
+
+		<DXToggleDocs/>
+
+		<hr class="mb-8 mt-12">
+		<DXRadioDocs/>
+	</div>
 </template>
 

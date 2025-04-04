@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, watch } from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import Prism from 'prismjs'
 
 import 'prismjs/components/prism-typescript'
@@ -39,10 +39,61 @@ watch(() => props.code, highlightCode)
 	<div class="relative group">
 		<button
 			@click="copyCode"
-			class="absolute top-2 right-2 text-xs text-white bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition"
+			class="absolute top-2 right-2 text-xs text-white bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition cursor-pointer"
 		>
 			Copy
 		</button>
-		<pre class="rounded bg-gray-900 text-white text-sm overflow-auto p-4"><code v-html="highlighted" :class="`language-${language || 'typescript'}`"></code></pre>
+		<pre class=" rounded text-sm overflow-auto p-4 transition-all
+             bg-neutral text-gray-800
+             dark:bg-neutral-600 dark:text-gray-200"><code
+			v-html="highlighted"
+			:class="`language-${language || 'typescript'}`"></code></pre>
 	</div>
 </template>
+
+
+<style scoped lang="css">
+
+:deep(pre[class*="language-"]),
+:deep(code[class*="language-"]) {
+/*	color: #d4d4d4;
+	font-size: 13px;
+	text-shadow: none;
+	font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	line-height: 1.5;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;*/
+	color: #d4d4d4;
+	font-size: 13px;
+	text-shadow: none;
+	font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
+	direction: ltr;
+	text-align: left;
+
+	/* KEY UPDATES */
+	white-space: pre-wrap;      /* Allow wrapping */
+	word-break: break-word;     /* Break long words */
+	overflow-wrap: break-word;  /* Extra compatibility */
+
+	word-spacing: normal;
+	line-height: 1.5;
+	tab-size: 4;
+	hyphens: none;
+}
+
+
+
+:deep(code[class*="language-"] .token) {
+	background: transparent !important;
+}
+</style>

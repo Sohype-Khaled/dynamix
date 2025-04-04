@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue';
+import {computed, useAttrs} from 'vue';
 
 interface Props {
 	label: string;
@@ -8,29 +8,30 @@ interface Props {
 	modelValue?: any;
 }
 
-defineOptions({ inheritAttrs: false });
+defineOptions({inheritAttrs: false});
 
 const props = defineProps<Props>();
 const emit = defineEmits(['update:modelValue']);
 const attrs = useAttrs();
 
-const inputId = computed(() => (attrs.id as string) || `input-${Math.random().toString(36).substr(2, 9)}`);
+// Generate a unique ID if none is provided in attrs
+const inputId = computed(() => (attrs.id as string) || `input-${Math.random().toString(36).slice(2, 11)}`);
 
 const inputClasses = computed(() => {
-	const base =
-		'block w-full px-2.5 py-2 text-sm bg-transparent rounded-lg border appearance-none focus:outline-none focus:ring-0 dark:bg-gray-900';
+	const base = "block p-2.5 w-full text-sm rounded-lg border bg-gray-50 dark:bg-gray-700 dark:placeholder-neutral-400"
 
 	const stateStyles = {
 		default:
-			'text-gray-900 border-gray-300 focus:border-blue-600 dark:text-white dark:border-gray-600 dark:focus:border-blue-500',
+			'text-neutral-600 border-neutral-300 focus:ring-primary focus:border-primary dark:border-neutral-600 dark:text-neutral-50 dark:focus:ring-primary dark:focus:border-primary',
 		success:
-			'text-green-600 border-green-500 focus:border-green-600 dark:text-green-400 dark:border-green-500 dark:focus:border-green-400',
+			'text-success-600 border-success-600 focus:ring-success-800 focus:border-success-800 dark:text-success dark:border-success dark:focus:border-success dark:focus:ring-success',
 		error:
-			'text-red-600 border-red-500 focus:border-red-600 dark:text-red-400 dark:border-red-500 dark:focus:border-red-400',
+			'text-danger-600 border-danger-600 focus:ring-danger-600 focus:border-danger-600 dark:text-danger dark:border-danger dark:focus:border-danger dark:focus:ring-danger',
 	};
 
 	return `${base} ${stateStyles[props.state || 'default']}`;
-});
+})
+
 
 const messageClasses = computed(() => {
 	return props.state === 'error'
@@ -46,21 +47,21 @@ const messageClasses = computed(() => {
 		<!-- Fixed Label -->
 		<label :for="inputId" class="block text-sm font-medium mb-1"
 		       :class="{
-				'text-red-600 dark:text-red-400': state === 'error',
-				'text-green-600 dark:text-green-400': state === 'success',
-				'text-gray-700 dark:text-gray-300': !state || state === 'default'
+				'text-danger': state === 'error',
+				'text-success': state === 'success',
+				'text-neutral dark:text-gray-300': !state || state === 'default'
 			}">
 			{{ label }}
 		</label>
 
 		<!-- Input wrapper -->
 		<div class="relative flex items-center">
-			<slot name="outer-left" />
+			<slot name="outer-left"/>
 
 			<div class="relative flex-1">
 				<!-- Inner left icon -->
 				<div class="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-					<slot name="inner-left" />
+					<slot name="inner-left"/>
 				</div>
 
 				<!-- Input or custom field -->
@@ -74,15 +75,15 @@ const messageClasses = computed(() => {
 
 				<!-- Inner right icon -->
 				<div class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
-					<slot name="inner-right" />
+					<slot name="inner-right"/>
 				</div>
 			</div>
 
-			<slot name="outer-right" />
+			<slot name="outer-right"/>
 		</div>
 
 		<!-- Bottom extra -->
-		<slot name="bottom" />
+		<slot name="bottom"/>
 
 		<!-- Message -->
 		<p v-if="message" :class="messageClasses" class="mt-1 text-sm">

@@ -28,9 +28,10 @@ const attrs = useAttrs();
 				:id="id"
 				:value="value"
 				@input="onInput"
-				placeholder=" "
 				:class="inputClass"
+				placeholder=" "
 			/>
 		</template>
+
 	</DXFloatingLabel>
 </template>

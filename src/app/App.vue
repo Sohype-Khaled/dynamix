@@ -81,7 +81,7 @@ const form = ref({
 <!--					</div>-->
 <!--				</div>-->
 <!--				<div class="card-body space-y-4">-->
-<!--					<DXInput label="email" type="email" v-model="form.email"/>-->
+
 <!--					<DXTextarea-->
 <!--						v-model="form.bio"-->
 <!--						label="Your Bio"-->

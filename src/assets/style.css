@@ -64,6 +64,7 @@
     --color-warning-800: #a16207;
     --color-warning-900: #854d0e;
 
+    --color-danger: #ef4444;
     --color-danger-50: #fee2e2;
     --color-danger-100: #fecaca;
     --color-danger-200: #fca5a5;
@@ -75,6 +76,7 @@
     --color-danger-800: #7f1d1d;
     --color-danger-900: #5f1a1a;
 
+    --color-info: #6366f1;
     --color-info-50: #eef2ff;
     --color-info-100: #e0e7ff;
     --color-info-200: #c7d2fe;
@@ -86,6 +88,7 @@
     --color-info-800: #3730a3;
     --color-info-900: #312e81;
 
+    --color-success: #22c55e;
     --color-success-50: #ecfdf5;
     --color-success-100: #d1fae5;
     --color-success-200: #a7f3d0;
@@ -152,4 +155,14 @@
     --color-success-500: #16a34a;
     --color-background: #111827;
     --color-text: #ffffff;
+}
+
+
+code {
+    @apply font-mono text-sm bg-gray-100 px-1 py-0.5 rounded;
+
+}
+
+.dark code {
+    @apply bg-neutral-400 text-white;
 }

@@ -21,3 +21,7 @@
 .card-footer {
     @apply px-5 py-3 border-t border-gray-200 dark:border-gray-700;
 }
+
+.card.card--border-none {
+    @apply border-0 shadow-none;
+}
