@@ -44,7 +44,7 @@ const hasValue = computed(() => {
 
 
 const labelClasses = computed(() => {
-	const base = 'absolute  duration-300 transform left-3';
+	const base = 'absolute  duration-300 transform left-3 bg-white dark:bg-gray-900';
 	const color =
 		props.state === 'error'
 			? 'text-red-600 dark:text-red-400'
@@ -53,14 +53,12 @@ const labelClasses = computed(() => {
 				: 'text-gray-500 dark:text-gray-400 peer-focus:text-primary-600 peer-focus:dark:text-primary-500';
 
 	const floating = 'top-3 scale-75 -translate-y-6 px-2';
-	const defaultPosition = 'top-2 scale-100'; // default = not floating
+	const placeholderState = 'peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:translate-y-0';
+	const focusState = 'peer-focus:top-3 peer-focus:px-2 peer-focus:scale-75 peer-focus:-translate-y-6';
 
-	// Determine label position
 	const labelState = hasValue.value
 		? floating
-		: 'peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:translate-y-0 ' + defaultPosition;
-
-	const focusState = 'peer-focus:top-3 peer-focus:px-2 peer-focus:scale-75 peer-focus:-translate-y-6';
+		: `${placeholderState} top-3 scale-100 translate-y-0`;
 
 	return `${base} ${labelState} ${focusState} ${color}`;
 });
@@ -96,7 +94,7 @@ const messageClasses = computed(() => {
 				/>
 
 
-				<label :for="inputId" class="bg-white dark:bg-gray-900" :class="labelClasses">
+				<label :for="inputId" class="" :class="labelClasses">
 					{{ label }}
 				</label>
 
