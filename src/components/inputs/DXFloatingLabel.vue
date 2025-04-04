@@ -23,7 +23,7 @@ const inputId = computed(() => (attrs.id as string) || `input-${Math.random().to
 
 const inputClasses = computed(() => {
 
-	const base = "block px-2.5 pb-2.5 pt-4 w-full  bg-transparent rounded-lg border-1  appearance-none  focus:outline-none focus:ring-0 peer"
+	const base = "block px-2.5 pb-2.5 pt-4 w-full  bg-transparent rounded-lg border border-1  appearance-none  focus:outline-none focus:ring-0 peer"
 
 	const stateStyles = {
 		default:
