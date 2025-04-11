@@ -1,72 +1,124 @@
-import { ref, computed, watch, onMounted } from "vue";
-import axios, { type AxiosRequestConfig } from "axios";
+import {onMounted, ref, type Ref, watchEffect} from "vue";
+import type {AxiosResponse} from "axios";
+import type {
+  DjangoPaginatedResponse,
+  FastAPIPaginatedResponse,
+  NormalizedPagination,
+  NormalizedPaginationControls,
+} from "../types";
 
-export function useListing(listUrl: string, axiosConfig?: AxiosRequestConfig, searchKey = "search") {
-  const tableData = ref<any[]>([]);
+
+type FetcherFn<T> = (
+  params: Record<string, any>
+) => Promise<AxiosResponse<FastAPIPaginatedResponse<T> | DjangoPaginatedResponse<T>>>;
+
+function normalizePagination<T>(
+  response: FastAPIPaginatedResponse<T> | DjangoPaginatedResponse<T>,
+  currentPage: number,
+  pageSize: number
+): NormalizedPagination<T> {
+  if ("results" in response) {
+    const total = response.count;
+    const totalPages = Math.ceil(total / pageSize);
+
+    return {
+      controls: {
+        total,
+        page: currentPage,
+        pageSize,
+        totalPages,
+      },
+      results: response.results,
+    };
+  } else {
+    return {
+      controls: {
+        total: response.total,
+        page: response.page,
+        pageSize: response.page_size,
+        totalPages: response.total_pages,
+      },
+      results: response.data,
+    };
+  }
+}
+
+export function useListing<T>(
+  fetcher: FetcherFn<T>,
+  query: Ref<Record<string, any>>,
+) {
+  const items = ref<T[]>([]);
+  const paginationControls = ref<NormalizedPaginationControls>({
+    total: 0,
+    page: 1,
+    pageSize: 10,
+    totalPages: 1,
+  });
+
   const loading = ref<boolean>(true);
   const error = ref<string | null>(null);
 
-  // Pagination state
-  const currentPage = ref<number>(1);
-  const pageSize = ref<number>(10);
-  const totalItems = ref<number>(0);
-  const totalPages = computed(() => Math.ceil(totalItems.value / pageSize.value));
-
-  // Search & Filters state
-  const searchQuery = ref<string>("");
-  const filters = ref<Record<string, any>>({});
-
-  // Fetch data from API with pagination, filters & search
   const fetchData = async () => {
     loading.value = true;
     error.value = null;
 
     try {
-      const response = await axios.get(listUrl, {
-        ...axiosConfig,
-        params: {
-          page: currentPage.value,
-          limit: pageSize.value,
-          [searchKey]: searchQuery.value, // Fixed search key
-          ...filters.value, // Additional filters
-        },
+      const response = await fetcher({
+        ...query.value,
+        page: query.value.page,
+        limit: query.value.pageSize,
+        page_size: query.value.pageSize,
       });
 
-      tableData.value = response.data.data;
-      totalItems.value = response.data.total;
+      const normalized = normalizePagination<T>(
+        response.data,
+        query.value.page,
+        query.value.pageSize
+      );
+
+      items.value = normalized.results;
+      paginationControls.value = normalized.controls;
     } catch (err) {
-      console.error("Error fetching data:", err);
+      console.error("Error fetching listing:", err);
       error.value = "Failed to load data.";
     } finally {
       loading.value = false;
     }
   };
 
-  // Fetch data when mounted
-  onMounted(fetchData);
+  // Avoid fetch loop by caching last query
+  let lastQueryJSON = "";
+  let isMounted = ref(false);
 
-  // Watch for changes in pagination, search, or filters
-  watch([currentPage, pageSize, searchQuery, filters], fetchData);
+  onMounted(() => {
+    isMounted.value = true;
+  });
 
-  // Function to update filters & reset page
-  const updateFilters = (newFilters: Record<string, any>) => {
-    filters.value = { ...filters.value, ...newFilters };
-    currentPage.value = 1; // Reset to first page when filters change
+  watchEffect(() => {
+    if (!isMounted.value) return;
+
+    const currentQuery = JSON.stringify(query.value);
+    if (currentQuery !== lastQueryJSON) {
+      lastQueryJSON = currentQuery;
+      fetchData();
+    }
+  });
+
+  const updateQuery = (val: Record<string, any>) => {
+    const old = JSON.stringify(query.value);
+    const incoming = JSON.stringify({...query.value, ...val});
+
+    if (old !== incoming) {
+      Object.assign(query.value, val);
+    }
   };
 
   return {
-    tableData,
+    paginationControls,
+    items,
     loading,
     error,
     fetchData,
-    // Pagination
-    currentPage,
-    pageSize,
-    totalItems,
-    totalPages,
-    // Search & Filtering
-    searchQuery,
-    filters,
-    updateFilters,
+    updateQuery,
   };
 }

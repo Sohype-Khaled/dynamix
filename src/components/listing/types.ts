@@ -1,5 +1,3 @@
-import type {AxiosRequestConfig} from "axios";
-
 export interface TableRow {
   [key: string]: any
 }
@@ -36,9 +34,9 @@ export interface HeadProps {
 }
 
 export interface PaginationProps {
-  currentPage: number;
-  pageSize: number;
-  totalItems: number;
+  controls: NormalizedPaginationControls
+  pageSizeOptions?: number[]
+  hidePageSize?: boolean
 }
 
 export interface PaginationControlsProps {
@@ -51,21 +49,51 @@ export interface PaginationInfoProps {
   pageSize: number;
   totalItems: number;
 }
+
 export interface PaginationSizeProps {
   pageSize: number;
 }
 
-export type ListingType = 'table' | 'list';
+export type DjangoPaginatedResponse<T> = {
+  count: number
+  next: string | null
+  previous: string | null
+  results: T[]
+}
+export type FastAPIPaginatedResponse<T> = {
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+  data: T[];
+}
 
-export interface ListingProps {
-  type: ListingType;
-  listUrl: string;
+export type NormalizedPaginationControls = {
+  total: number
+  page: number
+  pageSize: number
+  totalPages: number
+}
+export type NormalizedPagination<T> = {
+  controls: NormalizedPaginationControls
+  results: T[]
+}
 
-  axiosConfig: AxiosRequestConfig;
+
+export type ListingQuery = {
+  page: number
+  pageSize: number
+  [key: string]: any
+}
+
+export interface TableListingProps {
+  paginationControls: NormalizedPaginationControls;
+  loading: boolean;
+  error: string | null;
+  query: ListingQuery;
+  items: any[];
   selectable?: boolean; // for selection
-
   orderingUrl?: string;
   orderable?: boolean; // for reordering
-
   columns?: TableColumn[]; // for table
 }

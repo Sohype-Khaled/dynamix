@@ -64,9 +64,9 @@ const onDragEnd = () => (emit('update:rows', props.rows));
               :isSelected="isSelected(row)"
               @toggle:select="toggleSelection"
           >
-            <template v-for="col in tableColumns" #[`cell-${col.name}`]="slotProps">
-              <slot :name="'cell-' + col.name" v-bind="slotProps"></slot>
-            </template>
+	          <template v-for="col in tableColumns" #[`cell-${col.name}`]="slotProps">
+		          <slot :name="`cell-${col.name}`" v-bind="slotProps" />
+	          </template>
           </DXTableRow>
         </template>
       </draggable>

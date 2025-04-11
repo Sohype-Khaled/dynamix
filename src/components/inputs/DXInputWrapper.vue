@@ -34,16 +34,18 @@ const inputClasses = computed(() => {
 
 
 const messageClasses = computed(() => {
-	return props.state === 'error'
-		? 'text-red-600 dark:text-red-400'
+	const base = 'text-sm px-2';
+	const color = props.state === 'error'
+		? 'text-danger-600 dark:text-danger'
 		: props.state === 'success'
-			? 'text-green-600 dark:text-green-400'
-			: 'text-gray-500 dark:text-gray-400';
+			? 'text-success-600 dark:text-success'
+			: 'text-neutral-600 dark:text-neutral-50';
+	return `${base} ${color}`;
 });
 </script>
 
 <template>
-	<div class="w-full">
+	<div class="w-full space-y-1">
 		<!-- Fixed Label -->
 		<label :for="inputId" class="block text-sm font-medium mb-1"
 		       :class="{
@@ -86,8 +88,6 @@ const messageClasses = computed(() => {
 		<slot name="bottom"/>
 
 		<!-- Message -->
-		<p v-if="message" :class="messageClasses" class="mt-1 text-sm">
-			{{ message }}
-		</p>
+		<p v-if="message" :class="messageClasses" v-text="message"/>
 	</div>
 </template>

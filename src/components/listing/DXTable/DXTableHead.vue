@@ -21,7 +21,9 @@ const isAllSelected = computed({
 			<DXCheckbox v-if="selectable" type="checkbox" v-model="isAllSelected"/>
 		</th>
 		<th scope="col" v-for="col in columns" :key="col.name" :class="['px-6 py-3', col.extraClass || '']">
-			<slot name="header" :column="col">{{ col.label }}</slot>
+			<slot name="header" :column="col">
+				{{ col.label }}
+			</slot>
 		</th>
 	</tr>
 	</thead>

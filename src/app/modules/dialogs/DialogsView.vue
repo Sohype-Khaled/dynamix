@@ -38,20 +38,27 @@ open(ExampleOverlay, {
   },
   type: 'overlay'
 })`.trim(),
-	useConfirmation: `import { useConfirmation } from '@vue-dynamix/useConfirmation'
+	useConfirmation: `const { confirm } = useConfirmation()
+
+confirm({ title: 'Are you sure?' }, (confirmed) => {
+  if (confirmed) {
+    doSomething()
+  } else {
+    cancelSomething()
+  }
+})
+
+// or
 
 const { confirm } = useConfirmation()
 
-const result = await confirm({
-  title: 'Are you sure?',
-  description: 'This action cannot be undone.'
-})
+const result = await confirm({ title: 'Delete this item?' })
 
 if (result) {
-  console.log('Confirmed!')
-} else {
-  console.log('Cancelled!')
-}`.trim()
+  // Proceed with deletion
+}
+
+`.trim()
 }
 
 const apiDialog = [

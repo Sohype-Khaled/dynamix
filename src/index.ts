@@ -14,7 +14,7 @@ import {
 } from "@/components/inputs";
 
 import {
-  DXListing,
+  DXTableListing,
   DXPagination,
   DXPaginationControls,
   DXPaginationInfo,
@@ -49,7 +49,7 @@ const components = {
   DXLoader,
   DXTableHead,
   DXTableRow,
-  DXListing,
+  DXTableListing,
   DXPagination,
   DXPaginationInfo,
   DXPaginationControls,
@@ -85,7 +85,7 @@ export {
   DXTable,
   DXTableHead,
   DXTableRow,
-  DXListing,
+  DXTableListing,
   DXPagination,
   DXPaginationInfo,
   DXPaginationControls,

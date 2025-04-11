@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import type {PaginationControlsProps} from "../types.ts";
+import type {PaginationControlsProps} from "@/components/listing/types.ts";
 
 
 const props = defineProps<PaginationControlsProps>();
@@ -54,7 +54,7 @@ const setPage = (page: number | "...") => {
 				<button
 					@click="setPage(props.currentPage - 1)"
 					:disabled="isPrevDisabled"
-					class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+					class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-500 bg-white border border-neutral-300 rounded-s-lg hover:bg-neutral-100 hover:text-neutral-700 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
 				>
 					Previous
 				</button>
@@ -67,10 +67,10 @@ const setPage = (page: number | "...") => {
 					v-if="page !== '...'"
 					@click="setPage(page)"
 					:class="[
-            'flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 dark:border-gray-700',
+            'flex items-center justify-center px-4 h-10 leading-tight border border-neutral-300 dark:border-neutral-700',
             props.currentPage === page
-              ? 'text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:bg-gray-700 dark:text-white'
-              : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+              ? 'text-primary-600 bg-primary-50/50 hover:bg-primary-100 hover:text-primary-700 dark:bg-neutral-700 dark:text-white'
+              : 'text-neutral-500 bg-white hover:bg-neutral-100 hover:text-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white'
           ]"
 				>
 					{{ page }}
@@ -80,7 +80,7 @@ const setPage = (page: number | "...") => {
 				<button
 					v-else
 					disabled
-					class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-default"
+					class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-500 bg-white border border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 cursor-default"
 				>
 					...
 				</button>
@@ -91,7 +91,7 @@ const setPage = (page: number | "...") => {
 				<button
 					@click="setPage(props.currentPage + 1)"
 					:disabled="isNextDisabled"
-					class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+					class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-500 bg-white border border-neutral-300 rounded-e-lg hover:bg-neutral-100 hover:text-neutral-700 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
 				>
 					Next
 				</button>
