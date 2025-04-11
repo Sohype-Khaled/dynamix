@@ -1,7 +1,8 @@
-import {type OverlayInstance, useOverlay} from "./useOverlay.ts";
+import {type OverlayInstance, useOverlay} from "./useOverlay";
 
 import {type ComputedRef, type  Ref} from "vue";
 import {DXDialogConfirmation} from "@/components";
+
 
 interface UseConfirmationReturn {
   isOpen: ComputedRef<boolean>;
@@ -11,32 +12,57 @@ interface UseConfirmationReturn {
   confirm: (options?: Record<string, any>) => Promise<boolean>;
 }
 
-export function useConfirmation(): UseConfirmationReturn {
+export function useConfirmation(): Omit<UseConfirmationReturn, "confirm"> & {
+  confirm: (
+    options?: Record<string, any>,
+    callback?: (confirmed: boolean) => void
+  ) => Promise<boolean> | void;
+} {
   const {open, close, overlayStack, topOverlay, isOpen} = useOverlay();
 
+
   function confirm(
-    options: Record<string, any> = {}
-  ): Promise<boolean> {
-    return new Promise((resolve) => {
-      const overlayId = open(
-        DXDialogConfirmation,
-        {
+    options: Record<string, any> = {},
+    callback?: (confirmed: boolean) => void
+  ): Promise<boolean> | void {
+    if (callback) {
+      // ✅ Callback style
+      const overlayId = open(DXDialogConfirmation, {
+        props: options,
+        listeners: {
+          confirm: () => {
+            callback(true);
+            close(overlayId);
+          },
+          cancel: () => {
+            callback(false);
+            close(overlayId);
+          },
+        },
+        type: "confirmation",
+      });
+      return;
+    } else {
+      // ✅ Promise style
+      return new Promise<boolean>((resolve) => {
+        const overlayId = open(DXDialogConfirmation, {
           props: options,
           listeners: {
             confirm: () => {
               resolve(true);
-              close(overlayId); // Close on confirm
+              close(overlayId);
             },
             cancel: () => {
               resolve(false);
-              close(overlayId); // Close on cancel
+              close(overlayId);
             },
           },
           type: "confirmation",
-        },
-      );
-    });
+        });
+      });
+    }
   }
+
 
   return {
     isOpen,

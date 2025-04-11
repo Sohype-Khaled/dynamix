@@ -5,25 +5,26 @@ import {DXButton} from "@/components/DXButton";
 const props = defineProps({
 	severity: {
 		type: String,
-		default: "primary",
+		default: "danger",
 		validator: (value: string) => ["warning", "danger", "info", "success"].includes(value),
 	},
+	title: {type: String, required: true},
 	message: {type: String, required: true},
 })
 
 const emit = defineEmits(["confirm", "cancel"]);
 
 const icon = computed(() => ({
-	warning: "info",
-	danger: "danger",
-	info: "info",
-	success: "success",
+	warning: "mdi:alert",
+	danger: "mdi:alert-outline",
+	info: "mdi:information",
+	success: "mdi:check",
 }[props.severity]))
 const color = computed(() => ({
-	warning: "text-yellow-500",
-	danger: "text-red-500",
-	info: "text-blue-500",
-	success: "text-green-500",
+	warning: "text-warning",
+	danger: "text-danger",
+	info: "text-info",
+	success: "text-success",
 }[props.severity]))
 </script>
 
@@ -37,11 +38,12 @@ const color = computed(() => ({
 			rounded
 			@click="emit('cancel')"/>
 		<div class="p-4 md:p-5 text-center">
-			<Icon v-if="icon"
-			      :icon="icon"
-			      class="mx-auto mb-4 w-12 h-12"
-			      :class="[color, ]"/>
-			<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" v-text="message"/>
+			<Icon
+				:name="icon"
+				size="3em"
+				:class="[color, 'mx-auto  w-12 h-12']"/>
+			<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" v-text="title"/>
+			<p class="mb-5 text-sm text-gray-500 dark:text-gray-400" v-text="message"/>
 			<div class="flex gap-2 justify-center">
 				<DXButton text severity="danger" @click="emit('cancel')" label="No, cancel"/>
 				<DXButton severity="primary" @click="emit('confirm')" label="Yes, Do it"/>

@@ -12,7 +12,6 @@ const columns = ref([
 	{name: 'price', label: 'Price', extraClass: 'w-[100px]'},
 	{name: 'created_at', label: 'Created At', extraClass: 'w-[100px]'},
 	{name: 'actions', label: 'Actions', extraClass: 'text-right w-[100px]'}
-
 ])
 
 
