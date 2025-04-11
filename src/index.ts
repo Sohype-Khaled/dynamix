@@ -14,13 +14,13 @@ import {
 } from "@/components/inputs";
 
 import {
-  DXTableListing,
   DXPagination,
   DXPaginationControls,
   DXPaginationInfo,
   DXPaginationSize,
   DXTable,
   DXTableHead,
+  DXTableListing,
   DXTableRow
 } from "@/components/listing";
 
@@ -106,3 +106,4 @@ export {useForm} from "@/composables/useForm";
 export {useDialog} from "@/composables/useDialog.ts";
 export {useOverlay} from "@/composables/useOverlay.ts";
 export {useConfirmation} from "@/composables/useConfirmation.ts";
+export {useListing} from "@/components/listing/composables/useListing.ts"
