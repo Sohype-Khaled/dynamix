@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs } from 'vue';
+import {computed, ref, useAttrs} from 'vue';
 import DXInputWrapper from './DXInputWrapper.vue'; // ✅ use the fixed-label wrapper
 
 defineOptions({ inheritAttrs: false });

@@ -9,6 +9,7 @@ import DXInput from "./DXInput.vue";
 import DXTextarea from "./DXTextarea.vue";
 import DXTagInput from "./DXTagInput.vue";
 import DXInputWrapper from "./DXInputWrapper.vue";
+
 export {
   DXCheckbox,
   DXRadio,

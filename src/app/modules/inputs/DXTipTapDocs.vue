@@ -2,6 +2,7 @@
 import PreviewBlock from "@/app/components/PreviewBlock.vue";
 import {DXInput} from "@/components/inputs";
 import {computed, reactive} from "vue";
+import DXTipTapEditor from "@/components/inputs/DXTipTapEditor/DXTipTapEditor.vue";
 
 const apiDXInput = [
 	{
@@ -27,7 +28,7 @@ const apiDXInput = [
 ]
 
 const dxInputPreview = reactive({
-	value: '',
+	value: {},
 	label: 'Your Name',
 	state: 'default' as 'default' | 'success' | 'error',
 	message: '',
@@ -53,16 +54,15 @@ const inputCode = computed(() => {
 </script>
 
 <template>
-	<PreviewBlock title="DXInput"
-	              description="A wrapper around <code>DXInputWrapper</code> that renders a standard input with consistent styling and
-			validation state."
+	<PreviewBlock title="DXTipTap"
+	              description="A wrapper around <code>DXInputWrapper</code> that renders a tip-tap editor with consistent styling and validation state."
 	              :inputCode="inputCode"
 	              :apiData="apiDXInput"
 	              class="mb-8">
 
 
 		<div class="w-full space-y-4">
-			<DXInput
+			<DXTipTapEditor
 				v-model="dxInputPreview.value"
 				:label="dxInputPreview.label"
 				:state="dxInputPreview.state"
@@ -77,20 +77,20 @@ const inputCode = computed(() => {
 			</div>
 		</div>
 
-		<template #controls>
-			<div class="space-y-4">
-				<input v-model="dxInputPreview.label" placeholder="Label" class="input w-full"/>
-				<input v-model="dxInputPreview.message" placeholder="Message" class="input w-full"/>
-				<select v-model="dxInputPreview.state" class="input w-full">
-					<option value="default">Default</option>
-					<option value="success">Success</option>
-					<option value="error">Error</option>
-				</select>
-				<input v-model="dxInputPreview.type" placeholder="Type" class="input w-full"/>
-				<label><input type="checkbox" v-model="dxInputPreview.disabled"/> Disabled</label>
-				<label><input type="checkbox" v-model="dxInputPreview.required"/> Required</label>
-			</div>
-		</template>
+<!--		<template #controls>-->
+<!--			<div class="space-y-4">-->
+<!--				<input v-model="dxInputPreview.label" placeholder="Label" class="input w-full"/>-->
+<!--				<input v-model="dxInputPreview.message" placeholder="Message" class="input w-full"/>-->
+<!--				<select v-model="dxInputPreview.state" class="input w-full">-->
+<!--					<option value="default">Default</option>-->
+<!--					<option value="success">Success</option>-->
+<!--					<option value="error">Error</option>-->
+<!--				</select>-->
+<!--				<input v-model="dxInputPreview.type" placeholder="Type" class="input w-full"/>-->
+<!--				<label><input type="checkbox" v-model="dxInputPreview.disabled"/> Disabled</label>-->
+<!--				<label><input type="checkbox" v-model="dxInputPreview.required"/> Required</label>-->
+<!--			</div>-->
+<!--		</template>-->
 	</PreviewBlock>
 </template>
 

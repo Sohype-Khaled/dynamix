@@ -7,11 +7,15 @@ import DXRadioDocs from "@/app/modules/inputs/DXRadioDocs.vue";
 import DXDatePickerDocs from "@/app/modules/inputs/DXDatePickerDocs.vue";
 
 import DXFileInputDocs from "@/app/modules/inputs/DXFileInputDocs.vue";
+import DXTipTapDocs from "@/app/modules/inputs/DXTipTapDocs.vue";
 </script>
 
 <template>
 	<div class="max-w-5xl mx-auto px-4 ">
 		<h1 class="text-3xl font-bold mb-2">Inputs</h1>
+		<hr class="mb-8 mt-12">
+		<DXTipTapDocs/>
+
 
 		<hr class="mb-8 mt-12">
 		<DXInputDocs/>

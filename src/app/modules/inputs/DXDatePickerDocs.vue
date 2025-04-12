@@ -43,7 +43,7 @@ const datePickerCode = computed(() => {
 <template>
 	<PreviewBlock
 		title="DXDatePicker"
-		description="A styled date input built using <code>DXFloatingLabel</code>. It supports native <code>&lt;input type='date' /&gt;</code> behavior with floating label, validation state, and helper messages."
+		description="A styled date input built using <code>DXInputWrapper</code>. It supports native <code>&lt;input type='date' /&gt;</code> behavior with floating label, validation state, and helper messages."
 		:inputCode="datePickerCode"
 		:apiData="apiDXDatePicker"
 		class="mb-8"

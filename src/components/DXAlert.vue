@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed, provide, ref} from "vue";
-import { Icon } from "@iconify/vue";
+import {Icon} from "@iconify/vue";
 
 interface Props {
 	label?: string;

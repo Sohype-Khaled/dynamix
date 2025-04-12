@@ -1,4 +1,4 @@
-import { computed, ref, watch } from "vue";
+import {computed, ref, watch} from "vue";
 
 export function useCheckbox(
   props: { modelValue: any; value?: any; indeterminate?: boolean; id?: string },

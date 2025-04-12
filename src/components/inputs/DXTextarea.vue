@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useAttrs } from 'vue';
-import DXFloatingLabel from './DXFloatingLabel.vue';
+import {useAttrs} from 'vue';
 import DXInputWrapper from "@/components/inputs/DXInputWrapper.vue";
 
 interface Props {
@@ -31,7 +30,6 @@ defineOptions({ inheritAttrs: false }); // prevent leaking `attrs` to the outer 
 				:id="id"
 				:value="value"
 				@input="onInput"
-				placeholder=" "
 				:class="[inputClass, 'min-h-[6rem] resize-none']"
 			/>
 		</template>

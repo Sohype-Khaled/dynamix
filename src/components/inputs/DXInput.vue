@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useAttrs} from 'vue';
-import DXFloatingLabel from './DXFloatingLabel.vue';
+import DXInputWrapper from "@/components/inputs/DXInputWrapper.vue";
 
 interface Props {
 	label: string;
@@ -15,7 +15,7 @@ const attrs = useAttrs();
 </script>
 
 <template>
-	<DXFloatingLabel
+	<DXInputWrapper
 		:label="label"
 		:state="state"
 		:message="message"
@@ -29,9 +29,8 @@ const attrs = useAttrs();
 				:value="value"
 				@input="onInput"
 				:class="inputClass"
-				placeholder=" "
 			/>
 		</template>
 
-	</DXFloatingLabel>
+	</DXInputWrapper>
 </template>

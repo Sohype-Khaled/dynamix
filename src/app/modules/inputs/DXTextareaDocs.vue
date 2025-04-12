@@ -60,7 +60,7 @@ const textareaCode = computed(() => {
 <template>
 	<PreviewBlock
 		title="DXTextarea"
-		description="A wrapper around <code>DXFloatingLabel</code> that renders a textarea with consistent styling and validation state."
+		description="A wrapper around <code>DXInputWrapper</code> that renders a textarea with consistent styling and validation state."
 		:inputCode="textareaCode"
 		:apiData="apiDXTextarea"
 		class="mb-8"
