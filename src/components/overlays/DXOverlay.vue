@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {computed, onMounted, onUnmounted} from "vue";
 import {useOverlay} from "@/composables/useOverlay.ts";
-import {DXDialog} from "@/components";
+import DXDialog from "@/components/overlays/DXDialog/DXDialog.vue";
+
 
 const {isOpen, overlayStack, close} = useOverlay();
 const overlayOpacity = computed(() => Math.min(0.5 + overlayStack.value.length * 0.1, 0.9));

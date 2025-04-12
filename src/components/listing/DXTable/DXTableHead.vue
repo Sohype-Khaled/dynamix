@@ -2,7 +2,8 @@
 import {computed} from "vue";
 
 import type {HeadProps} from "@/components/listing/types.ts";
-import {DXCheckbox} from "@/components/inputs";
+import DXCheckbox from "@/components/inputs/DXCheckbox.vue";
+
 
 const props = defineProps<HeadProps>();
 const emit = defineEmits(['toggle-select-all']);

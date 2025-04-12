@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import {DXButton} from "@/components/DXButton";
+import DXButton from "@/components/DXButton/DXButton.vue";
+import {Icon} from "@iconify/vue";
 
 const props = defineProps({
 	severity: {
@@ -19,7 +20,7 @@ const icon = computed(() => ({
 	danger: "mdi:alert-outline",
 	info: "mdi:information",
 	success: "mdi:check",
-}[props.severity]))
+}[props.severity] ?? "mdi:alert-circle-outline"))
 const color = computed(() => ({
 	warning: "text-warning",
 	danger: "text-danger",
@@ -39,7 +40,7 @@ const color = computed(() => ({
 			@click="emit('cancel')"/>
 		<div class="p-4 md:p-5 text-center">
 			<Icon
-				:name="icon"
+				:icon="icon"
 				size="3em"
 				:class="[color, 'mx-auto  w-12 h-12']"/>
 			<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" v-text="title"/>
