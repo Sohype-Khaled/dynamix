@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import {ref} from 'vue';
-import {DXCheckbox, DXInput, DXTextarea} from "@/components/inputs";
+
 import PreviewBlock from "@/app/components/PreviewBlock.vue";
+import DXInput from "@/components/inputs/DXInput.vue";
+import DXTextarea from "@/components/inputs/DXTextarea.vue";
 
 const label = ref('Heads up!');
 const message = ref('This is an alerts preview.');

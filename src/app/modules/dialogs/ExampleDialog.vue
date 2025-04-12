@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import {DXDialogBody, DXDialogFooter} from "@/components";
-import {DXButton} from "@/components/DXButton";
+
+
+import DXDialogBody from "@/components/overlays/DXDialog/DXDialogBody.vue";
+import DXDialogFooter from "@/components/overlays/DXDialog/DXDialogFooter.vue";
+import DXButton from "@/components/DXButton/DXButton.vue";
 
 const emit = defineEmits(['close']);
 defineProps(['title', 'description']);

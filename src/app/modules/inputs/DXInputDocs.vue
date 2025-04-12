@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PreviewBlock from "@/app/components/PreviewBlock.vue";
-import {DXInput} from "@/components/inputs";
 import {computed, reactive} from "vue";
+import DXInput from "@/components/inputs/DXInput.vue";
 
 const apiDXInput = [
 	{

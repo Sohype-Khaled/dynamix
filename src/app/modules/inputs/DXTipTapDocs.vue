@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PreviewBlock from "@/app/components/PreviewBlock.vue";
-import {DXInput} from "@/components/inputs";
+
 import {computed, reactive} from "vue";
 import DXTipTapEditor from "@/components/inputs/DXTipTapEditor/DXTipTapEditor.vue";
 
@@ -49,7 +49,7 @@ const inputCode = computed(() => {
 
 	attrs.push(`v-model="value"`);
 
-	return `<DXInput ${attrs.join(' ')} />`;
+	return `<DXTipTapEditor ${attrs.join(' ')} />`;
 });
 </script>
 
@@ -77,20 +77,20 @@ const inputCode = computed(() => {
 			</div>
 		</div>
 
-<!--		<template #controls>-->
-<!--			<div class="space-y-4">-->
-<!--				<input v-model="dxInputPreview.label" placeholder="Label" class="input w-full"/>-->
-<!--				<input v-model="dxInputPreview.message" placeholder="Message" class="input w-full"/>-->
-<!--				<select v-model="dxInputPreview.state" class="input w-full">-->
-<!--					<option value="default">Default</option>-->
-<!--					<option value="success">Success</option>-->
-<!--					<option value="error">Error</option>-->
-<!--				</select>-->
-<!--				<input v-model="dxInputPreview.type" placeholder="Type" class="input w-full"/>-->
-<!--				<label><input type="checkbox" v-model="dxInputPreview.disabled"/> Disabled</label>-->
-<!--				<label><input type="checkbox" v-model="dxInputPreview.required"/> Required</label>-->
-<!--			</div>-->
-<!--		</template>-->
+		<!--		<template #controls>-->
+		<!--			<div class="space-y-4">-->
+		<!--				<input v-model="dxInputPreview.label" placeholder="Label" class="input w-full"/>-->
+		<!--				<input v-model="dxInputPreview.message" placeholder="Message" class="input w-full"/>-->
+		<!--				<select v-model="dxInputPreview.state" class="input w-full">-->
+		<!--					<option value="default">Default</option>-->
+		<!--					<option value="success">Success</option>-->
+		<!--					<option value="error">Error</option>-->
+		<!--				</select>-->
+		<!--				<input v-model="dxInputPreview.type" placeholder="Type" class="input w-full"/>-->
+		<!--				<label><input type="checkbox" v-model="dxInputPreview.disabled"/> Disabled</label>-->
+		<!--				<label><input type="checkbox" v-model="dxInputPreview.required"/> Required</label>-->
+		<!--			</div>-->
+		<!--		</template>-->
 	</PreviewBlock>
 </template>
 

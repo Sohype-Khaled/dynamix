@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Sidebar from "@/app/layouts/default/Sidebar.vue";
-import {DXOverlay} from "@/components";
+import DXOverlay from "@/components/overlays/DXOverlay.vue";
+
 </script>
 
 <template>

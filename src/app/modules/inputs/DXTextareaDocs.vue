@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PreviewBlock from "@/app/components/PreviewBlock.vue";
-import {DXTextarea} from "@/components/inputs";
+
 import {computed, reactive} from "vue";
 
 // API Reference table

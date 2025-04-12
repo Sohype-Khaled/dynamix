@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, computed } from "vue";
 import PreviewBlock from "@/app/components/PreviewBlock.vue";
-import DXRadio from "@/components/inputs/DXRadio.vue"; // Your radio component
+import DXRadio from "@/components/inputs/DXRadio.vue";
 
 const apiDXRadio = [
 	{ name: "v-model / modelValue", description: "Two-way binding for the selected value." },

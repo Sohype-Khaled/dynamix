@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
 import {computed, onMounted, ref, watch} from "vue";
-import {DXAlert} from "@/components";
-import AlertPreview from "@/app/modules/alerts/AlertPreview.vue";
+
+
 import DefaultLayout from "@/app/layouts/default/DefaultLayout.vue";
 
 
@@ -64,47 +64,47 @@ const form = ref({
 
 <template>
 	<DefaultLayout>
-		<RouterView />
+		<RouterView/>
 	</DefaultLayout>
 
-<!--		<div class="p-2 mb-3">-->
-<!--			<div class="card">-->
-<!--				<div class="card-header">-->
-<!--					<div class="card-title">Card Title</div>-->
-<!--					<div class="card-toolbar">-->
-<!--						<div class="flex items-center gap-2 p-2">-->
-<!--							<DXToggle v-model="isDark" id="dark-mode-toggle"/>-->
-<!--							<label for="dark-mode-toggle" class="text-sm font-medium text-gray-900 dark:text-gray-300">-->
-<!--								{{ isDark ? "☀️ Light Mode" : "🌙 Dark Mode" }}-->
-<!--							</label>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="card-body space-y-4">-->
+	<!--		<div class="p-2 mb-3">-->
+	<!--			<div class="card">-->
+	<!--				<div class="card-header">-->
+	<!--					<div class="card-title">Card Title</div>-->
+	<!--					<div class="card-toolbar">-->
+	<!--						<div class="flex items-center gap-2 p-2">-->
+	<!--							<DXToggle v-model="isDark" id="dark-mode-toggle"/>-->
+	<!--							<label for="dark-mode-toggle" class="text-sm font-medium text-gray-900 dark:text-gray-300">-->
+	<!--								{{ isDark ? "☀️ Light Mode" : "🌙 Dark Mode" }}-->
+	<!--							</label>-->
+	<!--						</div>-->
+	<!--					</div>-->
+	<!--				</div>-->
+	<!--				<div class="card-body space-y-4">-->
 
-<!--					<DXTextarea-->
-<!--						v-model="form.bio"-->
-<!--						label="Your Bio"-->
-<!--						state="default"-->
-<!--						message="Tell us about yourself"-->
-<!--						name="user_bio"-->
-<!--						rows="4"-->
-<!--					/>-->
-<!--					<DXTagInput-->
-<!--						v-model="form.tags"-->
-<!--						label="Tags"-->
-<!--						message="Press Tab or comma to add"-->
-<!--						state="default"-->
-<!--					/>-->
-<!--				</div>-->
-<!--				<div class="card-footer">-->
-<!--					<DXButton label="Submit" severity="primary"/>-->
-<!--					<DXButton label="Cancel" text severity="danger"/>-->
-<!--				</div>-->
-<!--			</div>-->
+	<!--					<DXTextarea-->
+	<!--						v-model="form.bio"-->
+	<!--						label="Your Bio"-->
+	<!--						state="default"-->
+	<!--						message="Tell us about yourself"-->
+	<!--						name="user_bio"-->
+	<!--						rows="4"-->
+	<!--					/>-->
+	<!--					<DXTagInput-->
+	<!--						v-model="form.tags"-->
+	<!--						label="Tags"-->
+	<!--						message="Press Tab or comma to add"-->
+	<!--						state="default"-->
+	<!--					/>-->
+	<!--				</div>-->
+	<!--				<div class="card-footer">-->
+	<!--					<DXButton label="Submit" severity="primary"/>-->
+	<!--					<DXButton label="Cancel" text severity="danger"/>-->
+	<!--				</div>-->
+	<!--			</div>-->
 
-<!--			{{ form }}-->
-<!--		</div>-->
+	<!--			{{ form }}-->
+	<!--		</div>-->
 
 
 	<!--	<div class="p-2 mb-3">-->
@@ -118,11 +118,11 @@ const form = ref({
 	<!--			<DXRadio v-model="radio" name="default-radio" value="first" id="default-radio-1"/>-->
 	<!--			<label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">First radio</label>-->
 	<!--		</div>-->
-<!--			<div class="flex items-center">-->
-<!--				<DXRadio v-model="radio" name="default-radio" value="second" id="default-radio-2"/>-->
-<!--				<label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Second-->
-<!--					radio</label>-->
-<!--			</div>-->
+	<!--			<div class="flex items-center">-->
+	<!--				<DXRadio v-model="radio" name="default-radio" value="second" id="default-radio-2"/>-->
+	<!--				<label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Second-->
+	<!--					radio</label>-->
+	<!--			</div>-->
 	<!--	</div>-->
 
 	<!--	<div class="flex justify-between p-2 mb-3">-->

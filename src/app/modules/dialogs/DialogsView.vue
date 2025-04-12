@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useDialog} from "@/composables/useDialog.ts";
 import ExampleDialog from "./ExampleDialog.vue";
-import {DXButton} from "@/components/DXButton";
+import DXButton from "@/components/DXButton/DXButton.vue";
 import CodeBlock from "@/app/components/CodeBlock.vue";
 import ApiTable from "@/app/components/ApiTable.vue";
 

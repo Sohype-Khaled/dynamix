@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {computed, reactive} from "vue";
 import PreviewBlock from "@/app/components/PreviewBlock.vue";
-import {DXToggle} from "@/components/inputs";
+import DXToggle from "@/components/inputs/DXToggle.vue";
+
 
 
 const apiDXSwitch = [

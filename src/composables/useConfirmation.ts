@@ -1,7 +1,7 @@
 import {type OverlayInstance, useOverlay} from "./useOverlay";
 
 import {type ComputedRef, type  Ref} from "vue";
-import {DXDialogConfirmation} from "@/components";
+import DXDialogConfirmation from "@/components/overlays/DXDialog/DXDialogConfirmation.vue";
 
 
 interface UseConfirmationReturn {
