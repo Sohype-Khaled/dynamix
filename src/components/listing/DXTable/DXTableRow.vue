@@ -1,8 +1,7 @@
 <script setup lang="ts">
-
-
 import {computed} from "vue";
 import type {RowProps} from "@/components/listing/types.ts";
+import {DXCheckbox} from "@/components/inputs";
 
 const props = defineProps<RowProps>();
 const emit = defineEmits(['toggle:select']);
