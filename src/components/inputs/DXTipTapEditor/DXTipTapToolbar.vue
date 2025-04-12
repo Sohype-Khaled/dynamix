@@ -19,6 +19,7 @@ const props = defineProps<{ editor: Editor | null }>()
 				:key="tIndex"
 				@click="tool.action"
 				:title="tool.title"
+				type="button"
 				:class="[
         'p-2 rounded hover:bg-primary-100 dark:hover:bg-primary-800 cursor-pointer',
         tool.isActive() ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-300'

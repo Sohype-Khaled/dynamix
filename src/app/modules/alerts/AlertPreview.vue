@@ -4,11 +4,12 @@ import {ref} from 'vue';
 import PreviewBlock from "@/app/components/PreviewBlock.vue";
 import DXInput from "@/components/inputs/DXInput.vue";
 import DXTextarea from "@/components/inputs/DXTextarea.vue";
+import DXAlert from "@/components/DXAlert.vue";
 
 const label = ref('Heads up!');
 const message = ref('This is an alerts preview.');
 const html = ref('');
-const severity = ref('info');
+const severity = ref('info' as 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark');
 const icon = ref('heroicons:information-circle');
 const bordered = ref(true);
 const accent = ref(false);
