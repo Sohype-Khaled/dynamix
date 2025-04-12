@@ -7,7 +7,7 @@
   "author": "Sohype Khaled <sohype.mop@gmail.com>",
   "license": "MIT",
   "private": false,
-  "version": "0.0.20",
+  "version": "0.0.21",
   "type": "module",
   "main": "./dynamix.umd.js",
   "module": "./dynamix.es.js",
