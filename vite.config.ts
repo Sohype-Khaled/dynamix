@@ -45,7 +45,6 @@ export default defineConfig({
       external: [
         "vue",
         "axios",
-        "vuedraggable",
         "@tailwindcss/vite",
         "tailwindcss",
         "flowbite",

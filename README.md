@@ -103,12 +103,9 @@ Make sure these are installed in the host project:
 ```json
 {
   "@tailwindcss/vite": "^4.0.13",
-  "axios": "^1.8.2",
   "flowbite": "^3.1.2",
   "tailwindcss": "^4.0.13",
   "vue": "^3.5.13",
-  "vuedraggable": "^4.1.0",
-  "@iconify/vue": "^4.3.0",
   "pinia": "^3.0.1",
   "yup": "^1.6.1"
 }

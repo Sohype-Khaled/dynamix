@@ -3,7 +3,6 @@ import {computed} from "vue";
 import type {TableColumn, TableProps} from "@/components/listing/types.ts";
 
 
-import draggable from "vuedraggable";
 import {useSelection} from "@/composables/useSelection.ts";
 import DXTableHead from "@/components/listing/DXTable/DXTableHead.vue";
 import DXTableRow from "@/components/listing/DXTable/DXTableRow.vue";
