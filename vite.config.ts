@@ -1,32 +1,63 @@
-import {defineConfig, mergeConfig} from "vite";
+import {defineConfig} from "vite";
 import path from "path";
-import libraryConfig from "./vite.lib.config";
-import ceConfig from "./vite.ce.config";
+
+
+import vue from "@vitejs/plugin-vue";
+import dts from "vite-plugin-dts";
+import typescript2 from "rollup-plugin-typescript2";
 // @ts-ignore
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 
-export default defineConfig(({mode}) => {
-  const isCustomElement = mode === "custom-element";
-  const isLibrary = mode === "library";
-
-  // Base Vite Config
-  const baseConfig = {
-    plugins: [
-      tailwindcss(),
-    ],
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "src"),
+export default defineConfig({
+  plugins: [
+    vue(),
+    dts({insertTypesEntry: true}),
+    tailwindcss(),
+    typescript2({
+      check: false,
+      include: ["src/components/**/*.vue"],
+      tsconfigOverride: {
+        compilerOptions: {
+          outDir: "dist/lib",
+          sourceMap: true,
+          declaration: true,
+          declarationMap: true,
+        },
       },
+      exclude: ["vite.config.ts"],
+    }),
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
     },
-    server: {
-      port: isCustomElement ? 3001 : 3000,
-      open: isCustomElement ? '/index.ce.html' : '/index.html',
-    }
-  };
-
-  return mergeConfig(
-    baseConfig,
-    isCustomElement ? ceConfig : isLibrary ? libraryConfig : {}
-  );
+  },
+  build: {
+    outDir: "dist",
+    cssCodeSplit: true,
+    lib: {
+      entry: "./src/index.ts",
+      name: "Dynamix",
+      formats: ["es", "cjs", "umd"],
+      fileName: (format: string) => `dynamix.${format}.js`,
+    },
+    rollupOptions: {
+      external: [
+        "vue",
+        "axios",
+        "vuedraggable",
+        "@tailwindcss/vite",
+        "tailwindcss",
+        "flowbite",
+      ],
+      output:
+        {
+          assetFileNames: (assetInfo: any) => assetInfo.name === "style.css" ? "style.css" : assetInfo.name,
+          exports: "named",
+          globals: {
+            vue: "Vue",
+          },
+        },
+    },
+  },
 });

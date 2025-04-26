@@ -83,7 +83,7 @@ jobs:
 
 
       - name: 🏠 Build the library
-        run: yarn build:lib
+        run: yarn build
 
       - name: 📁 Prepare publish folder
         run: yarn prepare:publish
