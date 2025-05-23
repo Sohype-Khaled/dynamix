@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from "vue";
 
-import type {HeadProps} from "@/components/listing/types.ts";
+import type {HeadProps} from "@/types/listing.d.ts";
 import DXCheckbox from "@/components/inputs/DXCheckbox.vue";
 
 

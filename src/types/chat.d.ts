@@ -1,0 +1,1 @@
+export type EditorContentType = 'html' | 'json' | 'text'

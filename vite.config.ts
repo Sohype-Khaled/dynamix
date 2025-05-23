@@ -7,6 +7,7 @@ import dts from "vite-plugin-dts";
 import typescript2 from "rollup-plugin-typescript2";
 // @ts-ignore
 import tailwindcss from "@tailwindcss/vite";
+import {fileURLToPath, URL} from "node:url";
 
 export default defineConfig({
   plugins: [
@@ -28,9 +29,9 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-    },
+    alias: [
+      {find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url))},
+    ],
   },
   build: {
     outDir: "dist",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {ButtonProps} from "@/components/DXButton/types.ts";
+import type {ButtonProps} from "@/types/button.d.ts";
 import {computed, useAttrs} from "vue";
 import {Icon} from "@iconify/vue";
 

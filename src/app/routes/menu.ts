@@ -18,5 +18,9 @@ export const menu: Array<Record<string, any>> = [
   {
     label: "Inputs",
     to: "/inputs",
+  },
+  {
+    label: "Chat",
+    to: "/chat",
   }
 ];

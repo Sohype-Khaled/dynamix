@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import type {PaginationSizeProps} from "../types.ts";
+import type {PaginationSizeProps} from "../../../types/listing.d.ts";
 
 const props = defineProps<PaginationSizeProps>();
 const emit = defineEmits(["update:pageSize"]);

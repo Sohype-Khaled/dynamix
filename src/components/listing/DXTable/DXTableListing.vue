@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DXTable from "./DXTable.vue";
-import type {TableListingProps} from "../types.ts";
+import type {TableListingProps} from "../../../types/listing.d.ts";
 import {computed, ref, watch} from "vue";
 import DXSearchInput from "@/components/inputs/DXSearchInput.vue";
 import DXPagination from "../DXPagination/DXPagination.vue";

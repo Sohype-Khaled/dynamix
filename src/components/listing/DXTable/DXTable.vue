@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import type {TableColumn, TableProps} from "@/components/listing/types.ts";
+import type {TableColumn, TableProps} from "@/types/listing.d.ts";
 
 
 import {useSelection} from "@/composables/useSelection.ts";

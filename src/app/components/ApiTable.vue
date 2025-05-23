@@ -23,7 +23,7 @@ const props = defineProps<{
 				<td class="px-4 py-3 font-mono text-blue-600 whitespace-pre-wrap">
 					<code>{{ item.name }}</code>
 				</td>
-				<td class="px-4 py-3">
+				<td class="px-4 py-3 dark:text-gray-300">
 					{{ item.description }}
 				</td>
 			</tr>

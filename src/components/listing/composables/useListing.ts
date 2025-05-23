@@ -5,7 +5,7 @@ import type {
   FastAPIPaginatedResponse,
   NormalizedPagination,
   NormalizedPaginationControls,
-} from "../types";
+} from "../../../types/listing";
 
 
 type FetcherFn<T> = (

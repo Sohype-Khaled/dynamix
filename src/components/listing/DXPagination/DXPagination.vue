@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {PaginationProps} from "../types.ts";
+import type {PaginationProps} from "../../../types/listing.d.ts";
 import DXPaginationInfo from "./DXPaginationInfo.vue";
 import DXPaginationControls from "./DXPaginationControls.vue";
 import DXPaginationSize from "./DXPaginationSize.vue";

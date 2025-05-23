@@ -25,6 +25,11 @@ const routes = [
     path: '/inputs',
     name: 'Inputs',
     component: () => import('@/app/modules/inputs/InputView.vue')
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: () => import('@/app/modules/chat/ChatView.vue')
   }
 ]
 

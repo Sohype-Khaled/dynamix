@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import type {PaginationControlsProps} from "@/components/listing/types.ts";
+import type {PaginationControlsProps} from "@/types/listing.d.ts";
 
 
 const props = defineProps<PaginationControlsProps>();

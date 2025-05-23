@@ -27,6 +27,9 @@ import DXTagInput from "@/components/inputs/DXTagInput.vue";
 import DXInputWrapper from "@/components/inputs/DXInputWrapper.vue";
 import DXTipTapEditor from "@/components/inputs/DXTipTapEditor/DXTipTapEditor.vue";
 
+import DXChatForm from "@/components/DXChat/DXChatForm/DXChatForm.vue";
+import DXChatTextInput from "@/components/DXChat/DXChatForm/DXChatTextInput.vue";
+import DXEmojiPicker from "@/components/DXChat/DXChatForm/DXEmojiPicker.vue";
 const components = {
   DXButton,
   DXCheckbox,
@@ -56,6 +59,10 @@ const components = {
   DXDialogBody,
   DXDialogFooter,
   DXDialogConfirmation,
+
+  DXChatForm,
+  DXChatTextInput,
+  DXEmojiPicker
 };
 
 const DynamixPlugin = {
@@ -96,6 +103,10 @@ export {
   DXDialogBody,
   DXDialogFooter,
   DXDialogConfirmation,
+
+  DXChatForm,
+  DXChatTextInput,
+  DXEmojiPicker
 };
 
 
@@ -106,4 +117,6 @@ export {useOverlay} from "@/composables/useOverlay.ts";
 export {useConfirmation} from "@/composables/useConfirmation.ts";
 export {useListing} from "@/components/listing/composables/useListing.ts"
 
-export * from "@/components/listing/types.ts";
+export * from "@/types/listing.d";
+export * from "@/types/button.d";
+export * from "@/types/chat.d";
