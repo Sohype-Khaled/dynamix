@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watch, defineExpose, useTemplateRef} from 'vue'
+import {ref, watch, useTemplateRef} from 'vue'
 import { useDebounceFn, isClient } from '@vueuse/core'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
@@ -30,7 +30,7 @@ const editor = useEditor({
 	content: props.modelValue,
 	extensions: [StarterKit],
 	editorProps: {
-		attributes: { class: 'focus:outline-none' },
+		attributes: { class: 'focus:outline-none text-left' },
 	},
 	onUpdate: ({ editor }) => {
 		const value = serializeEditorContent(editor, props.contentType)

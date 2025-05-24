@@ -1,6 +1,6 @@
 # Dynamix
 
-> A Vue 3 component library for building custom interfaces with Tailwind CSS, Flowbite, and more.
+> A Vue 3 component library for building custom interfaces with Tailwind CSS and more.
 
 ---
 
@@ -48,7 +48,7 @@ Then use any of the components:
 </template>
 ```
 
-> Styles like Tailwind and Flowbite must be set up in the parent project.
+> Styles like Tailwind CSS must be set up in the parent project.
 
 ---
 
@@ -103,7 +103,6 @@ Make sure these are installed in the host project:
 ```json
 {
   "@tailwindcss/vite": "^4.0.13",
-  "flowbite": "^3.1.2",
   "tailwindcss": "^4.0.13",
   "vue": "^3.5.13",
   "pinia": "^3.0.1",
