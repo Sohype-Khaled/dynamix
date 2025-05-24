@@ -29,6 +29,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: [
+      // @ts-ignore
       {find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url))},
     ],
   },

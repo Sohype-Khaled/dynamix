@@ -12,6 +12,6 @@ export interface ButtonProps {
   rounded?: boolean;
   disabled?: boolean;
   iconPosition?: IconPosition;
-  severity?: ButtonSeverity;
+  severity?: string;
   size?: ButtonSize;
 }

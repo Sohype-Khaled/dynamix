@@ -19,14 +19,22 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 
 const attrs = useAttrs();
 
+const severityClasses = computed(() => [
+	"btn-primary",
+	"btn-secondary",
+	"btn-success",
+	"btn-info",
+	"btn-warning",
+	"btn-danger",
+].includes(props.severity) ? `btn-${props.severity}` : "");
+
 const buttonClasses = computed(() => [
 	"btn",
-	"cursor-pointer",
 	`btn-${props.severity}`,
 	`btn-${props.size}`,
 	props.icon ? "btn-icon" : "",
 	props.text ? "btn-text" : "",
-	props.outlined ? "btn-outlined" : "",
+	props.outlined ? "btn-outline" : "",
 	props.rounded ? "btn-rounded" : "",
 	props.disabled ? "btn-disabled" : "",
 ].filter(Boolean));
@@ -43,18 +51,21 @@ const buttonClasses = computed(() => [
 		<Icon
 			v-if="props.icon && props.iconPosition === 'left'"
 			:icon="props.icon"
-			class="icon"
+			class="btn-local-icon"
 		/>
 
-		<span v-if="props.label" v-text="props.label"/>
+		<template v-if="props.label">{{label}}</template>
 
 		<Icon
 			v-if="props.icon && props.iconPosition === 'right'"
 			:icon="props.icon"
-			class="icon"
+			class="btn-local-icon"
 		/>
 	</component>
 </template>
 
 
+<style scoped>
+@import "./button.css";
+</style>
 

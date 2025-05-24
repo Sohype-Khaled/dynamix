@@ -8,6 +8,10 @@ export const menu: Array<Record<string, any>> = [
     to: "/alerts",
   },
   {
+    label: "Buttons",
+    to: "/buttons",
+  },
+  {
     label: "Listing",
     to: "/listing",
   },

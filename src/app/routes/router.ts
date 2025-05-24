@@ -12,6 +12,11 @@ const routes = [
     component: () => import("@/app/modules/alerts/AlertView.vue"),
   },
   {
+    path: "/buttons",
+    name: "Buttons",
+    component: () => import("@/app/modules/buttons/ButtonView.vue"),
+  },
+  {
     path: "/listing",
     name: "Listing",
     component: () => import("@/app/modules/listing/ListingView.vue"),
