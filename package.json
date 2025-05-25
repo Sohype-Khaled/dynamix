@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "@iconify/vue": "^4.3.0",
+    "@tailwindcss/cli": "^4.1.7",
     "@tailwindcss/vite": "^4.1.4",
     "@tiptap/extension-collaboration": "^2.11.7",
     "@tiptap/extension-collaboration-cursor": "^2.11.7",

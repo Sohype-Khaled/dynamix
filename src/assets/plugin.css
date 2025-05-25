@@ -1,0 +1,16 @@
+.dx-ripple {
+    position: absolute;
+    transform: scale(0);
+    border-radius: 50%;
+    opacity: 0.75;
+    pointer-events: none;
+    z-index: 0;
+    animation: dx-ripple-animation 600ms linear;
+}
+
+@keyframes dx-ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

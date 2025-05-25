@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import {ref, watch, useTemplateRef} from 'vue'
-import { useDebounceFn, isClient } from '@vueuse/core'
-import { useEditor, EditorContent } from '@tiptap/vue-3'
+import {ref, useTemplateRef, watch} from 'vue'
+import {isClient, useDebounceFn} from '@vueuse/core'
+import {EditorContent, useEditor} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import { Icon } from '@iconify/vue'
 
 import DXEmojiPicker from './DXEmojiPicker.vue'
-import { serializeEditorContent, setEditorContent } from '@/components/inputs/DXTipTapEditor/helpers'
-import type { EditorContentType } from '@/types/chat'
+import {serializeEditorContent, setEditorContent} from '@/components/inputs/DXTipTapEditor/helpers'
+import type {EditorContentType} from '@/types/chat'
+import DXButton from "@/components/DXButton/DXButton.vue";
 
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: string): void
@@ -30,9 +30,9 @@ const editor = useEditor({
 	content: props.modelValue,
 	extensions: [StarterKit],
 	editorProps: {
-		attributes: { class: 'focus:outline-none text-left' },
+		attributes: {class: 'focus:outline-none text-left'},
 	},
-	onUpdate: ({ editor }) => {
+	onUpdate: ({editor}) => {
 		const value = serializeEditorContent(editor, props.contentType)
 		emit('update:modelValue', value)
 		emitTyping()
@@ -79,17 +79,18 @@ defineExpose({
 		/>
 
 		<!-- Emoji Toggle Button -->
-		<button
-			type="button"
-			ref="toggleRef"
+		<DXButton
+			text
+			rounded
 			@click="isClient && emojiRef?.toggle?.()"
-			aria-label="Insert emoji"
 			title="Insert emoji"
-			class="absolute bottom-0.5 right-0.5 text-gray-600 hover:text-primary-600 inline-flex justify-center p-2 rounded-full cursor-pointer hover:bg-primary-50/50"
-		>
-			<Icon icon="mdi:emoticon-outline" class="w-5 h-5" />
-		</button>
+			ref="toggleRef"
+			icon="mdi:emoticon-outline"
+			size="sm"
+			class="absolute top-1/2 -translate-y-1/2 right-0.5"
+			severity-class="text-gray-600 hover:text-gray-600 hover:bg-gray-100/50"
+		/>
 		<!-- Emoji Picker -->
-		<DXEmojiPicker ref="emojiRef" @select="insertEmoji" :ignoreRefs="[toggleRef]" />
+		<DXEmojiPicker ref="emojiRef" @select="insertEmoji" :ignoreRefs="[toggleRef]"/>
 	</div>
 </template>
