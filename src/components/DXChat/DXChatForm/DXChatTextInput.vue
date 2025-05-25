@@ -48,6 +48,7 @@ const emitTyping = useDebounceFn(() => emit('typing'), 300)
 const onKeyDown = (event: KeyboardEvent) => {
 	if (event.key === 'Enter' && !event.shiftKey) {
 		event.preventDefault()
+		if (props.modelValue === '') return
 		emojiRef.value?.close?.()
 		emit('submit', props.modelValue)
 	}
@@ -79,17 +80,20 @@ defineExpose({
 		/>
 
 		<!-- Emoji Toggle Button -->
-		<DXButton
-			text
-			rounded
-			@click="isClient && emojiRef?.toggle?.()"
-			title="Insert emoji"
-			ref="toggleRef"
-			icon="mdi:emoticon-outline"
-			size="sm"
-			class="absolute top-1/2 -translate-y-1/2 right-0.5"
-			severity-class="text-gray-600 hover:text-gray-600 hover:bg-gray-100/50"
-		/>
+		<div class="absolute top-1/2 -translate-y-1/2 right-0.5">
+			<DXButton
+				text
+				rounded
+				type="button"
+				@click="isClient && emojiRef?.toggle?.()"
+				title="Insert emoji"
+				ref="toggleRef"
+				icon="mdi:emoticon-outline"
+				size="sm"
+				severity-class="text-gray-600 hover:text-gray-600 hover:bg-gray-100/50"
+			/>
+		</div>
+
 		<!-- Emoji Picker -->
 		<DXEmojiPicker ref="emojiRef" @select="insertEmoji" :ignoreRefs="[toggleRef]"/>
 	</div>
