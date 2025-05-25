@@ -80,7 +80,7 @@ defineExpose({
 		/>
 
 		<!-- Emoji Toggle Button -->
-		<div class="absolute top-1/2 -translate-y-1/2 right-0.5">
+		<div class="emoji-button">
 			<DXButton
 				text
 				rounded
@@ -98,3 +98,12 @@ defineExpose({
 		<DXEmojiPicker ref="emojiRef" @select="insertEmoji" :ignoreRefs="[toggleRef]"/>
 	</div>
 </template>
+
+<style scoped>
+.emoji-button {
+	position: absolute;
+	top: 50%;
+	right: 0.125rem;
+	transform: translateY(-50%);
+}
+</style>
