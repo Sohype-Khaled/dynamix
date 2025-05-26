@@ -7,6 +7,7 @@ import StarterKit from '@tiptap/starter-kit'
 import DXEmojiPicker from './DXEmojiPicker.vue'
 import {serializeEditorContent, setEditorContent} from '@/components/inputs/DXTipTapEditor/helpers'
 import type {EditorContentType} from '@/types/chat'
+import type {Editor} from "@tiptap/core";
 
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: string): void
@@ -30,6 +31,22 @@ const editor = useEditor({
 	extensions: [StarterKit],
 	editorProps: {
 		attributes: {class: 'focus:outline-none text-left'},
+		handleKeyDown(view, event) {
+			if (event.key === 'Enter' && !event.shiftKey) {
+				event.preventDefault()
+
+				const value = serializeEditorContent(editor.value as Editor, props.contentType)
+				if (!value.trim()) return true
+
+				emojiRef.value?.close?.()
+				emit('submit', value)
+
+				return true // ✅ Prevent further handling by TipTap/ProseMirror
+			}
+
+			return false
+		},
+
 	},
 	onUpdate: ({editor}) => {
 		const value = serializeEditorContent(editor, props.contentType)
@@ -47,9 +64,15 @@ const emitTyping = useDebounceFn(() => emit('typing'), 300)
 const onKeyDown = (event: KeyboardEvent) => {
 	if (event.key === 'Enter' && !event.shiftKey) {
 		event.preventDefault()
-		if (props.modelValue === '') return
+
+		const currentValue = editor.value
+			? serializeEditorContent(editor.value, props.contentType)
+			: ''
+
+		if (!currentValue.trim().length) return
+
 		emojiRef.value?.close?.()
-		emit('submit', props.modelValue)
+		emit('submit', currentValue)
 	}
 }
 
@@ -72,11 +95,7 @@ defineExpose({
 		ref="containerRef"
 		class="relative p-2.5 w-full text-sm text-gray-800 rounded-xl pr-10 bg-white border border-primary-300 focus:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all duration-150"
 	>
-		<EditorContent
-			:editor="editor"
-			@keydown="onKeyDown"
-			class="flex-1"
-		/>
+		<EditorContent :editor="editor" class="flex-1"/>
 
 		<!-- Emoji Toggle Button -->
 		<!--		<div class="emoji-button">-->
