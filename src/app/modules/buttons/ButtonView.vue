@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
-import DXButton from "@/components/DXButton/DXButton.vue";
+import DXButton from "@/components/DXButton.vue";
 import type {ButtonProps} from "@/types/button";
 
 const buttons = ref<Array<Partial<ButtonProps>>>([

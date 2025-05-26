@@ -1,4 +1,4 @@
-import DXButton from "@/components/DXButton/DXButton.vue";
+import DXButton from "@/components/DXButton.vue";
 import DXAlert from '@/components/DXAlert.vue';
 import DXLoader from '@/components/DXLoader.vue';
 import DXOverlay from '@/components/overlays/DXOverlay.vue';
@@ -28,6 +28,8 @@ import DXTipTapEditor from "@/components/inputs/DXTipTapEditor/DXTipTapEditor.vu
 import DXChatForm from "@/components/DXChat/DXChatForm/DXChatForm.vue";
 import DXChatTextInput from "@/components/DXChat/DXChatForm/DXChatTextInput.vue";
 import DXEmojiPicker from "@/components/DXChat/DXChatForm/DXEmojiPicker.vue";
+import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vue";
+import DXChatLayout from "@/components/DXChat/DXChatLayout/DXChatLayout.vue";
 
 export {
   DXButton,
@@ -61,5 +63,7 @@ export {
 
   DXChatForm,
   DXChatTextInput,
+  DXChatContainer,
+  DXChatLayout,
   DXEmojiPicker
 };

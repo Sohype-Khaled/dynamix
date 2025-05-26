@@ -5,6 +5,7 @@ import {DynamixPlugin} from "@/index";
 import "@/assets/style.css";
 import {router} from "@/app/routes/router.ts";
 import 'prismjs/themes/prism.css';
+
 const app = createApp(Application);
 
 app.use(DynamixPlugin, {
@@ -22,6 +23,22 @@ app.use(DynamixPlugin, {
         primary: 'text-green-600 hover:bg-green-50 focus:ring-2 focus:ring-green-300',
         danger: 'text-red-600 hover:bg-red-50 focus:ring-2 focus:ring-red-300',
       }
+    }
+  },
+  tabPresets: {
+    classMap: {
+      base: 'bg-white text-gray-500 hover:bg-[#FDF1E5] hover:text-primary',
+      active: 'bg-primary-50/25 text-primary border-b-2 border-primary',
+    }
+  },
+  tabsPresets: {
+    scrollbar: {
+      thumbRadius: 2,
+      thumbBorder: '1px solid var(--color-blue-400)',
+      trackColor: 'var(--color-blue-50)',
+      thumbColor: 'var(--color-blue-400)',
+      trackHoverColor: 'var(--color-blue-100)',
+      thumbHoverColor: 'var(--color-blue-500)',
     }
   }
 });

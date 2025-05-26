@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import {ref, useTemplateRef, watch} from 'vue'
-import {isClient, useDebounceFn} from '@vueuse/core'
+import {useDebounceFn} from '@vueuse/core'
 import {EditorContent, useEditor} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 
 import DXEmojiPicker from './DXEmojiPicker.vue'
 import {serializeEditorContent, setEditorContent} from '@/components/inputs/DXTipTapEditor/helpers'
 import type {EditorContentType} from '@/types/chat'
-import DXButton from "@/components/DXButton/DXButton.vue";
 
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: string): void
@@ -80,22 +79,22 @@ defineExpose({
 		/>
 
 		<!-- Emoji Toggle Button -->
-		<div class="emoji-button">
-			<DXButton
-				text
-				rounded
-				type="button"
-				@click="isClient && emojiRef?.toggle?.()"
-				title="Insert emoji"
-				ref="toggleRef"
-				icon="mdi:emoticon-outline"
-				size="sm"
-				severity-class="text-gray-600 hover:text-gray-600 hover:bg-gray-100/50"
-			/>
-		</div>
+		<!--		<div class="emoji-button">-->
+		<!--			<DXButton-->
+		<!--				text-->
+		<!--				rounded-->
+		<!--				type="button"-->
+		<!--				@click="isClient && emojiRef?.toggle?.()"-->
+		<!--				title="Insert emoji"-->
+		<!--				ref="toggleRef"-->
+		<!--				icon="mdi:emoticon-outline"-->
+		<!--				size="sm"-->
+		<!--				severity-class="text-gray-600 hover:text-gray-600 hover:bg-gray-100/50"-->
+		<!--			/>-->
+		<!--		</div>-->
 
 		<!-- Emoji Picker -->
-		<DXEmojiPicker ref="emojiRef" @select="insertEmoji" :ignoreRefs="[toggleRef]"/>
+		<!--		<DXEmojiPicker ref="emojiRef" @select="insertEmoji" :ignoreRefs="[toggleRef]"/>-->
 	</div>
 </template>
 

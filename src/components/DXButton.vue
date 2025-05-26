@@ -2,7 +2,7 @@
 import type {ButtonProps} from '@/types/button.d.ts';
 import {computed, useAttrs} from 'vue';
 import {Icon} from '@iconify/vue';
-import {useDynamixOptions} from '@/globals/plugin-symbol';
+import {useDynamixOptions} from '@/globals/plugin-symbol.ts';
 import {vRipple} from "@/directives/ripple.ts";
 
 // Props
@@ -81,7 +81,7 @@ const attrs = useAttrs();
 		<Icon v-if="props.icon && !props.loading && props.iconPosition === 'left'" :icon="props.icon"/>
 
 		<!-- Label -->
-		<span v-if="props.label">{{ props.label }}</span>
+		<template v-if="props.label">{{ props.label }}</template>
 
 		<!-- Icon or spinner on right -->
 		<Icon v-if="props.icon && !props.loading && props.iconPosition === 'right'" :icon="props.icon"/>

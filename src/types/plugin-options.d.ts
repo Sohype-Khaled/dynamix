@@ -11,5 +11,23 @@ export interface DynamixOptions {
     };
   };
 
+  tabPresets?: {
+    classMap?: {
+      base?: string;
+      active?: string;
+      disabled?: string;
+    }
+  };
+  tabsPresets?: {
+    scrollbar: {
+      thumbRadius?: number;
+      thumbBorder?: string;
+      trackColor?: string;
+      thumbColor?: string;
+      trackHoverColor?: string;
+      thumbHoverColor?: string;
+    }
+  };
+
   [key: string]: any;
 }

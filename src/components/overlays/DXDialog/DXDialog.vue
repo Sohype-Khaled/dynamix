@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DXButton from "@/components/DXButton/DXButton.vue";
+import DXButton from "@/components/DXButton.vue";
 
 defineProps<{ title?: string }>();
 

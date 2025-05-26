@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import DXButton from "@/components/DXButton/DXButton.vue";
+import DXButton from "@/components/DXButton.vue";
 import {Icon} from "@iconify/vue";
 
 const props = defineProps({

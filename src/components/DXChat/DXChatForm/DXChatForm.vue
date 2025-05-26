@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import DXChatTextInput from "@/components/DXChat/DXChatForm/DXChatTextInput.vue";
-import DXButton from "@/components/DXButton/DXButton.vue";
+import DXButton from "@/components/DXButton.vue";
 import type {EditorContentType} from "@/types/chat";
 
 interface ChatFile extends File {

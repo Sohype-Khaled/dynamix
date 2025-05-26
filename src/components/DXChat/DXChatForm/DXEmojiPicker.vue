@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from 'vue'
+import {computed, onMounted, ref, watch} from 'vue'
 import {onClickOutside} from '@vueuse/core'
+import DXTabs from "@/components/DXTabs/DXTabs.vue";
+import DXTab from "@/components/DXTabs/DXTab.vue";
+import DXTabPanel from "@/components/DXTabs/DXTabPanel.vue";
 
 interface Emoji {
 	name: string
@@ -25,6 +28,7 @@ const emojis = ref<Emoji[]>([])
 const selectedCategory = ref('all')
 const searchQuery = ref('')
 const loading = ref(true)
+const sectionRefs: Record<string, HTMLElement | null> = {}
 
 const categories = computed(() => ['all', ...new Set(emojis.value.map(e => e.category))])
 
@@ -37,6 +41,12 @@ const filtered = computed(() =>
 	})
 )
 
+const emojisByCategory = (category: string) =>
+	emojis.value.filter((e) => {
+		const matchesCategory = category === 'all' || e.category === category
+		const matchesSearch = e.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+		return matchesCategory && matchesSearch
+	})
 
 // methods
 const close = () => (isOpen.value = false)
@@ -87,7 +97,27 @@ onClickOutside(
 		ignore: () => props.ignoreRefs ?? []
 	}
 )
-onMounted(fetchEmojis)
+onMounted(() => {
+	fetchEmojis()
+	selectedCategory.value = 'all'
+})
+const scrollContainer = ref<HTMLElement | null>(null)
+
+watch(selectedCategory, (category) => {
+	if (category && sectionRefs[category] && scrollContainer.value) {
+		scrollContainer.value.scrollTo({
+			top: sectionRefs[category]!.offsetTop - scrollContainer.value.offsetTop,
+			behavior: 'smooth',
+		})
+	}
+})
+
+const getCategoryIcon = (category: string): string => {
+	const emoji = emojis.value.find(e => e.category === category)
+	return emoji ? decodeUnicode(emoji.unicode[0]) : '❓'
+}
+
+
 </script>
 
 <template>
@@ -102,26 +132,8 @@ onMounted(fetchEmojis)
 		<div
 			ref="root"
 			v-if="isOpen"
-			class="absolute bottom-full right-0 w-72 mt-2 rounded-xl border bg-white shadow-lg text-sm z-50"
+			class="menu"
 		>
-			<!-- Tabs -->
-			<div class="flex overflow-x-auto border-b">
-				<button
-					v-for="category in categories"
-					:key="category"
-					type="button"
-					@click="selectedCategory = category"
-					:class="[
-					'px-3 py-2 whitespace-nowrap capitalize',
-					selectedCategory === category
-						? 'bg-blue-100 text-blue-600 font-semibold'
-						: 'text-gray-500 hover:text-black'
-				]"
-				>
-					{{ category === 'all' ? 'All' : category }}
-				</button>
-			</div>
-
 			<!-- Search -->
 			<div class="p-2 border-b">
 				<input
@@ -132,22 +144,72 @@ onMounted(fetchEmojis)
 				/>
 			</div>
 
-			<!-- Emoji Grid -->
-			<div class="max-h-64 overflow-y-auto p-2">
-				<div v-if="loading" class="text-center text-gray-400 py-6">Loading emojis...</div>
-				<div v-else-if="filtered.length === 0" class="text-center text-gray-400 py-6">No results</div>
-				<div v-else class="grid grid-cols-8 gap-1">
-					<button
-						v-for="emoji in filtered"
-						:key="`${emoji.name}-${emoji.unicode[0]}`"
-						type="button"
-						class="text-lg hover:bg-gray-100 rounded-md p-1"
-						@click="handleSelect(decodeUnicode(emoji.unicode[0]))"
-					>
-						{{ decodeUnicode(emoji.unicode[0]) }}
-					</button>
-				</div>
-			</div>
+			<DXTabs v-model="selectedCategory" singlePanel scrollable scrollSize="thin">
+				<template #tabs>
+					<DXTab
+						size="xs"
+						v-for="category in categories"
+						:key="category"
+						:name="category"
+						:label="category === 'all' ? '🌐' : getCategoryIcon(category)"
+					/>
+				</template>
+
+<!--				<div class="max-h-64  p-2 scrollbar space-y-6">-->
+<!--					<div v-if="loading" class="text-center text-gray-400 py-6">Loading emojis...</div>-->
+<!--					<div v-else-if="filtered.length === 0" class="text-center text-gray-400 py-6">No results</div>-->
+<!--					<div v-else>-->
+<!--						<DXTabPanel name="all">-->
+<!--							<div-->
+<!--								class="max-h-64 overflow-y-auto p-2 scrollbar space-y-6"-->
+<!--								ref="scrollContainer"-->
+<!--							>-->
+<!--								&lt;!&ndash; Optional loading or empty &ndash;&gt;-->
+<!--								<div v-if="loading" class="text-center text-gray-400 py-6">Loading emojis...</div>-->
+<!--								<div v-else-if="filtered.length === 0" class="text-center text-gray-400 py-6">No results</div>-->
+<!--								<div v-else>-->
+<!--									&lt;!&ndash; Loop through all categories as sections &ndash;&gt;-->
+<!--									<div-->
+<!--										v-for="category in categories"-->
+<!--										:key="category"-->
+<!--										:ref="el => {-->
+<!--											if (el && '$el' in el) {-->
+<!--												sectionRefs[category] = (el as any).$el as HTMLElement-->
+<!--											} else {-->
+<!--												sectionRefs[category] = el as HTMLElement-->
+<!--											}-->
+<!--										}"-->
+<!--									>-->
+<!--										<h3 class="text-sm font-semibold mb-2 capitalize">{{ category }}</h3>-->
+<!--										<div class="grid grid-cols-8 gap-1">-->
+<!--											<button-->
+<!--												v-for="emoji in emojisByCategory(category)"-->
+<!--												:key="`${emoji.name}-${emoji.unicode[0]}`"-->
+<!--												type="button"-->
+<!--												class="text-lg hover:bg-gray-100 rounded-md p-1"-->
+<!--												@click="handleSelect(decodeUnicode(emoji.unicode[0]))"-->
+<!--											>-->
+<!--												{{ decodeUnicode(emoji.unicode[0]) }}-->
+<!--											</button>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</DXTabPanel>-->
+<!--					</div>-->
+<!--				</div>-->
+			</DXTabs>
 		</div>
 	</Transition>
 </template>
+
+<style scoped>
+@import "tailwindcss";
+
+.menu {
+	@apply absolute bottom-full -translate-y-2 right-0 w-72 mt-2 rounded-xl border border border-gray-100 bg-white shadow-lg text-sm z-50;
+}
+
+
+
+</style>

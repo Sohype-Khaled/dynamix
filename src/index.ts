@@ -12,7 +12,8 @@ export { useListing } from "@/components/listing/composables/useListing.ts";
 export * from "@/types/listing.d";
 export * from "@/types/button.d";
 export * from "@/types/chat.d";
-export * from "@/types/ripple.d"; // ✅ make sure it exists
+export * from "@/types/directives.d";
+export * from "@/types/scroll.d";
 
 // Directives
 export * from "@/directives/directives"; // ✅ this should re-export vRipple etc.

@@ -1,5 +1,5 @@
 import type {DirectiveBinding, ObjectDirective} from 'vue';
-import type {RippleElement} from "@/types/ripple.d.ts";
+import type {RippleElement} from "@/types/directives.d.ts";
 
 export const vRipple: ObjectDirective<HTMLElement, string | boolean | undefined> = {
   mounted(el: RippleElement, binding: DirectiveBinding<string | boolean | undefined>) {
