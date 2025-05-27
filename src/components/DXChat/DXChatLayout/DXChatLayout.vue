@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<ChatLayoutProps>(), {
 	headerTitleClass: 'flex items-center gap-2 w-full',
 	headerActionsClass: 'flex items-center gap-4',
 	footerClass: 'border-t border-gray-50 mt-auto p-4',
-	bodyClass: 'app-body flex-1 grow p-4 overflow-y-auto',
+	bodyClass: 'flex-1 grow p-4 overflow-y-auto',
 	scrollable: false,
 	scrollSize: 'thin',
 	autoScrollOnMount: false
