@@ -5,12 +5,13 @@ import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vu
 import DXChatLayout from "@/components/DXChat/DXChatLayout/DXChatLayout.vue";
 import DXChatBubble from "@/components/DXChat/DXChatBubble/DXChatBubble.vue";
 import {messages as msgs} from './bubbles.ts';
+import DXButton from "@/components/DXButton.vue";
 
 interface ChatFile extends File {
 	previewUrl?: string
 }
 
-
+const isClosed = ref(false)
 const handleRecord = () => {
 	console.log('Start recording...')
 }
@@ -84,6 +85,12 @@ watch(() => messages.value.length, () => {
 					Support</h3><span class="font-semibold text-xs text-gray-700">Hello </span></div>
 			</template>
 			<template #header-actions>
+
+				<DXButton icon="mdi:lock-outline"
+				          size="sm"
+				          text
+				          serverity="secondary"
+				          @click="isClosed = !isClosed"/>
 				<button data-v-3eb8fa5b="" class="btn btn-sm btn-icon" style="position: relative; overflow: hidden;"><!---->
 					<svg data-v-3eb8fa5b="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 					     aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24"
@@ -112,6 +119,8 @@ watch(() => messages.value.length, () => {
 			/>
 			<template #footer>
 				<DXChatForm
+					editor-content-type="json"
+					:is-closed="isClosed"
 					:external-uploader="chunkUpload"
 					@submit="handleSubmit"
 					@typing="typing"

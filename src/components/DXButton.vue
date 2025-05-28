@@ -119,23 +119,23 @@ const attrs = useAttrs();
 }
 
 .btn.btn-xs.btn-icon {
-	@apply p-1.5 ;
+	@apply w-8 h-8 p-1.5;
 }
 
 .btn.btn-sm.btn-icon {
-	@apply p-2;
+	@apply w-9 h-9 p-2;
 }
 
 .btn.btn-base.btn-icon {
-	@apply p-2.5 ;
+	@apply w-10 h-10 p-2.5;
 }
 
 .btn.btn-lg.btn-icon {
-	@apply p-3
+	@apply w-11 h-11 p-3;
 }
 
 .btn.btn-xl.btn-icon {
-	@apply p-3.5  ;
+	@apply w-12 h-12 p-3.5;
 }
 
 .btn.btn-xs.btn-icon svg {

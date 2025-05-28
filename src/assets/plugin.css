@@ -121,3 +121,17 @@
 .scroll-thin::-webkit-scrollbar-thumb {
     margin: 0 0.5px; /* Prevents thumb from disappearing at small sizes */
 }
+
+.scroll-track-hidden {
+    --scrollbar-track-color: transparent;
+}
+
+/* For WebKit browsers */
+.scroll-track-hidden::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+/* Optionally hide scrollbar corners */
+.scroll-track-hidden::-webkit-scrollbar-corner {
+    background: transparent !important;
+}
