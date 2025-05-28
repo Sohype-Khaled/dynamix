@@ -63,6 +63,7 @@ const typing = () => (emit('typing'))
 
 			<DXChatTextInput
 				ref="textInputRef"
+				:contentType="editorContentType"
 				v-model="message"
 				@submit="handleSubmit"
 				@typing="typing"/>
