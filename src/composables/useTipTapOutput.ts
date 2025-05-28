@@ -1,9 +1,6 @@
-import { computed } from 'vue';
-import { generateHTML } from '@tiptap/core';
-import Document from '@tiptap/extension-document';
-import Paragraph from '@tiptap/extension-paragraph';
-import Text from '@tiptap/extension-text';
-import Bold from '@tiptap/extension-bold';
+import {computed} from 'vue';
+import {generateHTML} from '@tiptap/core';
+import StarterKit from "@tiptap/starter-kit";
 
 type OutputType = 'html' | 'text' | 'raw';
 
@@ -12,7 +9,7 @@ interface Options {
 }
 
 export function useTipTapOutput(input: string, options: Options = {}) {
-  const { outputType = 'html' } = options;
+  const {outputType = 'html'} = options;
 
   const content = computed(() => {
     const trimmed = input.trim();
@@ -25,12 +22,12 @@ export function useTipTapOutput(input: string, options: Options = {}) {
         if (json?.type === 'doc') {
           if (outputType === 'raw') return json;
           if (outputType === 'text') {
-            return generateHTML(json, [Document, Paragraph, Text, Bold])
+            return generateHTML(json, [StarterKit])
               .replace(/<[^>]+>/g, ' ')
               .replace(/\s+/g, ' ')
               .trim();
           }
-          return generateHTML(json, [Document, Paragraph, Text, Bold]);
+          return generateHTML(json, [StarterKit]);
         }
       } catch (e) {
         console.warn('Invalid JSON content:', e);
