@@ -36,6 +36,7 @@ const handleSubmit = () => {
 	}
 	emit('submit', message.value)
 	textInputRef.value?.clearContent()
+	message.value = ''
 }
 
 const typing = () => (emit('typing'))
