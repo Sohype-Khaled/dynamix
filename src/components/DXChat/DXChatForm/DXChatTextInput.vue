@@ -124,4 +124,8 @@ defineExpose({
 	right: 0.125rem;
 	transform: translateY(-50%);
 }
+
+:deep(.ProseMirror) {
+	white-space: pre-wrap;
+}
 </style>
