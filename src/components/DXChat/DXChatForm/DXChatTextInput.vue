@@ -41,7 +41,7 @@ const editor = useEditor({
 				emojiRef.value?.close?.()
 				emit('submit', value)
 
-				return true // ✅ Prevent further handling by TipTap/ProseMirror
+				return true
 			}
 
 			return false

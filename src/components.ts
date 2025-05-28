@@ -30,6 +30,7 @@ import DXChatTextInput from "@/components/DXChat/DXChatForm/DXChatTextInput.vue"
 import DXEmojiPicker from "@/components/DXChat/DXChatForm/DXEmojiPicker.vue";
 import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vue";
 import DXChatLayout from "@/components/DXChat/DXChatLayout/DXChatLayout.vue";
+import DXChatBubble from "@/components/DXChat/DXChatBubble/DXChatBubble.vue";
 
 export {
   DXButton,
@@ -65,5 +66,6 @@ export {
   DXChatTextInput,
   DXChatContainer,
   DXChatLayout,
-  DXEmojiPicker
+  DXEmojiPicker,
+  DXChatBubble
 };
