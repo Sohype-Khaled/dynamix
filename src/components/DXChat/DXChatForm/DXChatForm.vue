@@ -31,6 +31,9 @@ const fileInput = ref<HTMLInputElement | null>(null)
 */
 
 const handleSubmit = () => {
+	if (!message.value) {
+		return
+	}
 	emit('submit', message.value)
 	textInputRef.value?.clearContent()
 }
