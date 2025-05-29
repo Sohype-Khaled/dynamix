@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import {computed, provide, ref} from 'vue'
-import type {ScrollSize} from "@/types/scroll";
-
+import {vScrollbar} from "@/directives/scrollbar.ts";
 
 const props = withDefaults(defineProps<{
 	modelValue?: string;
 	scrollable?: boolean;
-	scrollSize?: ScrollSize;
+	scrollSize?: ScrollbarSize;
 	singlePanel?: boolean;
 }>(), {
 	scrollable: false,
@@ -45,13 +44,25 @@ provide('registerTabSection', (name: string, el: HTMLElement) => {
 
 <template>
 	<div class="w-full">
-		<div :class="tabsClasses">
+		<div
+			class="tabs"
+			v-if="props.scrollable"
+			v-scrollbar="props.scrollSize"
+		>
 			<slot name="tabs"/>
 		</div>
+		<div
+			class="tabs"
+			v-else
+		>
+			<slot name="tabs"/>
+		</div>
+
 		<div class="pt-4">
 			<slot/>
 		</div>
 	</div>
+
 </template>
 
 

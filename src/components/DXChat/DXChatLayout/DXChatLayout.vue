@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {nextTick, onMounted, ref} from "vue";
+import {vScrollbar} from "@/directives/scrollbar.ts";
 import type {ChatLayoutProps} from "@/types/chat";
 
 
@@ -72,12 +73,12 @@ defineExpose({
 		<slot name="subheader"/>
 	</div>
 
-	<div ref="bodyElementRef" :class="[
-				bodyClass,
-				scrollable ? 'scroll' : '',
-				scrollSize ? `scroll-${scrollSize}` : '',
-			]"
-	     @scroll="onScroll">
+	<div
+		ref="bodyElementRef"
+		:class="bodyClass"
+		v-scrollbar="scrollable ? scrollSize : undefined"
+		@scroll="onScroll"
+	>
 		<slot/>
 	</div>
 	<div ref="footerElementRef" :class="footerClass">

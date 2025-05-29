@@ -56,82 +56,82 @@
 /*}*/
 
 
-.scroll {
-    /* Track Variables */
-    --scrollbar-track-width: 8px;
-    --scrollbar-track-color: #f1f1f1;
-    --scrollbar-track-radius: 4px;
+/*.scroll {*/
+/*    !* Track Variables *!*/
+/*    --scrollbar-track-width: 8px;*/
+/*    --scrollbar-track-color: #f1f1f1;*/
+/*    --scrollbar-track-radius: 4px;*/
 
-    /* Thumb Variables */
-    --scrollbar-thumb-width: 8px;
-    --scrollbar-thumb-color: #c1c1c1;
-    --scrollbar-thumb-hover-color: #a8a8a8;
-    --scrollbar-thumb-radius: 4px;
+/*    !* Thumb Variables *!*/
+/*    --scrollbar-thumb-width: 8px;*/
+/*    --scrollbar-thumb-color: #c1c1c1;*/
+/*    --scrollbar-thumb-hover-color: #a8a8a8;*/
+/*    --scrollbar-thumb-radius: 4px;*/
 
-    /* Firefox - uses the larger of the two widths */
-    scrollbar-width: auto;
-    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
-}
+/*    !* Firefox - uses the larger of the two widths *!*/
+/*    scrollbar-width: auto;*/
+/*    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);*/
+/*}*/
 
-/* Width Modifiers - Now controls both track and thumb */
-.scroll-thin {
-    --scrollbar-track-width: 4px;
-    --scrollbar-thumb-width: 3px;
-    scrollbar-width: thin;
-}
+/*!* Width Modifiers - Now controls both track and thumb *!*/
+/*.scroll-thin {*/
+/*    --scrollbar-track-width: 4px;*/
+/*    --scrollbar-thumb-width: 3px;*/
+/*    scrollbar-width: thin;*/
+/*}*/
 
-.scroll-medium {
-    --scrollbar-track-width: 8px;
-    --scrollbar-thumb-width: 6px;
-    scrollbar-width: auto;
-}
+/*.scroll-medium {*/
+/*    --scrollbar-track-width: 8px;*/
+/*    --scrollbar-thumb-width: 6px;*/
+/*    scrollbar-width: auto;*/
+/*}*/
 
-.scroll-thick {
-    --scrollbar-track-width: 12px;
-    --scrollbar-thumb-width: 10px;
-    scrollbar-width: auto;
-}
+/*.scroll-thick {*/
+/*    --scrollbar-track-width: 12px;*/
+/*    --scrollbar-thumb-width: 10px;*/
+/*    scrollbar-width: auto;*/
+/*}*/
 
-/* WebKit Scrollbar */
-.scroll::-webkit-scrollbar {
-    width: var(--scrollbar-track-width);
-    height: var(--scrollbar-track-width);
-}
+/*!* WebKit Scrollbar *!*/
+/*.scroll::-webkit-scrollbar {*/
+/*    width: var(--scrollbar-track-width);*/
+/*    height: var(--scrollbar-track-width);*/
+/*}*/
 
-.scroll::-webkit-scrollbar-track {
-    background: var(--scrollbar-track-color);
-    border-radius: var(--scrollbar-track-radius);
-    /* Track-specific styling */
-    margin: calc((var(--scrollbar-track-width) - var(--scrollbar-thumb-width)) / 2);
-}
+/*.scroll::-webkit-scrollbar-track {*/
+/*    background: var(--scrollbar-track-color);*/
+/*    border-radius: var(--scrollbar-track-radius);*/
+/*    !* Track-specific styling *!*/
+/*    margin: calc((var(--scrollbar-track-width) - var(--scrollbar-thumb-width)) / 2);*/
+/*}*/
 
-.scroll::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb-color);
-    border-radius: var(--scrollbar-thumb-radius);
-    /* Dynamic thumb sizing */
-    width: var(--scrollbar-thumb-width);
-    min-height: var(--scrollbar-thumb-width);
-}
+/*.scroll::-webkit-scrollbar-thumb {*/
+/*    background: var(--scrollbar-thumb-color);*/
+/*    border-radius: var(--scrollbar-thumb-radius);*/
+/*    !* Dynamic thumb sizing *!*/
+/*    width: var(--scrollbar-thumb-width);*/
+/*    min-height: var(--scrollbar-thumb-width);*/
+/*}*/
 
-.scroll::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover-color);
-}
+/*.scroll::-webkit-scrollbar-thumb:hover {*/
+/*    background: var(--scrollbar-thumb-hover-color);*/
+/*}*/
 
-/* Special cases for perfect alignment */
-.scroll-thin::-webkit-scrollbar-thumb {
-    margin: 0 0.5px; /* Prevents thumb from disappearing at small sizes */
-}
+/*!* Special cases for perfect alignment *!*/
+/*.scroll-thin::-webkit-scrollbar-thumb {*/
+/*    margin: 0 0.5px; !* Prevents thumb from disappearing at small sizes *!*/
+/*}*/
 
-.scroll-track-hidden {
-    --scrollbar-track-color: transparent;
-}
+/*.scroll-track-hidden {*/
+/*    --scrollbar-track-color: transparent;*/
+/*}*/
 
-/* For WebKit browsers */
-.scroll-track-hidden::-webkit-scrollbar-track {
-    background: transparent !important;
-}
+/*!* For WebKit browsers *!*/
+/*.scroll-track-hidden::-webkit-scrollbar-track {*/
+/*    background: transparent !important;*/
+/*}*/
 
-/* Optionally hide scrollbar corners */
-.scroll-track-hidden::-webkit-scrollbar-corner {
-    background: transparent !important;
-}
+/*!* Optionally hide scrollbar corners *!*/
+/*.scroll-track-hidden::-webkit-scrollbar-corner {*/
+/*    background: transparent !important;*/
+/*}*/
