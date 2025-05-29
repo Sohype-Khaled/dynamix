@@ -1,6 +1,6 @@
-type ScrollbarSize = 'thin' | 'medium' | 'thick';
+export type ScrollbarSize = 'thin' | 'medium' | 'thick';
 
-interface ScrollbarOptions {
+export interface ScrollbarOptions {
   size?: ScrollbarSize;
   trackHidden?: boolean;
 }

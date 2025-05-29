@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {computed, provide, ref} from 'vue'
 import {vScrollbar} from "@/directives/scrollbar.ts";
+import type {ScrollbarSize} from "@/types/scroll";
 
 const props = withDefaults(defineProps<{
 	modelValue?: string;

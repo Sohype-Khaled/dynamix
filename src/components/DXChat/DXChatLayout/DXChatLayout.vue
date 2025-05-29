@@ -74,10 +74,19 @@ defineExpose({
 	</div>
 
 	<div
+		v-if="scrollable"
 		ref="bodyElementRef"
 		:class="[bodyClass, 'vue-dynamix']"
-		v-scrollbar="scrollable ? scrollSize : undefined"
+		v-scrollbar="scrollSize"
 		@scroll="onScroll"
+	>
+		<slot/>
+	</div>
+
+	<div
+		v-else
+		ref="bodyElementRef"
+		:class="[bodyClass, 'vue-dynamix']"
 	>
 		<slot/>
 	</div>
