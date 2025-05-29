@@ -14,7 +14,7 @@ const emit = defineEmits(["update:page", "update:pageSize"]);
 </script>
 
 <template>
-	<div class="flex flex-col md:flex-row justify-between items-center my-4 pt-4">
+	<div class="vue-dynamix flex flex-col md:flex-row justify-between items-center my-4 pt-4">
 		<DXPaginationInfo
 			:current-page="controls.page"
 			:page-size="controls.pageSize"

@@ -38,7 +38,7 @@ watch(mergedQuery, (params) => {
 </script>
 
 <template>
-	<div class="p-5">
+	<div class="vue-dynamix p-5">
 		<div class="flex justify-between items-center mb-5">
 			<div class="w-1/3">
 				<DXSearchInput v-model="query.search" placeholder="Search"/>

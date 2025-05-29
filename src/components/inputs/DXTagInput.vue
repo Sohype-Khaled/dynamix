@@ -60,6 +60,7 @@ function handleKeyDown(e: KeyboardEvent) {
 
 <template>
 	<DXInputWrapper
+		class="vue-dynamix"
 		:label="label"
 		:state="state"
 		:message="message"

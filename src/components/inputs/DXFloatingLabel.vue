@@ -67,7 +67,7 @@ const messageClasses = computed(() => {
 
 
 <template>
-	<div class="w-full space-y-1">
+	<div class="vue-dynamix w-full space-y-1">
 		<!--		<div class="flex items-center">-->
 		<!--			&lt;!&ndash; Outer Left Slot &ndash;&gt;-->
 		<!--			<slot name="outer-left"/>-->

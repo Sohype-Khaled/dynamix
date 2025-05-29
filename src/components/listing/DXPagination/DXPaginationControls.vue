@@ -47,7 +47,7 @@ const setPage = (page: number | "...") => {
 </script>
 
 <template>
-	<nav aria-label="Page navigation example">
+	<nav aria-label="Page navigation example" class="vue-dynamix">
 		<ul class="inline-flex -space-x-px text-base h-10">
 			<!-- Previous Button -->
 			<li>

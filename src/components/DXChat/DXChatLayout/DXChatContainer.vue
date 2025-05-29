@@ -21,7 +21,7 @@ const extraClasses = computed(() => {
 
 <template>
 	<div
-		class="dx-chat-container"
+		class="vue-dynamix dx-chat-container"
 		:class="[
         'flex flex-col overflow-hidden',
         'transition-all duration-300 ease-in-out',

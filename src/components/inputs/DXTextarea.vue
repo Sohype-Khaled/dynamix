@@ -18,6 +18,7 @@ defineOptions({ inheritAttrs: false }); // prevent leaking `attrs` to the outer 
 
 <template>
 	<DXInputWrapper
+		class="vue-dynamix"
 		:label="label"
 		:state="state"
 		:message="message"

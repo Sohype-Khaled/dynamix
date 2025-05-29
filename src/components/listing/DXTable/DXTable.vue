@@ -31,7 +31,7 @@ const onDragEnd = () => (emit('update:rows', props.rows));
 </script>
 
 <template>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <div class="vue-dynamix relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <!-- Table Header -->
       <DXTableHead :columns="tableColumns"

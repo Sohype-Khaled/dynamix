@@ -14,7 +14,7 @@ const isIndeterminate = computed(() => props.indeterminate && !isChecked.value);
 </script>
 
 <template>
-	<label class="relative inline-flex items-center cursor-pointer">
+	<label class="vue-dynamix relative inline-flex items-center cursor-pointer">
 		<input
 			ref="inputRef"
 			type="checkbox"

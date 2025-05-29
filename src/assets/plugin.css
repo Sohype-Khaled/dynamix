@@ -1,4 +1,4 @@
-.dx-ripple {
+.vue-dynamix .dx-ripple {
     position: absolute;
     transform: scale(0);
     border-radius: 50%;
@@ -15,123 +15,19 @@
     }
 }
 
-/*@layer utilities {*/
-/*    !* Thin scrollbar *!*/
-/*    .scrollbar-thin {*/
-/*        scrollbar-width: thin; !* Firefox *!*/
-/*    }*/
-/*    .scrollbar-thin::-webkit-scrollbar {*/
-/*        width: 6px;*/
-/*        height: 6px;*/
-/*    }*/
+.vue-dynamix code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.25rem; /* text-sm line height */
+    background-color: oklch(0.967 0.003 264.542); /* bg-gray-100 */
+    padding-left: 0.25rem; /* px-1 */
+    padding-right: 0.25rem; /* px-1 */
+    padding-top: 0.125rem; /* py-0.5 */
+    padding-bottom: 0.125rem; /* py-0.5 */
+    border-radius: 0.375rem; /* rounded (using radius-md as default for .rounded) */
+}
 
-/*    !* No scrollbar *!*/
-/*    .scrollbar-none {*/
-/*        scrollbar-width: none; !* Firefox *!*/
-/*    }*/
-/*    .scrollbar-none::-webkit-scrollbar {*/
-/*        display: none;*/
-/*    }*/
-
-/*    !* Default custom scrollbar *!*/
-/*    .scrollbar {*/
-/*        scrollbar-width: auto; !* Firefox *!*/
-/*    }*/
-/*    .scrollbar::-webkit-scrollbar {*/
-/*        width: 12px;*/
-/*        height: 12px;*/
-/*    }*/
-/*    .scrollbar::-webkit-scrollbar-track {*/
-/*        background: transparent;*/
-/*    }*/
-/*    .scrollbar::-webkit-scrollbar-thumb {*/
-/*        background-color: rgba(0, 0, 0, 0.4);*/
-/*        border-radius: 6px;*/
-/*        border: 2px solid transparent;*/
-/*        background-clip: content-box;*/
-/*    }*/
-/*    .scrollbar::-webkit-scrollbar-thumb:hover {*/
-/*        background-color: rgba(0, 0, 0, 0.6);*/
-/*    }*/
-/*}*/
-
-
-/*.scroll {*/
-/*    !* Track Variables *!*/
-/*    --scrollbar-track-width: 8px;*/
-/*    --scrollbar-track-color: #f1f1f1;*/
-/*    --scrollbar-track-radius: 4px;*/
-
-/*    !* Thumb Variables *!*/
-/*    --scrollbar-thumb-width: 8px;*/
-/*    --scrollbar-thumb-color: #c1c1c1;*/
-/*    --scrollbar-thumb-hover-color: #a8a8a8;*/
-/*    --scrollbar-thumb-radius: 4px;*/
-
-/*    !* Firefox - uses the larger of the two widths *!*/
-/*    scrollbar-width: auto;*/
-/*    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);*/
-/*}*/
-
-/*!* Width Modifiers - Now controls both track and thumb *!*/
-/*.scroll-thin {*/
-/*    --scrollbar-track-width: 4px;*/
-/*    --scrollbar-thumb-width: 3px;*/
-/*    scrollbar-width: thin;*/
-/*}*/
-
-/*.scroll-medium {*/
-/*    --scrollbar-track-width: 8px;*/
-/*    --scrollbar-thumb-width: 6px;*/
-/*    scrollbar-width: auto;*/
-/*}*/
-
-/*.scroll-thick {*/
-/*    --scrollbar-track-width: 12px;*/
-/*    --scrollbar-thumb-width: 10px;*/
-/*    scrollbar-width: auto;*/
-/*}*/
-
-/*!* WebKit Scrollbar *!*/
-/*.scroll::-webkit-scrollbar {*/
-/*    width: var(--scrollbar-track-width);*/
-/*    height: var(--scrollbar-track-width);*/
-/*}*/
-
-/*.scroll::-webkit-scrollbar-track {*/
-/*    background: var(--scrollbar-track-color);*/
-/*    border-radius: var(--scrollbar-track-radius);*/
-/*    !* Track-specific styling *!*/
-/*    margin: calc((var(--scrollbar-track-width) - var(--scrollbar-thumb-width)) / 2);*/
-/*}*/
-
-/*.scroll::-webkit-scrollbar-thumb {*/
-/*    background: var(--scrollbar-thumb-color);*/
-/*    border-radius: var(--scrollbar-thumb-radius);*/
-/*    !* Dynamic thumb sizing *!*/
-/*    width: var(--scrollbar-thumb-width);*/
-/*    min-height: var(--scrollbar-thumb-width);*/
-/*}*/
-
-/*.scroll::-webkit-scrollbar-thumb:hover {*/
-/*    background: var(--scrollbar-thumb-hover-color);*/
-/*}*/
-
-/*!* Special cases for perfect alignment *!*/
-/*.scroll-thin::-webkit-scrollbar-thumb {*/
-/*    margin: 0 0.5px; !* Prevents thumb from disappearing at small sizes *!*/
-/*}*/
-
-/*.scroll-track-hidden {*/
-/*    --scrollbar-track-color: transparent;*/
-/*}*/
-
-/*!* For WebKit browsers *!*/
-/*.scroll-track-hidden::-webkit-scrollbar-track {*/
-/*    background: transparent !important;*/
-/*}*/
-
-/*!* Optionally hide scrollbar corners *!*/
-/*.scroll-track-hidden::-webkit-scrollbar-corner {*/
-/*    background: transparent !important;*/
-/*}*/
+.dark .vue-dynamix code {
+    background-color: oklch(68.318% 0.04325 220.25); /* bg-neutral-400 (dark theme) */
+    color: #fff; /* text-white */
+}

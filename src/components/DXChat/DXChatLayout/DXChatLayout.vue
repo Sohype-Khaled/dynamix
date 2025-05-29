@@ -61,7 +61,7 @@ defineExpose({
 </script>
 
 <template>
-	<div ref="headerElementRef" :class="headerContainerClass">
+	<div ref="headerElementRef" :class="[headerContainerClass, 'vue-dynamix']">
 		<div :class="headerContentClass">
 			<div :class="headerTitleClass">
 				<slot name="header-title"/>
@@ -75,13 +75,13 @@ defineExpose({
 
 	<div
 		ref="bodyElementRef"
-		:class="bodyClass"
+		:class="[bodyClass, 'vue-dynamix']"
 		v-scrollbar="scrollable ? scrollSize : undefined"
 		@scroll="onScroll"
 	>
 		<slot/>
 	</div>
-	<div ref="footerElementRef" :class="footerClass">
+	<div ref="footerElementRef" :class="[footerClass, 'vue-dynamix']">
 		<slot name="footer"/>
 	</div>
 </template>

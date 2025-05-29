@@ -1,5 +1,3 @@
-import "@/assets/plugin.css";
-
 // Composables
 export { useParsedOptions } from "@/composables/useParsedOptions";
 export { useForm } from "@/composables/useForm";

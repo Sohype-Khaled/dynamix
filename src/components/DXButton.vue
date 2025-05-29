@@ -51,6 +51,7 @@ const severityClass = computed(() => {
 
 // Final class list
 const buttonClasses = computed(() => [
+	'vue-dynamix',
 	'btn',
 	`btn-${size.value}`,
 	props.icon ? 'btn-icon' : '',

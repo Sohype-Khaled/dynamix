@@ -7,7 +7,7 @@ const emit = defineEmits(['close'])
 </script>
 
 <template>
-	<div class="relative p-4 w-full max-w-2xl max-h-full">
+	<div class="vue-dynamix relative p-4 w-full max-w-2xl max-h-full">
 		<!-- Modal content -->
 		<div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
 			<!-- Modal header -->

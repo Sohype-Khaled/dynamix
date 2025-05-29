@@ -48,7 +48,7 @@ const typing = () => (emit('typing'))
 
 <template>
 
-	<form @submit.prevent="handleSubmit" v-if="!isClosed">
+	<form @submit.prevent="handleSubmit" v-if="!isClosed" class="vue-dynamix">
 		<!--	<ChatUploadPreview
 				v-if="uploadEnabled"
 				:files="files"/>-->
@@ -103,7 +103,7 @@ const typing = () => (emit('typing'))
 				type="submit"/>
 		</div>
 	</form>
-	<div v-else class="flex items-center justify-center gap-2 text-xs text-gray-500 px-4 py-2 rounded-md bg-gray-100">
+	<div v-else class="vue-dynamix flex items-center justify-center gap-2 text-xs text-gray-500 px-4 py-2 rounded-md bg-gray-100">
 		<Icon icon="mdi:lock-outline" class="w-4 h-4 text-gray-400"/>
 		<span>This chat is closed and can no longer accept messages.</span>
 	</div>

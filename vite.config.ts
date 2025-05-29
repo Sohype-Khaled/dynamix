@@ -12,7 +12,14 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({insertTypesEntry: true}),
-    tailwindcss(),
+    tailwindcss({
+      config: {
+        content: [], // Keep this
+        corePlugins: {
+          preflight: false // Add this to disable Preflight
+        }
+      }
+    }),
     typescript2({
       check: false,
       include: ["src/components/**/*.vue"],
