@@ -90,7 +90,7 @@ const attrs = useAttrs();
 	</component>
 </template>
 
-<style scoped>
+<style>
 @import "tailwindcss";
 
 /* Base */

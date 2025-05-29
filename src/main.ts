@@ -12,7 +12,7 @@ app.use(DynamixPlugin, {
   buttonPresets: {
     severityMap: {
       base: {
-        primary: 'bg-green-600 hover:bg-green-700 text-white focus:ring-4 focus:ring-green-300',
+        primary: 'bg-primary-600 hover:bg-primary-700 text-white focus:ring-4 focus:ring-primary-300',
         danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-4 focus:ring-red-300',
       },
       outlined: {
