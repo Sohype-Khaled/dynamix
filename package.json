@@ -9,25 +9,28 @@
   "private": false,
   "version": "0.0.41",
   "type": "module",
-  "main": "./dynamix.umd.js",
-  "module": "./dynamix.es.js",
-  "types": "./index.d.ts",
+  "main": "./dist/dynamix.cjs.js",
+  "module": "./dist/dynamix.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./dynamix.es.js",
-      "require": "./dynamix.umd.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/dynamix.es.js",
+      "require": "./dist/dynamix.cjs.js"
     },
-    "./index.css": "./index.css",
+    "./index.css": "./dist/index.css",
     "./package.json": "./package.json"
   },
   "files": [
-    "*"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "dev": "vite",
     "clean": "rm -rf dist",
-    "build": "yarn clean && vue-tsc -b && vite build",
+    "build:js": "vite build",
+    "build:css": "vite build -c vite.config.css.js",
+    "build": "yarn clean && vue-tsc -b && yarn build:js && yarn build:css",
     "prepare:publish": "rm -rf publish && mkdir publish && rsync -a dist/ publish/ && cp package.json README.md publish/",
     "pack:lib": "yarn build && yarn prepare:publish && cd publish && yarn pack",
     "preview": "vite preview"

@@ -1,27 +1,69 @@
-.card {
-    @apply flex flex-col shadow  rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800;
+.vue-dynamix .card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* shadow-md (assuming default for 'shadow') */
+    border-radius: 0.75rem; /* rounded-xl */
+    border-width: 1px; /* border */
+    border-color: oklch(0.928 0.006 264.531); /* border-gray-200 */
+    background-color: #fff; /* bg-white (Tailwind default white, or project's --color-background if explicitly white) */
 }
 
-.card-header {
-    @apply flex items-center justify-between px-5 py-3 border-b border-gray-200 dark:border-gray-700;
+.dark .vue-dynamix .card {
+    border-color: oklch(0.373 0.034 259.733); /* dark:border-gray-700 */
+    background-color: oklch(0.278 0.033 256.848); /* dark:bg-gray-800 */
 }
 
-.card-title {
-    @apply text-lg font-semibold text-gray-900 dark:text-white;
+.vue-dynamix .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1.25rem; /* px-5 */
+    padding-right: 1.25rem; /* px-5 */
+    padding-top: 0.75rem; /* py-3 (3 * 0.25rem) */
+    padding-bottom: 0.75rem; /* py-3 */
+    border-bottom-width: 1px; /* border-b */
+    border-color: oklch(0.928 0.006 264.531); /* border-gray-200 */
 }
 
-.card-toolbar {
-    @apply flex items-center gap-2;
+.dark .vue-dynamix .card-header {
+    border-color: oklch(0.373 0.034 259.733); /* dark:border-gray-700 */
 }
 
-.card-body {
-    @apply p-5;
+.vue-dynamix .card-title {
+    font-size: 1.125rem; /* text-lg */
+    line-height: 1.75rem; /* text-lg line height */
+    font-weight: 600; /* font-semibold */
+    color: oklch(0.21 0.034 264.665); /* text-gray-900 */
 }
 
-.card-footer {
-    @apply px-5 py-3 border-t border-gray-200 dark:border-gray-700;
+.dark .vue-dynamix .card-title {
+    color: #fff; /* dark:text-white */
 }
 
-.card.card--border-none {
-    @apply border-0 shadow-none;
+.vue-dynamix .card-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+}
+
+.vue-dynamix .card-body {
+    padding: 1.25rem; /* p-5 */
+}
+
+.vue-dynamix .card-footer {
+    padding-left: 1.25rem; /* px-5 */
+    padding-right: 1.25rem; /* px-5 */
+    padding-top: 0.75rem; /* py-3 */
+    padding-bottom: 0.75rem; /* py-3 */
+    border-top-width: 1px; /* border-t */
+    border-color: oklch(0.928 0.006 264.531); /* border-gray-200 */
+}
+
+.dark .vue-dynamix .card-footer {
+    border-color: oklch(0.373 0.034 259.733); /* dark:border-gray-700 */
+}
+
+.vue-dynamix .card.card--border-none {
+    border-width: 0px; /* border-0 */
+    box-shadow: none; /* shadow-none */
 }
