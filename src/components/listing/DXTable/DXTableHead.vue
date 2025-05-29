@@ -15,7 +15,7 @@ const isAllSelected = computed({
 </script>
 
 <template>
-	<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+	<thead class="vue-dynamix text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 	<tr>
 		<th scope="col" class="flex items-center gap-3 px-2 py-3">
 			<span v-if="orderable">☰</span>

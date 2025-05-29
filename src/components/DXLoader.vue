@@ -14,10 +14,10 @@ defineProps<{ visible: boolean; }>();
 		>
 			<div
 				v-if="visible"
-				class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+				class="vue-dynamix fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
 			>
 				<div
-					class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
+					class="vue-dynamix bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
 					<svg class="w-5 h-5 animate-spin text-primary" fill="none" viewBox="0 0 24 24">
 						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
 						<path

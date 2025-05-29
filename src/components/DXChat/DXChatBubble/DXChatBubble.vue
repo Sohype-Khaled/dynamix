@@ -52,7 +52,7 @@ watch(() => props.content, checkOverflow);
 
 <template>
 	<div
-		class="flex items-start gap-2.5 mb-2"
+		class="vue-dynamix flex items-start gap-2.5 mb-2"
 		:class="{ 'flex-row-reverse': isSent }"
 	>
 		<div

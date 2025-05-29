@@ -45,7 +45,7 @@ const messageClasses = computed(() => {
 </script>
 
 <template>
-	<div class="w-full space-y-1">
+	<div class="vue-dynamix w-full space-y-1">
 		<!-- Fixed Label -->
 		<label :for="inputId" class="block text-sm font-medium mb-1"
 		       :class="{

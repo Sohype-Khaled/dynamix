@@ -10,7 +10,7 @@ const endItem = computed(() => Math.min(props.currentPage * props.pageSize, prop
 </script>
 
 <template>
-	<div class="text-sm text-gray-500 font-medium">
+	<div class="vue-dynamix text-sm text-gray-500 font-medium">
 		Showing {{ startItem }} - {{ endItem }} of {{ props.totalItems }}
 	</div>
 </template>

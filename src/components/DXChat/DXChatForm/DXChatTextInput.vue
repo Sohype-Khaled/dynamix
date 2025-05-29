@@ -81,7 +81,7 @@ defineExpose({
 <template>
 	<div
 		ref="containerRef"
-		class="relative w-full text-sm text-gray-800 rounded-xl  bg-white border border-primary-300 focus:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 transition-all duration-150"
+		class="vue-dynamix relative w-full text-sm text-gray-800 rounded-xl  bg-white border border-primary-300 focus:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 transition-all duration-150"
 	>
 		<div class="overflow-y-auto max-h-[4.5em] scroll scroll-thin scroll-track-hidden">
 			<EditorContent :editor="editor" class="flex-1"/>

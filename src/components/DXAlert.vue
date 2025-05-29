@@ -67,7 +67,7 @@ provide('dismiss', dismiss);
 		>
 		<div
 			v-if="visible"
-			class="flex items-center p-4 mb-4 text-sm rounded-lg"
+			class="vue-dynamix flex items-center p-4 mb-4 text-sm rounded-lg"
 			:class="severityClass"
 			role="alert"
 		>

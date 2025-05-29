@@ -132,7 +132,7 @@ const getCategoryIcon = (category: string): string => {
 		<div
 			ref="root"
 			v-if="isOpen"
-			class="menu"
+			class="vue-dynamix menu"
 		>
 			<!-- Search -->
 			<div class="p-2 border-b">

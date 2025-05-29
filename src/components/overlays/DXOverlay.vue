@@ -21,7 +21,7 @@ onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
 
 <template>
 	<div v-if="isOpen"
-	     class="fixed inset-0 z-[1000000] flex items-center justify-center p-4"
+	     class="vue-dynamix fixed inset-0 z-[1000000] flex items-center justify-center p-4"
 	     :style="{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }">
 		>
 		<div v-for="(overlay, index) in overlayStack" :key="overlay.id"

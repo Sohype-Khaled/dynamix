@@ -14,7 +14,7 @@ const selected = computed({
 
 <template>
 	<tr
-		class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
+		class="vue-dynamix odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
 		<!-- Drag Handle -->
 		<td class="flex gap-3 items-center px-2 py-4">
 			<span v-if="orderable" class="drag-handle cursor-grab">☰</span>

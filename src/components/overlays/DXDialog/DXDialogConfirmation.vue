@@ -30,7 +30,7 @@ const color = computed(() => ({
 </script>
 
 <template>
-	<div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700  shadow-gray-200">
+	<div class="vue-dynamix relative bg-white rounded-lg shadow-sm dark:bg-gray-700  shadow-gray-200">
 		<DXButton
 			class="absolute top-3 end-2.5"
 			text
