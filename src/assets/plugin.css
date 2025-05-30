@@ -15,6 +15,127 @@
     }
 }
 
+/*@layer utilities {*/
+/*    !* Thin scrollbar *!*/
+/*    .vue-dynamix .scrollbar-thin {*/
+/*        scrollbar-width: thin; !* Firefox *!*/
+/*    }*/
+/*    .vue-dynamix .scrollbar-thin::-webkit-scrollbar {*/
+/*        width: 6px;*/
+/*        height: 6px;*/
+/*    }*/
+
+/*    !* No scrollbar *!*/
+/*    .vue-dynamix .scrollbar-none {*/
+/*        scrollbar-width: none; !* Firefox *!*/
+/*    }*/
+/*    .vue-dynamix .scrollbar-none::-webkit-scrollbar {*/
+/*        display: none;*/
+/*    }*/
+
+/*    !* Default custom scrollbar *!*/
+/*    .vue-dynamix .scrollbar {*/
+/*        scrollbar-width: auto; !* Firefox *!*/
+/*    }*/
+/*    .vue-dynamix .scrollbar::-webkit-scrollbar {*/
+/*        width: 12px;*/
+/*        height: 12px;*/
+/*    }*/
+/*    .vue-dynamix .scrollbar::-webkit-scrollbar-track {*/
+/*        background: transparent;*/
+/*    }*/
+/*    .vue-dynamix .scrollbar::-webkit-scrollbar-thumb {*/
+/*        background-color: rgba(0, 0, 0, 0.4);*/
+/*        border-radius: 6px;*/
+/*        border: 2px solid transparent;*/
+/*        background-clip: content-box;*/
+/*    }*/
+/*    .vue-dynamix .scrollbar::-webkit-scrollbar-thumb:hover {*/
+/*        background-color: rgba(0, 0, 0, 0.6);*/
+/*    }*/
+/*}*/
+
+
+.vue-dynamix .scroll {
+    /* Track Variables */
+    --scrollbar-track-width: 8px;
+    --scrollbar-track-color: #f1f1f1;
+    --scrollbar-track-radius: 4px;
+
+    /* Thumb Variables */
+    --scrollbar-thumb-width: 8px;
+    --scrollbar-thumb-color: #c1c1c1;
+    --scrollbar-thumb-hover-color: #a8a8a8;
+    --scrollbar-thumb-radius: 4px;
+
+    /* Firefox - uses the larger of the two widths */
+    scrollbar-width: auto;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
+/* Width Modifiers - Now controls both track and thumb */
+.vue-dynamix .scroll-thin {
+    --scrollbar-track-width: 4px;
+    --scrollbar-thumb-width: 3px;
+    scrollbar-width: thin;
+}
+
+.vue-dynamix .scroll-medium {
+    --scrollbar-track-width: 8px;
+    --scrollbar-thumb-width: 6px;
+    scrollbar-width: auto;
+}
+
+.vue-dynamix .scroll-thick {
+    --scrollbar-track-width: 12px;
+    --scrollbar-thumb-width: 10px;
+    scrollbar-width: auto;
+}
+
+/* WebKit Scrollbar */
+.vue-dynamix .scroll::-webkit-scrollbar {
+    width: var(--scrollbar-track-width);
+    height: var(--scrollbar-track-width);
+}
+
+.vue-dynamix .scroll::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color);
+    border-radius: var(--scrollbar-track-radius);
+    /* Track-specific styling */
+    margin: calc((var(--scrollbar-track-width) - var(--scrollbar-thumb-width)) / 2);
+}
+
+.vue-dynamix .scroll::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    border-radius: var(--scrollbar-thumb-radius);
+    /* Dynamic thumb sizing */
+    width: var(--scrollbar-thumb-width);
+    min-height: var(--scrollbar-thumb-width);
+}
+
+.vue-dynamix .scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover-color);
+}
+
+/* Special cases for perfect alignment */
+.vue-dynamix .scroll-thin::-webkit-scrollbar-thumb {
+    margin: 0 0.5px; /* Prevents thumb from disappearing at small sizes */
+}
+
+.vue-dynamix .scroll-track-hidden {
+    --scrollbar-track-color: transparent;
+}
+
+/* For WebKit browsers */
+.vue-dynamix .scroll-track-hidden::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+/* Optionally hide scrollbar corners */
+.vue-dynamix .scroll-track-hidden::-webkit-scrollbar-corner {
+    background: transparent !important;
+}
+
 .vue-dynamix code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 0.875rem; /* text-sm */

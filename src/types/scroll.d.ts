@@ -1,6 +1,1 @@
-type ScrollbarSize = 'thin' | 'medium' | 'thick';
-
-interface ScrollbarOptions {
-  size?: ScrollbarSize;
-  trackHidden?: boolean;
-}
+export type ScrollSize = 'thin' | 'medium' | 'thick'

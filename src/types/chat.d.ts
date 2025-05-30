@@ -1,4 +1,4 @@
-import type {ScrollbarSize} from "@/types/scroll";
+import type {ScrollSize} from "@/types/scroll";
 
 export type EditorContentType = 'html' | 'json' | 'text'
 
@@ -10,6 +10,6 @@ export interface ChatLayoutProps {
   footerClass?: string;
   bodyClass?: string
   scrollable?: boolean
-  scrollSize?: ScrollbarSize,
+  scrollSize?: ScrollSize,
   autoScrollOnMount?: boolean
 }

@@ -7,7 +7,7 @@
   "author": "Sohype Khaled <sohype.mop@gmail.com>",
   "license": "MIT",
   "private": false,
-  "version": "0.0.42",
+  "version": "0.0.41",
   "type": "module",
   "main": "./dist/dynamix.cjs.js",
   "module": "./dist/dynamix.es.js",
@@ -28,9 +28,7 @@
   "scripts": {
     "dev": "vite",
     "clean": "rm -rf dist",
-    "build:js": "vite build",
-    "build:css": "vite build -c vite.config.css.js",
-    "build": "yarn clean && vue-tsc -b && yarn build:js && yarn build:css",
+    "build": "yarn clean && vue-tsc -b && vite build",
     "prepare:publish": "rm -rf publish && mkdir publish && rsync -a dist/ publish/ && cp package.json README.md publish/",
     "pack:lib": "yarn build && yarn prepare:publish && cd publish && yarn pack",
     "preview": "vite preview"
