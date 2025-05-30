@@ -24,13 +24,14 @@ import DXTextarea from "@/components/inputs/DXTextarea.vue";
 import DXTagInput from "@/components/inputs/DXTagInput.vue";
 import DXInputWrapper from "@/components/inputs/DXInputWrapper.vue";
 import DXTipTapEditor from "@/components/inputs/DXTipTapEditor/DXTipTapEditor.vue";
-
+import DXAvatar from "@/components/DXAvatar.vue";
 import DXChatForm from "@/components/DXChat/DXChatForm/DXChatForm.vue";
 import DXChatTextInput from "@/components/DXChat/DXChatForm/DXChatTextInput.vue";
 import DXEmojiPicker from "@/components/DXChat/DXChatForm/DXEmojiPicker.vue";
 import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vue";
 import DXChatLayout from "@/components/DXChat/DXChatLayout/DXChatLayout.vue";
 import DXChatBubble from "@/components/DXChat/DXChatBubble/DXChatBubble.vue";
+import DXChatListItem from "@/components/DXChat/DXChatListItem/DXChatListItem.vue";
 
 export {
   DXButton,
@@ -56,6 +57,7 @@ export {
   DXPaginationSize,
 
   DXAlert,
+  DXAvatar,
   DXOverlay,
   DXDialog,
   DXDialogBody,
@@ -67,5 +69,6 @@ export {
   DXChatContainer,
   DXChatLayout,
   DXEmojiPicker,
-  DXChatBubble
+  DXChatBubble,
+  DXChatListItem
 };

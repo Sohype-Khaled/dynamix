@@ -1,3 +1,6 @@
+import {v4 as uuidv4} from 'uuid'
+import {faker} from '@faker-js/faker'
+
 export const messages = [
   {
     "id": "382",
@@ -317,3 +320,106 @@ export const messages = [
     "state": "delivered"
   }
 ];
+
+function generateTimestamp() {
+  return faker.date.recent({days: 7}).toISOString()
+}
+
+
+/**
+ * Generate a TipTap JSON document mock
+ * with `n` paragraphs and random text
+ */
+export function generateTipTapJsonMock(paragraphCount = 1) {
+  return {
+    type: 'doc',
+    content: Array.from({length: paragraphCount}, () => ({
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: faker.lorem.sentences(faker.number.int({min: 1, max: 3}))
+        }
+      ]
+    }))
+  }
+}
+
+function createUser(id?: number, isStaff = false) {
+  const generatedId = id ?? faker.number.int({ min: 1, max: 9999 })
+  return {
+    id: generatedId,
+    userType: 'Registered',
+    username: faker.person.fullName(),
+    email: faker.internet.email(),
+    image: 'https://admin.nawahscientific.com/static/users/avatar.svg',
+    accountType: isStaff ? 'account_manager' : 'customer',
+    isStaff
+  }
+}
+
+
+function createRoom(): any {
+  const peerCount = faker.number.int({min: 1, max: 3})
+  const users = Array.from({length: peerCount + 1}, () => createUser())
+  const peers = users.slice(1)
+  const peerNames = peers.map(p => p.username)
+  const peerImages = peers.map(() => ({
+    src: 'https://admin.nawahscientific.com/static/logos/FullColor/ICON-4*4.svg',
+    alt: 'Nawah'
+  }))
+
+  return {
+    id: uuidv4(),
+    uuid: uuidv4(),
+    sentAt: generateTimestamp(),
+    isClosed: faker.datatype.boolean(),
+    title: faker.lorem.words({min: 2, max: 6}),
+    text: JSON.stringify(generateTipTapJsonMock(1)),
+    hasAttachment: faker.datatype.boolean(),
+    hasAudio: faker.datatype.boolean(),
+    unseenCount: faker.number.int({min: 0, max: 25}),
+    users,
+    peers,
+    peerNames,
+    peerImages,
+    indicator: peers.length > 0 && faker.datatype.boolean(),
+    indicatorColor: 'green-500',
+  }
+}
+
+export function generateMockRooms(count: number = 5): any[] {
+  return Array.from({length: count}, () => createRoom())
+}
+
+export function generateMockMessages(count: number = 20, roomId: string = '123') {
+  // fixed customer/staff for alternation
+  const customer = createUser(39, false)
+  const staff = createUser(120, true)
+  const senders = [customer, staff]
+
+  return Array.from({length: count}).map((_, i) => {
+    const sender = senders[i % 2]
+    const createdAt = faker.date.recent({days: 3}).toISOString()
+
+    return {
+      id: faker.number.int({min: 300, max: 999}).toString(),
+      uuid: uuidv4(),
+      attachment_id: null,
+      record: null,
+      text: JSON.stringify(generateTipTapJsonMock()),
+      created_at: createdAt,
+      updated_at: createdAt,
+      user_id: sender.id.toString(),
+      anonymous_user_id: null,
+      room_id: roomId,
+      sender: {
+        id: sender.id,
+        username: sender.username
+      },
+      seen_at: null,
+      isSent: sender.accountType !== 'account_manager', // customer messages are 'sent'
+      state: 'delivered'
+    }
+  })
+}

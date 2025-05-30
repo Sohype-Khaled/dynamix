@@ -2,11 +2,35 @@
 import DXButton from "@/components/DXButton.vue";
 import DXChatLayout from "@/components/DXChat/DXChatLayout/DXChatLayout.vue";
 import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vue";
+
+import {generateMockRooms} from "./data.ts";
+import {computed, reactive, ref} from "vue";
+import DXChatListItem from "@/components/DXChat/DXChatListItem/DXChatListItem.vue";
+
+const layoutRef = ref<InstanceType<typeof DXChatLayout> | null>(null)
+
+const roomsMap = reactive({
+	typeA: generateMockRooms(10),
+	typeB: generateMockRooms(10),
+	typeC: generateMockRooms(10)
+})
+
+const selectedType = ref('typeA')
+
+const rooms = computed(() => roomsMap[selectedType.value as keyof typeof roomsMap])
+
+const getPeersImages = (room: any): { src: string; alt: string }[] =>
+	room.peers.map((user: any) => ({
+		src: user.image ?? '',
+		alt: user.username ?? ''
+	}))
+
+
 </script>
 
 <template>
 	<DXChatContainer extraClass="w-96 h-[35rem]">
-		<DXChatLayout scrollable auto-scroll-on-mount ref="layoutRef">
+		<DXChatLayout scrollable ref="layoutRef">
 			<template #header-title>
 				<DXButton size="sm" icon="mdi:arrow-left"/>
 				<div class="flex flex-col items-start"><h3 class="text-sm font-normal leading-4 text-primary">Customer
@@ -20,6 +44,24 @@ import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vu
 					icon="mdi:arrow-collapse"/>
 				<DXButton size="sm" icon="mdi:close"/>
 			</template>
+
+			<DXChatListItem
+				v-for="room in rooms"
+				:key="room.uuid"
+				:sent-at="room.sentAt"
+				:is-closed="room.isClosed"
+				:title="room.title"
+				:message="room.text || ''"
+				:has-attachment="room.hasAttachment"
+				:has-audio="room.hasAudio"
+				:unseen-count="room.unseenCount"
+				:users="room.peerImages || []"
+				:peers="room.peers"
+				:peer-names="room.peerNames"
+				:peer-images="room.peerImages"
+				:indicator="room.indicator"
+				:indicator-color="room.indicatorColor"
+			/>
 
 			<template #footer>
 			</template>

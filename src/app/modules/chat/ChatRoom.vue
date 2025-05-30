@@ -5,7 +5,8 @@ import DXChatLayout from "@/components/DXChat/DXChatLayout/DXChatLayout.vue";
 import DXChatForm from "@/components/DXChat/DXChatForm/DXChatForm.vue";
 import DXChatBubble from "@/components/DXChat/DXChatBubble/DXChatBubble.vue";
 import {ref, watch} from "vue";
-import {messages as msgs} from "@/app/modules/chat/bubbles.ts";
+import {generateMockMessages} from "@/app/modules/chat/data.ts";
+import {v4 as uuidv4} from 'uuid'
 
 interface ChatFile extends File {
 	previewUrl?: string
@@ -24,7 +25,7 @@ const handleRemoveFile = (file: ChatFile) => {
 	console.log('File removed:', file.name)
 }
 
-const messages = ref([...msgs])
+const messages = ref(generateMockMessages(10))
 // Example uploader (simulate async)
 const chunkUpload = async (file: File) => {
 	console.log('Uploading chunk for:', file.name)
@@ -33,19 +34,12 @@ const chunkUpload = async (file: File) => {
 const layoutRef = ref<InstanceType<typeof DXChatLayout> | null>(null)
 const isTyping = ref(false)
 
-function createRandomKey(): string {
-	return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-		const r = Math.random() * 16 | 0;
-		const v = c === "x" ? r : (r & 0x3) | 0x8;
-		return v.toString(16);
-	});
-}
 
 const handleSubmit = (msg: string) => {
 	const date = new Date().toISOString();
 	messages.value.push({
-		"id": createRandomKey(),
-		"uuid": createRandomKey(),
+		"id": uuidv4(),
+		"uuid": uuidv4(),
 		"attachment_id": null,
 		"record": null,
 		"text": msg,
