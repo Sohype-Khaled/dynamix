@@ -27,9 +27,9 @@
   "scripts": {
     "dev": "vite",
     "clean": "rm -rf dist",
+    "build": "yarn clean && vue-tsc -b && vite build",
     "build:js": "vite build",
     "build:css": "vite build -c vite.config.css.js",
-    "build": "yarn clean && vue-tsc -b && yarn build:js && yarn build:css",
     "prepare:publish": "rm -rf publish && mkdir publish && rsync -a dist/ publish/ && cp package.json README.md publish/",
     "pack:lib": "yarn build && yarn prepare:publish && cd publish && yarn pack",
     "preview": "vite preview"
