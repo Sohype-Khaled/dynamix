@@ -27,9 +27,7 @@ const props = withDefaults(defineProps<{
 	unseenCount: 0
 });
 
-const emit = defineEmits<{
-	(e: 'openRoom'): void
-}>();
+const emit = defineEmits<{ (e: 'openRoom'): void }>();
 
 
 const icon = computed(() => {
@@ -64,8 +62,6 @@ function formatOldMessagesOnly(date: Date, now = new Date()): string {
 	}
 	return formatToMMDDYYYY(date);
 }
-
-
 
 
 </script>
@@ -104,7 +100,7 @@ function formatOldMessagesOnly(date: Date, now = new Date()): string {
 			<div class="w-4/6 max-w-4/6">
 				<div class="text-xs capitalize grow">
 	        <span
-		        class="block truncate whitespace-nowrap overflow-hidden"
+		        class="block truncate whitespace-nowrap overflow-hidden w-5/6"
 		        :class="[unseenCount > 0 ? 'text-gray-700 font-semibold' : 'text-gray-600 font-medium']"
 		        v-text="peerNames"/>
 

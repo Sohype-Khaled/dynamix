@@ -6,14 +6,19 @@ import {Icon} from "@iconify/vue";
 type Size = 'xs' | 'sm' | 'base' | 'lg' | 'xl'
 type IconPosition = "left" | "right";
 
+defineOptions({ inheritAttrs: false })
+
 const props = withDefaults(defineProps<{
 	name: string
 	label: string
-	size?: Size,
+	activeTab: string
+	setActiveTab: (name: string) => void
+	size?: Size
 	pill?: boolean
-	icon?: string,
-	iconPosition?: IconPosition,
+	icon?: string
+	iconPosition?: IconPosition
 	classMap?: string
+	fillSpace?: boolean
 }>(), {
 	size: 'base',
 	pill: false,
@@ -21,58 +26,56 @@ const props = withDefaults(defineProps<{
 	classMap: '',
 })
 
-
-const slots = useSlots()
-const hasCustomContent = computed(() => !!slots.default)
+const emit = defineEmits<{
+	(e: 'click', value: string): void
+}>()
 
 const options = useDynamixOptions();
 const preset = options?.tabPresets?.classMap ?? {};
 
-
-const activeTab = inject('activeTab') as Ref<string>
-const setActiveTab = inject('setActiveTab') as (name: string) => void
-
-const isActive = computed(() => props.name === activeTab.value)
+const slots = useSlots()
+const hasCustomContent = computed(() => !!slots.default)
+const isActive = computed(() => props.name === props.activeTab)
 
 const tabClasses = computed(() => [
 	!hasCustomContent.value && 'tab',
 	`tab-${props.size}`,
+	props.fillSpace ? 'fill-space' : '',
 	props.pill ? 'pill' : '',
 	props.icon ? 'tab-icon' : '',
 	isActive.value ? preset.active : preset.base,
 ]);
 
+const setActiveTab = (name: string) => {
+	emit('click', name)
+	props.setActiveTab(name)
+}
 </script>
 
 <template>
-		<button
-			:class="tabClasses"
-			@click="setActiveTab(props.name)"
-		>
-			<template v-if="hasCustomContent">
-				<slot />
-			</template>
-
-			<template v-else>
-				<!-- Icon (only if not loading) -->
-				<Icon v-if="props.icon && props.iconPosition === 'left'" :icon="props.icon" />
-
-				<!-- Label -->
-				<span v-if="props.label">{{ props.label }}</span>
-
-				<!-- Icon or spinner on right -->
-				<Icon v-if="props.icon && props.iconPosition === 'right'" :icon="props.icon" />
-			</template>
-		</button>
+	<button
+		:class="tabClasses"
+		@click="() => setActiveTab(name)"
+	>
+		<slot v-if="hasCustomContent" />
+		<template v-else>
+			<Icon v-if="icon && iconPosition === 'left'" :icon="icon" />
+			<span v-if="label">{{ label }}</span>
+			<Icon v-if="icon && iconPosition === 'right'" :icon="icon" />
+		</template>
+	</button>
 </template>
 
 <style scoped>
 @import "tailwindcss";
 
 .tab {
-	@apply inline-flex cursor-pointer items-center justify-center  text-center font-medium transition duration-150 ease-in-out focus:outline-none;
+	@apply inline-flex cursor-pointer items-center justify-center text-center font-medium transition duration-150 ease-in-out focus:outline-none rounded-t-md;
 }
 
+.tab.fill-space {
+	@apply w-full;
+}
 .tab.pill {
 	@apply rounded-full;
 }

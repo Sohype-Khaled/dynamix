@@ -6,6 +6,8 @@ import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vu
 import {generateMockRooms} from "./data.ts";
 import {computed, reactive, ref} from "vue";
 import DXChatListItem from "@/components/DXChat/DXChatListItem/DXChatListItem.vue";
+import DXTabs from "@/components/DXTabs/DXTabs.vue";
+import DXTab from "@/components/DXTabs/DXTab.vue";
 
 const layoutRef = ref<InstanceType<typeof DXChatLayout> | null>(null)
 
@@ -16,6 +18,12 @@ const roomsMap = reactive({
 })
 
 const selectedType = ref('typeA')
+const selectedFilter = ref('all')
+const filterOptions = ref([
+	{label: 'All', value: 'all'},
+	{label: 'Active', value: 'active'},
+	{label: 'Archived', value: 'archived'},
+])
 
 const rooms = computed(() => roomsMap[selectedType.value as keyof typeof roomsMap])
 
@@ -25,6 +33,9 @@ const getPeersImages = (room: any): { src: string; alt: string }[] =>
 		alt: user.username ?? ''
 	}))
 
+const filterChanged = (filter: string) => {
+	console.log("Filter changed:", filter)
+}
 
 </script>
 
@@ -45,23 +56,39 @@ const getPeersImages = (room: any): { src: string; alt: string }[] =>
 				<DXButton size="sm" icon="mdi:close"/>
 			</template>
 
-			<DXChatListItem
-				v-for="room in rooms"
-				:key="room.uuid"
-				:sent-at="room.sentAt"
-				:is-closed="room.isClosed"
-				:title="room.title"
-				:message="room.text || ''"
-				:has-attachment="room.hasAttachment"
-				:has-audio="room.hasAudio"
-				:unseen-count="room.unseenCount"
-				:users="room.peerImages || []"
-				:peers="room.peers"
-				:peer-names="room.peerNames"
-				:peer-images="room.peerImages"
-				:indicator="room.indicator"
-				:indicator-color="room.indicatorColor"
-			/>
+
+			<DXTabs v-model="selectedFilter">
+				<template #tabs="{ activeTab, setActiveTab }">
+					<DXTab
+						v-for="option in filterOptions"
+						:key="option.value"
+						:name="option.value"
+						:label="option.label"
+						:activeTab="activeTab"
+						:setActiveTab="setActiveTab"
+						@click="filterChanged(option.value)"
+						fill-space/>
+				</template>
+
+				<DXChatListItem
+					v-for="room in rooms"
+					:key="room.uuid"
+					:sent-at="room.sentAt"
+					:is-closed="room.isClosed"
+					:title="room.title"
+					:message="room.text || ''"
+					:has-attachment="room.hasAttachment"
+					:has-audio="room.hasAudio"
+					:unseen-count="room.unseenCount"
+					:users="room.peerImages || []"
+					:peers="room.peers"
+					:peer-names="room.peerNames"
+					:peer-images="room.peerImages"
+					:indicator="room.indicator"
+					:indicator-color="room.indicatorColor"
+				/>
+			</DXTabs>
+
 
 			<template #footer>
 			</template>

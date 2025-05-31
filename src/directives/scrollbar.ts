@@ -1,11 +1,18 @@
 import type { Directive } from 'vue';
-import { useDynamixOptions } from '@/globals/plugin-symbol';
 
 type ScrollbarSize = 'thin' | 'medium' | 'thick';
+
+interface ScrollbarPresets {
+  trackColor?: string;
+  thumbColor?: string;
+  thumbHoverColor?: string;
+  thumbRadius?: number;
+}
 
 interface ScrollbarOptions {
   size?: ScrollbarSize;
   trackHidden?: boolean;
+  presets?: ScrollbarPresets;
 }
 
 function isString(value: unknown): value is string {
@@ -13,9 +20,8 @@ function isString(value: unknown): value is string {
 }
 
 function setScrollbarStyles(el: HTMLElement, options: ScrollbarOptions = {}) {
-  const dynamixOptions = useDynamixOptions();
-  const presets = dynamixOptions?.scrollbarPresets ?? {};
   const size = options.size ?? 'medium';
+  const presets = options.presets ?? {};
 
   const sizeMap = {
     thin: { track: '4px', thumb: '3px' },

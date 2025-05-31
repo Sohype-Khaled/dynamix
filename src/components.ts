@@ -32,6 +32,8 @@ import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vu
 import DXChatLayout from "@/components/DXChat/DXChatLayout/DXChatLayout.vue";
 import DXChatBubble from "@/components/DXChat/DXChatBubble/DXChatBubble.vue";
 import DXChatListItem from "@/components/DXChat/DXChatListItem/DXChatListItem.vue";
+import DXTabs from "@/components/DXTabs/DXTabs.vue";
+import DXTab from "@/components/DXTabs/DXTab.vue";
 
 export {
   DXButton,
@@ -63,6 +65,9 @@ export {
   DXDialogBody,
   DXDialogFooter,
   DXDialogConfirmation,
+  DXTabs,
+  DXTab,
+
 
   DXChatForm,
   DXChatTextInput,

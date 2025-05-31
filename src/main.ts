@@ -27,7 +27,7 @@ app.use(DynamixPlugin, {
   },
   tabPresets: {
     classMap: {
-      base: 'bg-white text-gray-500 hover:bg-[#FDF1E5] hover:text-primary',
+      base: 'bg-white text-gray-500 hover:bg-primary-50/10 hover:text-primary',
       active: 'bg-primary-50/25 text-primary border-b-2 border-primary',
     }
   },

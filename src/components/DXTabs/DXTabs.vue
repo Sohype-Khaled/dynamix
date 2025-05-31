@@ -1,33 +1,34 @@
 <script setup lang="ts">
-import {computed, provide, ref} from 'vue'
+import {ref, watch} from 'vue'
 import {vScrollbar} from "@/directives/scrollbar.ts";
 import type {ScrollbarSize} from "@/types/scroll";
+import {useDynamixOptions} from "@/globals/plugin-symbol.ts";
 
 const props = withDefaults(defineProps<{
-	modelValue?: string;
+	modelValue: string;
 	scrollable?: boolean;
 	scrollSize?: ScrollbarSize;
 	singlePanel?: boolean;
+	noStyle?: boolean;
 }>(), {
 	scrollable: false,
 	scrollSize: 'medium',
+	noStyle: false
 })
+
+const options = useDynamixOptions();
+const scrollbarPresets = options?.scrollbarPresets ?? {};
 
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: string): void
 }>()
 
+const activeTab = ref(props.modelValue)
+watch(() => props.modelValue, v => activeTab.value = v)
 
-const tabsClasses = computed(() => [
-	'tabs',
-	props.scrollable ? 'scroll' : '',
-	props.scrollable ? 'scrollable' : '',
-	props.scrollSize ? `scroll-${props.scrollSize}` : '',
-])
-const activeTab = ref(props.modelValue ?? '')
 const sectionRefs = ref<Record<string, HTMLElement | null>>({})
 
-const setActiveTab = (name: string) => {
+function setActiveTab(name: string) {
 	activeTab.value = name
 	emit('update:modelValue', name)
 
@@ -36,34 +37,30 @@ const setActiveTab = (name: string) => {
 	}
 }
 
-provide('activeTab', activeTab)
-provide('setActiveTab', setActiveTab)
-provide('registerTabSection', (name: string, el: HTMLElement) => {
+function registerTabSection(name: string, el: HTMLElement) {
 	sectionRefs.value[name] = el
-})
+}
 </script>
 
 <template>
-	<div class="w-full">
-		<div
-			class="tabs"
-			v-if="props.scrollable"
-			v-scrollbar="props.scrollSize"
-		>
-			<slot name="tabs"/>
-		</div>
-		<div
-			class="tabs"
-			v-else
-		>
-			<slot name="tabs"/>
-		</div>
 
-		<div class="pt-4">
-			<slot/>
-		</div>
+	<div
+		v-if="props.scrollable"
+		:class="[noStyle ? 'vue-dynamix' : 'tabs vue-dynamix']"
+		v-scrollbar="{ size: scrollSize, presets: scrollbarPresets }"
+	>
+		<!-- Provide activeTab and setActiveTab to slot -->
+		<slot name="tabs" :activeTab="activeTab" :setActiveTab="setActiveTab"/>
 	</div>
 
+	<div v-else :class="[noStyle ? 'vue-dynamix' : 'tabs vue-dynamix']">
+		<!-- Provide activeTab and setActiveTab to slot -->
+		<slot name="tabs" :activeTab="activeTab" :setActiveTab="setActiveTab"/>
+	</div>
+
+	<div class="w-full">
+		<slot :activeTab="activeTab" :registerTabSection="registerTabSection"/>
+	</div>
 </template>
 
 
@@ -71,11 +68,11 @@ provide('registerTabSection', (name: string, el: HTMLElement) => {
 @import "tailwindcss";
 
 .tabs {
-	@apply flex flex-wrap;
+	@apply flex w-full justify-between flex-nowrap;
 }
 
 .scroll {
-	@apply overflow-x-auto flex-nowrap;
+	@apply overflow-x-auto;
 }
 
 </style>
