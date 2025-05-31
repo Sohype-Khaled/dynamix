@@ -146,13 +146,13 @@ const getCategoryIcon = (category: string): string => {
 
 			<DXTabs v-model="selectedCategory" singlePanel scrollable scrollSize="thin">
 				<template #tabs>
-					<DXTab
-						size="xs"
-						v-for="category in categories"
-						:key="category"
-						:name="category"
-						:label="category === 'all' ? '🌐' : getCategoryIcon(category)"
-					/>
+<!--					<DXTab-->
+<!--						size="xs"-->
+<!--						v-for="category in categories"-->
+<!--						:key="category"-->
+<!--						:name="category"-->
+<!--						:label="category === 'all' ? '🌐' : getCategoryIcon(category)"-->
+<!--					/>-->
 				</template>
 
 <!--				<div class="max-h-64  p-2 scrollbar space-y-6">-->
