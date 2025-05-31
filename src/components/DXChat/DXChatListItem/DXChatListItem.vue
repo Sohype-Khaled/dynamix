@@ -67,19 +67,19 @@ function formatOldMessagesOnly(date: Date, now = new Date()): string {
 </script>
 
 <template>
-	<div class="relative group cursor-pointer h-16"
+	<div class="relative group cursor-pointer h-[64px]"
 	     @click="emit('openRoom')">
 		<!-- Overlay -->
 		<div
 			class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-30 transition-opacity duration-200 pointer-events-none rounded-md">
 		</div>
 
-		<div class="flex items-center rounded-md relative z-10 h-full p-3 pe-3 gap-3">
+		<div class="flex items-center rounded-md relative z-10 h-full p-[12px] pe-[12px] gap-[12px]">
 			<!-- User Image -->
 			<div class="w-1/6 flex items-center justify-center">
 				<!--				<Tooltip>-->
 				<DXAvatar
-					sizeClass="w-12 h-12"
+					sizeClass="w-[48px] h-[48px]"
 					:items="peerImages"
 					circle
 					:grid="peerImages.length > 1"
@@ -98,7 +98,7 @@ function formatOldMessagesOnly(date: Date, now = new Date()): string {
 
 			<!-- Room Details -->
 			<div class="w-4/6 max-w-4/6">
-				<div class="text-xs capitalize grow">
+				<div class="text-[12px] capitalize grow">
 	        <span
 		        class="block truncate whitespace-nowrap overflow-hidden w-5/6"
 		        :class="[unseenCount > 0 ? 'text-gray-700 font-semibold' : 'text-gray-600 font-medium']"
@@ -112,29 +112,29 @@ function formatOldMessagesOnly(date: Date, now = new Date()): string {
 
 				<div class="flex items-center justify-between">
 					<p
-						class="text-xs truncate overflow-hidden flex items-center"
+						class="text-[12px] truncate overflow-hidden flex items-center"
 						:class="[unseenCount > 0 ? 'text-gray-700 font-semibold' : 'text-gray-500 font-medium']">
-						<Icon :icon="icon" class="h-4 w-4" v-if="icon"/>
+						<Icon :icon="icon" class="h-[16px] w-[16px]" v-if="icon"/>
 						<span class="whitespace-nowrap truncate w-full">{{ content }}</span>
 					</p>
 				</div>
 			</div>
 
 			<p
-				class="absolute top-3 right-3 font-semibold text-[10px] leading-[0.9] text-gray-600 group-hover:opacity-0 transition-opacity duration-200"
+				class="absolute top-[12px] right-[12px] font-semibold text-[10px] leading-[0.9] text-gray-600 group-hover:opacity-0 transition-opacity duration-200"
 				v-time-update.custom="{datetime: sentAt, format: formatOldMessagesOnly}"/>
 
 			<div
-				class="absolute bottom-3 right-3 flex items-center group-hover:opacity-0 transition-opacity duration-200"
+				class="absolute bottom-[12px] right-[12px] flex items-center group-hover:opacity-0 transition-opacity duration-200"
 				:class="{
 				'': !isClosed
 			}">
 				<p
 					v-if="unseenCount"
-					class="inline-flex items-center justify-center w-5 h-5 text-[10px] font-semibold text-white bg-primary rounded-full leading-none "
+					class="inline-flex items-center justify-center w-[20px] h-[20px] text-[10px] font-semibold text-white bg-primary rounded-full leading-none "
 					v-text="unseenCount"
 				/>
-				<Icon icon="mdi:lock-outline" class="h-5 w-5 text-primary" v-if="isClosed"/>
+				<Icon icon="mdi:lock-outline" class="h-[20px] w-[20px] text-primary" v-if="isClosed"/>
 			</div>
 			<DXButton
 				v-if="actions && actions.length"

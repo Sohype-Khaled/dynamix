@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed} from 'vue'
 
 // Types
 
@@ -10,11 +10,11 @@ type AvatarLike = {
 }
 
 const avatarSizeClasses = {
-	xs: 'w-6 h-6',
-	sm: 'w-8 h-8',
-	md: 'w-10 h-10',
-	lg: 'w-20 h-20',
-	xl: 'w-36 h-36',
+	xs: 'w-[24px] h-[24px]',
+	sm: 'w-[32px] h-[32px]',
+	md: 'w-[40px] h-[40px]',
+	lg: 'w-[48px] h-[48px]',
+	xl: 'w-[64px] h-[64px]',
 } as const
 
 // Types
@@ -74,17 +74,23 @@ const sizeClass = computed(() => props.customSizeClass?.trim() || avatarSizeClas
 const containerSizeClass = computed(() => props.squareContainer || isSingle.value ? sizeClass.value : '')
 const overlapMargin = computed(() => {
 	switch (props.size) {
-		case 'xs': return '-ml-1 -mt-1'
-		case 'sm': return '-ml-1.5 -mt-1.5'
-		case 'md': return '-ml-2 -mt-2'
-		case 'lg': return '-ml-3 -mt-3'
-		case 'xl': return '-ml-4 -mt-4'
-		default: return '-ml-2 -mt-2'
+		case 'xs':
+			return '-ml-[4px] -mt-[4px]'
+		case 'sm':
+			return '-ml-[6px] -mt-[6px]'
+		case 'md':
+			return '-ml-[8px] -mt-[8px]'
+		case 'lg':
+			return '-ml-[12px] -mt-[12px]'
+		case 'xl':
+			return '-ml-[16px] -mt-[16px]'
+		default:
+			return '-ml-[8px] -mt-[8px]'
 	}
 })
 const layoutClass = computed(() => {
 	if (isSingle.value) return 'flex items-center justify-center'
-	if (props.grid) return `grid grid-cols-${props.gridCols} gap-0.5`
+	if (props.grid) return `grid grid-cols-${props.gridCols} gap-[8px]`
 	if (props.overlap) return 'flex flex-wrap content-start items-start'
 	return ''
 })
@@ -155,7 +161,7 @@ const indicatorClass = computed(() => {
 				/>
 				<div
 					v-else
-					class="w-full h-full flex items-center justify-center text-sm font-semibold uppercase"
+					class="w-full h-full flex items-center justify-center text-[14px] font-semibold uppercase"
 					:class="[props.backgroundColor, props.textColor, shapeClass]"
 				>
 					{{ item.alt?.charAt(0) || '?' }}
@@ -180,7 +186,7 @@ const indicatorClass = computed(() => {
         overlapEnabled ? overlapMargin : ''
       ]"
 		>
-			<div class="w-full h-full flex items-center justify-center text-sm font-semibold">
+			<div class="w-full h-full flex items-center justify-center text-[14px] font-semibold">
 				+{{ overflowCount }}
 			</div>
 		</div>
