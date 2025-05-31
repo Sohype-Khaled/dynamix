@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<{
 	indicator?: boolean;
 	indicatorColor?: string;
 	indicatorPosition?: string;
+	actions?: Array<any>;
 }>(), {
 	unseenCount: 0
 });
@@ -63,6 +64,8 @@ function formatOldMessagesOnly(date: Date, now = new Date()): string {
 	}
 	return formatToMMDDYYYY(date);
 }
+
+
 
 
 </script>
@@ -137,12 +140,14 @@ function formatOldMessagesOnly(date: Date, now = new Date()): string {
 				/>
 				<Icon icon="mdi:lock-outline" class="h-5 w-5 text-primary" v-if="isClosed"/>
 			</div>
-			<DXButton rounded
-			          ripple
-			          text
-			          severity="primary"
-			          icon="mdi:dots-horizontal"
-			          class="opacity-0 group-hover:opacity-100"/>
+			<DXButton
+				v-if="actions && actions.length"
+				rounded
+				ripple
+				text
+				severity="primary"
+				icon="mdi:dots-horizontal"
+				class="opacity-0 group-hover:opacity-100"/>
 		</div>
 	</div>
 </template>
