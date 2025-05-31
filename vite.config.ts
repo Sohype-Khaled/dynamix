@@ -12,6 +12,7 @@ import {fileURLToPath, URL} from "node:url";
 // @ts-ignore
 export default defineConfig((command: any, mode: any) => {
   const tailwindConfigForBuildLib = {
+    darkMode: "class",
     content: [
       "./src/components/**/*.vue",
       "./src/app/**/*.vue",
@@ -20,6 +21,7 @@ export default defineConfig((command: any, mode: any) => {
   };
 
   const tailwindConfigForServe = {
+    darkMode: "class",
     content: [
       "./index.html", // Scans the main HTML file
       "./src/**/*.{vue,js,ts,jsx,tsx}", // Scans all Vue, JS, TS files in src
