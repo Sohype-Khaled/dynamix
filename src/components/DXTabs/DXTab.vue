@@ -37,15 +37,18 @@ const slots = useSlots() as Slots
 const hasCustomSlot = computed(() => !!slots.default)
 const isActive = computed(() => props.name === props.activeTab)
 
-const tabClasses = computed(() => [
-	'tab',
-	`tab-${props.size}`,
-	props.fillSpace ? 'fill-space' : '',
-	props.pill ? 'pill' : '',
-	props.icon ? 'tab-icon' : '',
-	isActive.value ? preset.active : preset.base,
-	props.classMap
-])
+const tabClasses = computed(() => {
+	if (hasCustomSlot.value) return ''
+	return [
+		'tab',
+		`tab-${props.size}`,
+		props.fillSpace ? 'fill-space' : '',
+		props.pill ? 'pill' : '',
+		props.icon ? 'tab-icon' : '',
+		isActive.value ? preset.active : preset.base,
+		props.classMap
+	]
+})
 
 const setActiveTab = () => {
 	emit('click', props.name)
