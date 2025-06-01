@@ -97,7 +97,9 @@ defineExpose({
 	>
 		<slot/>
 	</div>
-	<div ref="footerElementRef" :class="[footerClass, 'vue-dynamix']">
+	<div ref="footerElementRef"
+	     v-if="$slots.footer"
+	     :class="[footerClass, 'vue-dynamix']">
 		<slot name="footer"/>
 	</div>
 </template>

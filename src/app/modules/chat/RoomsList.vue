@@ -8,6 +8,7 @@ import {computed, reactive, ref} from "vue";
 import DXChatListItem from "@/components/DXChat/DXChatListItem/DXChatListItem.vue";
 import DXTabs from "@/components/DXTabs/DXTabs.vue";
 import DXTab from "@/components/DXTabs/DXTab.vue";
+import ChatNav from "@/app/modules/chat/ChatNav.vue";
 
 const layoutRef = ref<InstanceType<typeof DXChatLayout> | null>(null)
 
@@ -92,6 +93,8 @@ const filterChanged = (filter: string) => {
 
 
 			<template #footer>
+				<ChatNav/>
+
 			</template>
 		</DXChatLayout>
 	</DXChatContainer>

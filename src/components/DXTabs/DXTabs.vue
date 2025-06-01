@@ -45,6 +45,7 @@ function registerTabSection(name: string, el: HTMLElement) {
 
 <template>
 	<div
+		v-bind="$attrs"
 		:class="[noStyle ? 'vue-dynamix' : 'tabs vue-dynamix', scrollable ? 'relative' : '']"
 		v-scrollbar="scrollable ? { size: scrollSize, presets: scrollbarPresets } : undefined"
 	>

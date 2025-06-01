@@ -57,26 +57,29 @@ const setActiveTab = () => {
 </script>
 
 <template>
-	<slot
-		v-if="hasCustomSlot"
-		:name="name"
-		:isActive="isActive"
-		:setActiveTab="setActiveTab"
-		:label="label"
-		:icon="icon"
-		:iconPosition="iconPosition"
-	/>
-	<button
-		v-else
-		:class="tabClasses"
-		@click="setActiveTab"
-		role="tab"
-		:aria-selected="isActive"
-	>
-		<Icon v-if="icon && iconPosition === 'left'" :icon="icon" />
-		<span v-if="label">{{ label }}</span>
-		<Icon v-if="icon && iconPosition === 'right'" :icon="icon" />
-	</button>
+
+	<template v-if="hasCustomSlot">
+		<slot
+			:isActive="isActive"
+			:setActiveTab="setActiveTab"
+			:label="label"
+			:icon="icon"
+			:iconPosition="iconPosition"
+		/>
+	</template>
+	<template v-else>
+		<button
+			:class="tabClasses"
+			@click="setActiveTab"
+			role="tab"
+			:aria-selected="isActive"
+		>
+			<Icon v-if="icon && iconPosition === 'left'" :icon="icon" />
+			<span v-if="label">{{ label }}</span>
+			<Icon v-if="icon && iconPosition === 'right'" :icon="icon" />
+		</button>
+	</template>
+
 </template>
 
 <style scoped>
