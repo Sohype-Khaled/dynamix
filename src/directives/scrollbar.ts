@@ -1,19 +1,7 @@
 import type { Directive } from 'vue';
+import type {ScrollbarOptions, ScrollbarSize} from "@/types/scroll";
 
-type ScrollbarSize = 'thin' | 'medium' | 'thick';
 
-interface ScrollbarPresets {
-  trackColor?: string;
-  thumbColor?: string;
-  thumbHoverColor?: string;
-  thumbRadius?: number;
-}
-
-interface ScrollbarOptions {
-  size?: ScrollbarSize;
-  trackHidden?: boolean;
-  presets?: ScrollbarPresets;
-}
 
 function isString(value: unknown): value is string {
   return typeof value === 'string';
@@ -74,17 +62,19 @@ function setScrollbarStyles(el: HTMLElement, options: ScrollbarOptions = {}) {
   }
 }
 
-export const vScrollbar: Directive<HTMLElement, ScrollbarOptions | ScrollbarSize> = {
+export const vScrollbar: Directive<HTMLElement, ScrollbarOptions | ScrollbarSize | undefined> = {
   mounted(el, binding) {
+    if (binding.value === undefined) return;
     const value = isString(binding.value)
       ? { size: binding.value }
-      : binding.value ?? {};
+      : binding.value;
     setScrollbarStyles(el, value);
   },
   updated(el, binding) {
+    if (binding.value === undefined) return;
     const value = isString(binding.value)
       ? { size: binding.value }
-      : binding.value ?? {};
+      : binding.value;
     setScrollbarStyles(el, value);
   },
 };

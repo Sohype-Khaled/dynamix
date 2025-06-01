@@ -28,6 +28,7 @@ watch(() => props.modelValue, v => activeTab.value = v)
 
 const sectionRefs = ref<Record<string, HTMLElement | null>>({})
 
+
 function setActiveTab(name: string) {
 	activeTab.value = name
 	emit('update:modelValue', name)
@@ -43,24 +44,14 @@ function registerTabSection(name: string, el: HTMLElement) {
 </script>
 
 <template>
-
 	<div
-		v-if="props.scrollable"
-		:class="[noStyle ? 'vue-dynamix' : 'tabs vue-dynamix']"
-		v-scrollbar="{ size: scrollSize, presets: scrollbarPresets }"
+		:class="[noStyle ? 'vue-dynamix' : 'tabs vue-dynamix', scrollable ? 'relative' : '']"
+		v-scrollbar="scrollable ? { size: scrollSize, presets: scrollbarPresets } : undefined"
 	>
-		<!-- Provide activeTab and setActiveTab to slot -->
 		<slot name="tabs" :activeTab="activeTab" :setActiveTab="setActiveTab"/>
 	</div>
 
-	<div v-else :class="[noStyle ? 'vue-dynamix' : 'tabs vue-dynamix']">
-		<!-- Provide activeTab and setActiveTab to slot -->
-		<slot name="tabs" :activeTab="activeTab" :setActiveTab="setActiveTab"/>
-	</div>
-
-	<div class="w-full">
-		<slot :activeTab="activeTab" :registerTabSection="registerTabSection"/>
-	</div>
+	<slot :activeTab="activeTab" :registerTabSection="registerTabSection"/>
 </template>
 
 
@@ -70,9 +61,4 @@ function registerTabSection(name: string, el: HTMLElement) {
 .tabs {
 	@apply flex w-full justify-between flex-nowrap;
 }
-
-.scroll {
-	@apply overflow-x-auto;
-}
-
 </style>

@@ -58,7 +58,7 @@ const filterChanged = (filter: string) => {
 
 
 			<DXTabs v-model="selectedFilter">
-				<template #tabs="{ activeTab, setActiveTab }">
+				<template #tabs="{ activeTab, setActiveTab, registerTab }">
 					<DXTab
 						v-for="option in filterOptions"
 						:key="option.value"
@@ -66,8 +66,10 @@ const filterChanged = (filter: string) => {
 						:label="option.label"
 						:activeTab="activeTab"
 						:setActiveTab="setActiveTab"
+						:registerTab="registerTab"
 						@click="filterChanged(option.value)"
-						fill-space/>
+						fill-space
+					/>
 				</template>
 
 				<DXChatListItem

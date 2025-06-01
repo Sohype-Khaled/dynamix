@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {computed, inject, type Ref, useSlots} from 'vue'
-import {useDynamixOptions} from "@/globals/plugin-symbol.ts";
-import {Icon} from "@iconify/vue";
+import { computed, useSlots } from 'vue'
+import { Icon } from '@iconify/vue'
+import { useDynamixOptions } from '@/globals/plugin-symbol.ts'
 
 type Size = 'xs' | 'sm' | 'base' | 'lg' | 'xl'
-type IconPosition = "left" | "right";
+type IconPosition = 'left' | 'right'
 
 defineOptions({ inheritAttrs: false })
 
@@ -30,39 +30,49 @@ const emit = defineEmits<{
 	(e: 'click', value: string): void
 }>()
 
-const options = useDynamixOptions();
-const preset = options?.tabPresets?.classMap ?? {};
+const options = useDynamixOptions()
+const preset = options?.tabPresets?.classMap ?? {}
 
 const slots = useSlots()
-const hasCustomContent = computed(() => !!slots.default)
+const hasCustomSlot = computed(() => !!slots.default)
 const isActive = computed(() => props.name === props.activeTab)
 
 const tabClasses = computed(() => [
-	!hasCustomContent.value && 'tab',
+	'tab',
 	`tab-${props.size}`,
 	props.fillSpace ? 'fill-space' : '',
 	props.pill ? 'pill' : '',
 	props.icon ? 'tab-icon' : '',
 	isActive.value ? preset.active : preset.base,
-]);
+	props.classMap
+])
 
-const setActiveTab = (name: string) => {
-	emit('click', name)
-	props.setActiveTab(name)
+const setActiveTab = () => {
+	emit('click', props.name)
+	props.setActiveTab(props.name)
 }
 </script>
 
 <template>
+	<slot
+		v-if="hasCustomSlot"
+		:name="name"
+		:isActive="isActive"
+		:setActiveTab="setActiveTab"
+		:label="label"
+		:icon="icon"
+		:iconPosition="iconPosition"
+	/>
 	<button
+		v-else
 		:class="tabClasses"
-		@click="() => setActiveTab(name)"
+		@click="setActiveTab"
+		role="tab"
+		:aria-selected="isActive"
 	>
-		<slot v-if="hasCustomContent" />
-		<template v-else>
-			<Icon v-if="icon && iconPosition === 'left'" :icon="icon" />
-			<span v-if="label">{{ label }}</span>
-			<Icon v-if="icon && iconPosition === 'right'" :icon="icon" />
-		</template>
+		<Icon v-if="icon && iconPosition === 'left'" :icon="icon" />
+		<span v-if="label">{{ label }}</span>
+		<Icon v-if="icon && iconPosition === 'right'" :icon="icon" />
 	</button>
 </template>
 
