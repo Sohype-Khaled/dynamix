@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import {computed, type Slots, useSlots} from 'vue'
 import { Icon } from '@iconify/vue'
 import { useDynamixOptions } from '@/globals/plugin-symbol.ts'
 
@@ -33,7 +33,7 @@ const emit = defineEmits<{
 const options = useDynamixOptions()
 const preset = options?.tabPresets?.classMap ?? {}
 
-const slots = useSlots()
+const slots = useSlots() as Slots
 const hasCustomSlot = computed(() => !!slots.default)
 const isActive = computed(() => props.name === props.activeTab)
 
