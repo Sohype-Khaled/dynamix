@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, nextTick, onMounted, ref, watch} from "vue";
+import {computed, nextTick, onMounted, type Ref, ref, watch} from "vue";
 import {Icon} from "@iconify/vue";
 import {useTipTapOutput} from "@/composables/useTipTapOutput.ts";
 import {vTimeUpdate} from "@/directives/timeUpdate.ts";
@@ -11,7 +11,9 @@ const props = defineProps<{
 	sentAt: string | Date;
 	state: 'sent' | 'delivered' | 'seen';
 }>();
-const {content} = useTipTapOutput(props.content, {
+
+const textContentRef = computed(() => props.content ?? '');
+const {content} = useTipTapOutput(textContentRef as Ref<string>, {
 	outputType: 'html'
 });
 
@@ -68,7 +70,8 @@ watch(() => props.content, checkOverflow);
 			v-text="username"/>
 
 			<!-- Dynamically loaded bubble component -->
-			<div v-if="content" class="text-[12px] font-normal mb-[8px] text-gray-700 max-w-100 break-words whitespace-pre-wrap">
+			<div v-if="content"
+			     class="text-[12px] font-normal mb-[8px] text-gray-700 max-w-100 break-words whitespace-pre-wrap">
 				<div
 					:class="textClampClass"
 					v-html="content"

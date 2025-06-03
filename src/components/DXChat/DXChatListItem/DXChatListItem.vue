@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, type Ref} from "vue";
 import {Icon} from "@iconify/vue";
 import {useTipTapOutput} from "@/composables/useTipTapOutput.ts";
 import DXAvatar from "@/components/DXAvatar.vue";
@@ -36,7 +36,8 @@ const icon = computed(() => {
 	return '';
 });
 
-const {content} = useTipTapOutput(props.message ?? '', {
+const textContentRef = computed(() => props.message ?? '');
+const {content} = useTipTapOutput(textContentRef as Ref<string>, {
 	outputType: 'text',
 });
 

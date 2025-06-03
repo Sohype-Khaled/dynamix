@@ -1,5 +1,5 @@
-import { computed, ref, watchEffect } from 'vue'; // Added ref and watchEffect
-import { generateHTML } from '@tiptap/core';
+import {computed, ref, type Ref, watchEffect} from 'vue'; // Added Ref
+import {generateHTML} from '@tiptap/core';
 import StarterKit from "@tiptap/starter-kit";
 
 type OutputType = 'html' | 'text' | 'raw';
@@ -8,13 +8,13 @@ interface Options {
   outputType?: OutputType;
 }
 
-export function useTipTapOutput(inputProp: string, options: Options = {}) { // Renamed input to inputProp for clarity
-  const { outputType = 'html' } = options;
+export function useTipTapOutput(inputProp: Ref<string>, options: Options = {}) {
+  const {outputType = 'html'} = options;
   const outputContent = ref<string | object>(''); // Use a ref, allow object for 'raw' type
 
   watchEffect(() => {
-    // Ensure inputProp is not null or undefined before trimming
-    const trimmed = inputProp ? inputProp.trim() : '';
+    // Access .value since inputProp is a Ref
+    const trimmed = inputProp.value ? inputProp.value.trim() : '';
     let result: string | object = ''; // Ensure result can be an object for 'raw'
 
     if (!trimmed) {
@@ -43,31 +43,33 @@ export function useTipTapOutput(inputProp: string, options: Options = {}) { // R
           return;
         }
       } catch (e) {
-        // If JSON parsing fails but it looked like JSON, it might be malformed.
-        // Current logic falls through.
         console.warn('Invalid JSON content or structure:', e);
+        // Fall through if not valid TipTap JSON
       }
     }
 
-    // 2. Treat as raw HTML (if not parsed as JSON)
-    // Check if it wasn't processed by JSON block but still looks like HTML
-    if (typeof result !== 'object' && trimmed.startsWith('<')) {
-      if (outputType === 'text') {
-        // A more robust way to get text from HTML
-        const el = document.createElement('div');
-        el.innerHTML = trimmed;
-        result = el.textContent?.trim() || '';
-      } else if (outputType === 'html' || outputType === 'raw') { // Treat 'raw' as html if it's not JSON
-        result = trimmed;
-      } else { // Fallback for 'text' if it wasn't caught by outputType === 'text' (should not happen)
-        result = trimmed;
+    // 2. Treat as raw HTML (if not parsed as JSON, or if JSON parsing failed)
+    // Check if it wasn't already successfully processed as JSON object
+    if (typeof outputContent.value !== 'object' || (outputContent.value && Object.keys(outputContent.value).length === 0)) { // ensure it's not already a populated JSON object
+      if (trimmed.startsWith('<')) {
+        if (outputType === 'text') {
+          const el = document.createElement('div');
+          el.innerHTML = trimmed;
+          result = el.textContent?.trim() || '';
+        } else if (outputType === 'html' || outputType === 'raw') { // Treat 'raw' as html if it's not JSON
+          result = trimmed;
+        } else { // Fallback for 'text' if it wasn't caught by outputType === 'text'
+          result = trimmed;
+        }
+        outputContent.value = result;
+        return;
       }
-      outputContent.value = result;
-      return;
     }
 
-    // 3. Plain text fallback (if not JSON and not HTML)
-    if (typeof result !== 'object') { // Ensure it wasn't already set by JSON block
+
+    // 3. Plain text fallback (if not JSON and not HTML that was processed)
+    // Ensure it wasn't already set by JSON block or HTML block
+    if (typeof outputContent.value !== 'object' || (outputContent.value && Object.keys(outputContent.value).length === 0)) {
       if (outputType === 'html') {
         result = trimmed
           .replace(/&/g, '&amp;')
