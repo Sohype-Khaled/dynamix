@@ -3,6 +3,7 @@ import ChatRoom from "@/app/modules/chat/ChatRoom.vue";
 import RoomsList from "@/app/modules/chat/RoomsList.vue";
 import {ref} from "vue";
 import DXAvatar from "@/components/DXAvatar.vue";
+import DXChatCondensedForm from "@/components/DXChat/DXChatCondensedForm/DXChatCondensedForm.vue";
 
 const avatars = ref([
 	{
@@ -56,6 +57,9 @@ const avatars = ref([
 			          size="md"
 			          indicator
 			          circle/>
+		</div>
+		<div class="w-full">
+			<DXChatCondensedForm/>
 		</div>
 	</div>
 </template>
