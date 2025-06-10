@@ -34,6 +34,12 @@
 //     ...options,
 //   };
 //
+//   let animationId: number | null = null;
+//   let analyser: AnalyserNode | null = null;
+//   let sourceNode: MediaStreamAudioSourceNode | null = null;
+//   let stream: MediaStream | null = null;
+//
+//   // Audio file rendering
 //   async function extractWaveformFromAudio(
 //     url: string,
 //     canvas: HTMLCanvasElement,
@@ -73,6 +79,54 @@
 //     });
 //   }
 //
+//   // Live waveform rendering
+//   async function renderLiveStreamFromMic(canvas: HTMLCanvasElement, context: AudioContext) {
+//     stopLiveRendering();
+//
+//     stream = await navigator.mediaDevices.getUserMedia({audio: true});
+//     sourceNode = context.createMediaStreamSource(stream);
+//     analyser = context.createAnalyser();
+//     analyser.fftSize = 256;
+//
+//     const bufferLength = analyser.frequencyBinCount;
+//     const dataArray = new Uint8Array(bufferLength);
+//
+//     sourceNode.connect(analyser);
+//
+//     const dpr = window.devicePixelRatio || 1;
+//     canvas.width = canvas.offsetWidth * dpr;
+//     canvas.height = 100 * dpr;
+//     canvas.getContext('2d')?.scale(dpr, dpr);
+//
+//     const draw = () => {
+//       if (!analyser) return;
+//       analyser.getByteTimeDomainData(dataArray);
+//
+//       const count = config.barCount || Math.floor(canvas.width / (config.barWidth || 4));
+//       const step = Math.floor(dataArray.length / count);
+//       const height = canvas.height / dpr;
+//
+//       const bars = [];
+//       for (let i = 0; i < count; i++) {
+//         const val = dataArray[i * step] / 128.0 - 1.0;
+//         bars.push(Math.abs(val));
+//       }
+//
+//       const max = Math.max(...bars);
+//       barHeights.value = bars.map(v => {
+//         let normalized = (v / max) * height * 0.8;
+//         if (config.maxHeight) normalized = Math.min(normalized, config.maxHeight);
+//         return Math.max(2, normalized);
+//       });
+//
+//       drawBars(canvas);
+//       animationId = requestAnimationFrame(draw);
+//     };
+//
+//     draw();
+//   }
+//
+//   // Static update (for pre-extracted waveform)
 //   const updateWaveform = (
 //     canvas: HTMLCanvasElement,
 //     progress: number = 0
@@ -80,54 +134,70 @@
 //     drawBars(canvas, progress);
 //   };
 //
-//   function drawBars(
-//     canvas: HTMLCanvasElement,
-//     progress: number
-//   ) {
+//   function drawBars(canvas: HTMLCanvasElement, progress: number = 0) {
 //     const ctx = canvas.getContext('2d');
 //     if (!ctx) return;
 //
-//     const width = canvas.width / (window.devicePixelRatio || 1);
-//     const height = canvas.height / (window.devicePixelRatio || 1);
+//     // canvas.width and canvas.height are physical pixel dimensions.
+//     // The ctx.scale(dpr, dpr) in DXWaveformCanvas.vue means that all
+//     // coordinates and dimensions passed to ctx methods should be in logical pixels.
+//     const logicalWidth = canvas.width / (window.devicePixelRatio || 1);
+//     const logicalHeight = canvas.height / (window.devicePixelRatio || 1);
+//
 //     const count = barHeights.value.length;
+//     if (count === 0) return;
 //
-//     const barWidth = count > 0 ? width / count : 1;
+//     // Calculate the width of the cell allocated to each bar.
+//     // This ensures bars and their spacing will fill the logicalWidth.
+//     const cellWidth = logicalWidth / count;
 //
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+//     // Determine the actual visual width of the bar (e.g., 75% of the cell).
+//     // Ensure it's at least 1 logical pixel and an integer.
+//     const drawnBarWidth = Math.max(1, Math.floor(cellWidth * 0.75));
 //
-//     const hoverIndex = Math.floor(hoverX.value / barWidth);
+//     ctx.clearRect(0, 0, logicalWidth, logicalHeight);
+//
+//     const hoverXLogical = hoverX.value; // hoverX is already in logical pixels.
+//     // Calculate hoverIndex based on which cell the hoverXLogical falls into.
+//     const hoverIndex = Math.floor(hoverXLogical / cellWidth);
 //
 //     for (let i = 0; i < count; i++) {
-//       const barHeight = barHeights.value[i];
-//       const x = i * barWidth;
-//       const y = getBarY(height, barHeight);
-//       const isActive = (x + barWidth) / width <= progress;
+//       const barHeightValue = barHeights.value[i]; // Already scaled for logicalHeight.
+//
+//       // Calculate the x position for the start of the bar, centering it in its cell.
+//       const barOffsetX = (cellWidth - drawnBarWidth) / 2;
+//       const x = (i * cellWidth) + barOffsetX;
+//
+//       const y = getBarY(logicalHeight, barHeightValue);
+//       const renderBarH = getRenderBarHeight(barHeightValue);
+//
+//       // Determine if the *cell* is active based on progress.
+//       const cellEndPositionLogical = ((i + 1) * cellWidth);
+//       const isActive = cellEndPositionLogical / logicalWidth <= progress;
 //       const isHovered = isHovering.value && i <= hoverIndex;
 //
-//       if (isHovered) {
-//         ctx.fillStyle = isActive ? config.hoverProgressColor : config.hoverInactiveColor;
-//       } else {
-//         ctx.fillStyle = isActive ? config.progressColor : config.inactiveColor;
-//       }
+//       ctx.fillStyle = isHovered
+//         ? (isActive ? config.hoverProgressColor : config.hoverInactiveColor)
+//         : (isActive ? config.progressColor : config.inactiveColor);
 //
-//       ctx.fillRect(x, y, barWidth * 0.8, getRenderBarHeight(barHeight));
+//       // Draw the bar using logical coordinates and dimensions.
+//       ctx.fillRect(x, y, drawnBarWidth, renderBarH);
 //     }
 //
 //     if (isHovering.value) {
 //       ctx.fillStyle = config.hoverColor;
-//       ctx.fillRect(0, 0, hoverX.value, height);
+//       ctx.fillRect(0, 0, hoverXLogical, logicalHeight);
 //     }
 //
 //     if (config.alignment === 'center' || config.alignment === 'mirror') {
 //       ctx.strokeStyle = config.centerLineColor;
-//       ctx.lineWidth = 1;
+//       ctx.lineWidth = 1; // lineWidth is in logical pixels.
 //       ctx.beginPath();
-//       ctx.moveTo(0, height / 2);
-//       ctx.lineTo(width, height / 2);
+//       ctx.moveTo(0, logicalHeight / 2);
+//       ctx.lineTo(logicalWidth, logicalHeight / 2);
 //       ctx.stroke();
 //     }
 //   }
-//
 //   function getBarY(canvasHeight: number, barHeight: number): number {
 //     switch (config.alignment) {
 //       case 'center':
@@ -144,11 +214,41 @@
 //     return config.alignment === 'mirror' ? barHeight * 2 : barHeight;
 //   }
 //
+//   function stopLiveRendering() {
+//     if (animationId) {
+//       cancelAnimationFrame(animationId);
+//       animationId = null;
+//     }
+//
+//     if (stream) {
+//       stream.getTracks().forEach(track => track.stop());
+//       stream = null;
+//     }
+//
+//     if (sourceNode) {
+//       sourceNode.disconnect();
+//       sourceNode = null;
+//     }
+//
+//     if (analyser) {
+//       analyser.disconnect();
+//       analyser = null;
+//     }
+//   }
+//
+//   function drawBar(canvas: HTMLCanvasElement) {
+//     const ctx = canvas.getContext('2d');
+//
+//
+//   }
+//
 //   return {
 //     barHeights,
 //     hoverX,
 //     isHovering,
 //     extractWaveformFromAudio,
 //     updateWaveform,
+//     renderLiveStreamFromMic,
+//     stopLiveRendering,
 //   };
 // }

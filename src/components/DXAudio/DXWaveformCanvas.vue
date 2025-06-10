@@ -28,7 +28,8 @@ const resizeCanvas = () => {
 
 	const dpr = window.devicePixelRatio || 1;
 	const width = canvas.value.offsetWidth;
-	const height = 100;
+	const height = canvas.value.offsetHeight;
+
 
 	canvas.value.width = width * dpr;
 	canvas.value.height = height * dpr;

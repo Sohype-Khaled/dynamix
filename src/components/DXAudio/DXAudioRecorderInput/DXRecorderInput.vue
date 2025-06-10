@@ -4,9 +4,26 @@ import {useAudioRecorder} from '@/composables/audio/useAudioRecorder.ts';
 import DXRecordPlayback from "@/components/DXAudio/DXAudioRecorderInput/DXRecordPlayback.vue";
 import {Icon} from "@iconify/vue";
 import {vRipple} from '@/directives/ripple';
+import DXMicWaveformCanvas from "@/components/DXAudio/DXMicWaveformCanvas.vue";
 
 
 // Props & Emits
+const props = withDefaults(defineProps<{
+	audioBitsPerSecond?: number
+	noiseSuppression?: boolean
+	autoGainControl?: boolean
+	echoCancellation?: boolean
+	sampleRate?: number
+	channelCount?: number
+}>(), {
+	audioBitsPerSecond: 192000,
+	noiseSuppression: true,
+	autoGainControl: true,
+	echoCancellation: true,
+	sampleRate: 44100,
+	channelCount: 2
+});
+
 const model = defineModel<Blob | null>()
 
 const emit = defineEmits<{
@@ -15,7 +32,7 @@ const emit = defineEmits<{
 
 // Recorder composable
 const {
-	elapsedSeconds,
+	mediaStream,
 	formattedTime,
 	audioUrl,
 	audioBlob,
@@ -24,9 +41,16 @@ const {
 	error,
 	fastStart,
 	stop,
-	reset,
-} = useAudioRecorder();
-
+} = useAudioRecorder({
+	audioBitsPerSecond: props.audioBitsPerSecond, // This can be kept or removed for testing different aspects
+	audioTrackConstraints: {
+	  noiseSuppression: props.noiseSuppression,    // To re-enable noise suppression
+	  autoGainControl: props.autoGainControl,     // To re-enable automatic gain control
+	  echoCancellation: props.echoCancellation,    // To re-enable echo cancellation
+	  sampleRate: props.sampleRate,      // To request a specific sample rate
+	  channelCount: props.channelCount          // To request mono audio
+	}
+});
 const showPlayback = ref(false);
 
 
@@ -93,8 +117,10 @@ defineExpose({
 					class="w-[10px] h-[10px] rounded-full bg-[red] shadow-lg shadow-[#0000001A] ms-[8px]"
 				/>
 				<span class="text-[10px] font-semibold text-gray-500 w-[34px]" v-text="formattedTime"/>
+				<DXMicWaveformCanvas
+					:stream="mediaStream"
+				/>
 			</template>
-
 			<span class="text-[10px] leading-[1] text-danger font-semibold w-full mx-[8px]"
 			      v-if="error"
 			      v-text="error"/>
