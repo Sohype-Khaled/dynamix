@@ -16,7 +16,7 @@ const emit = defineEmits<{
 }>()
 
 const props = withDefaults(defineProps<{
-	modelValue: string
+	modelValue: string | null
 	contentType?: EditorContentType
 }>(), {
 	contentType: 'text',
@@ -30,7 +30,7 @@ const editor = useEditor({
 	content: props.modelValue,
 	extensions: [StarterKit],
 	editorProps: {
-		attributes: {class: 'focus:outline-none text-left m-2.5 rounded-xl'},
+		attributes: {class: 'focus:outline-none  word-break break-all mt-[6px] ms-[6px]'},
 		handleKeyDown(view, event) {
 			if (event.key === 'Enter' && !event.shiftKey) {
 				event.preventDefault()
@@ -55,11 +55,9 @@ const editor = useEditor({
 	},
 })
 
-/*
 const insertEmoji = (emoji: string) => {
 	editor.value?.chain().focus().insertContent(emoji).run()
 }
-*/
 
 const emitTyping = useDebounceFn(() => emit('typing'), 300)
 
@@ -81,23 +79,42 @@ defineExpose({
 <template>
 	<div
 		ref="containerRef"
-		class="vue-dynamix relative w-full text-sm text-gray-800 rounded-xl  bg-white border border-primary-300 focus:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 transition-all duration-150"
+		class="vue-dynamix tiny-scroll-bar flex relative w-full overflow-y-auto text-sm text-gray-800 rounded-xl bg-white border border-gray-200 focus:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 min-h-[36px]  max-h-[64px] transition-all duration-150"
 	>
-		<div class="overflow-y-auto max-h-[4.5em] scroll scroll-thin scroll-track-hidden">
-			<EditorContent :editor="editor" class="flex-1"/>
-		</div>
+		<!-- Editor Content -->
+		<EditorContent :editor="editor" class="flex-1 "/>
+
 		<!-- Emoji Picker -->
-<!--		<DXEmojiPicker ref="emojiRef" @select="insertEmoji" :ignoreRefs="[toggleRef]"/>-->
+		<DXEmojiPicker ref="emojiRef" @select="insertEmoji" :ignoreRefs="[toggleRef]"/>
 	</div>
 </template>
 
 <style scoped>
-
 :deep(.ProseMirror) {
 	white-space: pre-wrap;
 	outline: none;
 	overflow-wrap: break-word;
-	min-height: 1.5em; /* at least one line */
-	line-height: 1.5em;
+}
+
+.tiny-scroll-bar::-webkit-scrollbar {
+	width: 4px;
+}
+
+.tiny-scroll-bar::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.tiny-scroll-bar::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+}
+
+.tiny-scroll-bar::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.tiny-scroll-bar {
+	scrollbar-width: thin; /* Firefox */
+	scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
 </style>

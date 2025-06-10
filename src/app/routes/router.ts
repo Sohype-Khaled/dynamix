@@ -35,6 +35,11 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: () => import('@/app/modules/chat/ChatView.vue')
+  },
+  {
+    path: '/lightbox',
+    name: 'Lightbox',
+    component: () => import('@/app/modules/lightbox/LightboxView.vue')
   }
 ]
 

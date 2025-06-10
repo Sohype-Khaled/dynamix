@@ -4,54 +4,62 @@ import DXChatContainer from "@/components/DXChat/DXChatLayout/DXChatContainer.vu
 import DXChatLayout from "@/components/DXChat/DXChatLayout/DXChatLayout.vue";
 import DXChatForm from "@/components/DXChat/DXChatForm/DXChatForm.vue";
 import DXChatBubble from "@/components/DXChat/DXChatBubble/DXChatBubble.vue";
-import {ref, watch} from "vue";
-import {generateMockMessages} from "@/app/modules/chat/data.ts";
+import {ref, type VNodeRef, watch} from "vue";
+import {fakeGetRecordById, fakeHandleAudioUpload, generateMockMessages} from "@/app/modules/chat/data.ts";
 import {v4 as uuidv4} from 'uuid'
+import type {ChatFormDataPayload} from "@/types/chat";
+import DXReplyBubble from "@/components/DXChat/DXChatBubble/DXReplyBubble.vue";
 
-interface ChatFile extends File {
-	previewUrl?: string
-}
+
+type BubbleInstance = InstanceType<typeof DXChatBubble>;
+
+
+type BubbleRefs = {
+	[key: string]: BubbleInstance | null;
+};
+
 
 const isClosed = ref(false)
-const handleRecord = () => {
-	console.log('Start recording...')
-}
 
-const handleFilesUpload = (files: ChatFile[]) => {
-	console.log('Files uploaded:', files)
-}
-
-const handleRemoveFile = (file: ChatFile) => {
-	console.log('File removed:', file.name)
-}
 
 const messages = ref(generateMockMessages(10))
-// Example uploader (simulate async)
+
 const chunkUpload = async (file: File) => {
 	console.log('Uploading chunk for:', file.name)
 	await new Promise((res) => setTimeout(res, 200))
 }
+
+const bubbleRefs = ref<BubbleRefs>({});
+
 const layoutRef = ref<InstanceType<typeof DXChatLayout> | null>(null)
 const isTyping = ref(false)
+const replyTo = ref<Record<string, any> | null>(null)
+const replyToId = ref<string | null>(null)
 
-
-const handleSubmit = (msg: string) => {
+const handleSubmit = (msg: ChatFormDataPayload) => {
 	const date = new Date().toISOString();
+
 	messages.value.push({
-		"id": uuidv4(),
-		"uuid": uuidv4(),
-		"attachment_id": null,
-		"record": null,
-		"text": msg,
-		"created_at": date,
-		"updated_at": date,
-		"user_id": "39",
-		"anonymous_user_id": null,
-		"room_id": "123",
-		"sender": {"id": 39, "username": "mohamed mohamed"},
-		"seen_at": null,
-		"isSent": true,
-		"state": "delivered"
+		id: uuidv4(),
+		uuid: uuidv4(),
+		created_at: date,
+		updated_at: date,
+		user_id: "39",
+		anonymous_user_id: null,
+		room_id: "123",
+		sender: {
+			id: 39,
+			username: "mohamed mohamed"
+		},
+		seen_at: null,
+		isSent: true,
+		state: "delivered",
+		replyTo: replyToId.value,
+
+		// safely transform
+		text: msg.text ?? null,
+		attachment: null,
+		record: msg.record ?? null
 	})
 }
 const typing = () => {
@@ -60,6 +68,24 @@ const typing = () => {
 		isTyping.value = false
 	}, 1000)
 }
+
+const getBubbleRef = (megId: string): VNodeRef => (el: unknown) => {
+	bubbleRefs.value[megId] = el as BubbleInstance | null
+}
+
+
+const dblClick = (message: any) => {
+	const bubble = bubbleRefs.value[message.id];
+	if (!bubble) return;
+	replyToId.value = message.id
+	replyTo.value = bubble;
+}
+
+const handleReset = () => {
+	replyTo.value = null
+	replyToId.value = null
+}
+
 watch(() => messages.value.length, () => {
 	if (!layoutRef.value?.userIsScrolling) layoutRef.value?.scrollToBottom();
 });
@@ -92,20 +118,47 @@ watch(() => messages.value.length, () => {
 			<DXChatBubble
 				v-for="message in messages"
 				:key="message.uuid"
+				:ref="getBubbleRef(message.id)"
+				:message-id="message.id"
 				:username="message.sender.username"
+				:record="message.record ?? ''"
 				:sent-at="message.created_at"
-				:is-sent="message.isSent?? false"
+				:is-sent="message.isSent ?? false"
 				:content="message.text"
 				:state="message.state as any || 'delivered'"
-			/>
+				:handle-get-audio="fakeGetRecordById"
+				@dblclick="dblClick(message)"
+				@swipe="dblClick(message)"
+			>
+				<template #reply v-if="message.replyTo">
+					<DXReplyBubble
+						@click.stop
+						@scrollToReference="bubbleRefs[message.replyTo]?.scrollToSelf?.()"
+						:bubble="bubbleRefs[message.replyTo] ?? null"
+						class="mb-[6px]"
+					/>
+				</template>
+			</DXChatBubble>
+
 			<template #footer>
 				<DXChatForm
 					editor-content-type="json"
+					:reply-to="replyToId"
 					:is-closed="isClosed"
-					:external-uploader="chunkUpload"
+					:handle-audio-upload="fakeHandleAudioUpload"
 					@submit="handleSubmit"
 					@typing="typing"
-				/>
+					@reset="handleReset"
+				>
+					<template #replyTo>
+						<DXReplyBubble
+							v-if="replyTo"
+							@scroll-to-reference="bubbleRefs[replyToId]?.scrollToSelf?.()"
+							@close="replyTo = null; replyToId = null"
+							:bubble="replyTo"
+							:allow-close="true"/>
+					</template>
+				</DXChatForm>
 			</template>
 		</DXChatLayout>
 	</DXChatContainer>

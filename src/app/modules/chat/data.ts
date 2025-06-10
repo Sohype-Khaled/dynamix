@@ -1,5 +1,6 @@
 import {v4 as uuidv4} from 'uuid'
 import {faker} from '@faker-js/faker'
+import audioFile from '@/assets/eona-emotional-ambient-pop.mp3';
 
 export const messages = [
   {
@@ -346,7 +347,7 @@ export function generateTipTapJsonMock(paragraphCount = 1) {
 }
 
 function createUser(id?: number, isStaff = false) {
-  const generatedId = id ?? faker.number.int({ min: 1, max: 9999 })
+  const generatedId = id ?? faker.number.int({min: 1, max: 9999})
   return {
     id: generatedId,
     userType: 'Registered',
@@ -393,7 +394,6 @@ export function generateMockRooms(count: number = 5): any[] {
 }
 
 export function generateMockMessages(count: number = 20, roomId: string = '123') {
-  // fixed customer/staff for alternation
   const customer = createUser(39, false)
   const staff = createUser(120, true)
   const senders = [customer, staff]
@@ -401,25 +401,42 @@ export function generateMockMessages(count: number = 20, roomId: string = '123')
   return Array.from({length: count}).map((_, i) => {
     const sender = senders[i % 2]
     const createdAt = faker.date.recent({days: 3}).toISOString()
+    const isAudio = Math.random() < 0.75 // 75% chance for audio
 
     return {
       id: faker.number.int({min: 300, max: 999}).toString(),
       uuid: uuidv4(),
-      attachment_id: null,
-      record: null,
-      text: JSON.stringify(generateTipTapJsonMock()),
+      attachment: null,
+      record: isAudio ? uuidv4() : null,
+      text: isAudio ? null : JSON.stringify(generateTipTapJsonMock()),
       created_at: createdAt,
       updated_at: createdAt,
       user_id: sender.id.toString(),
       anonymous_user_id: null,
       room_id: roomId,
+      replyTo: null,
       sender: {
         id: sender.id,
         username: sender.username
       },
       seen_at: null,
-      isSent: sender.accountType !== 'account_manager', // customer messages are 'sent'
+      isSent: sender.accountType !== 'account_manager',
       state: 'delivered'
     }
   })
+}
+
+
+export async function fakeHandleAudioUpload(blob: Blob): Promise<string> {
+  // Simulate upload delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  // Generate fake ID using timestamp or UUID logic
+  return `audio_${Date.now()}`;
+}
+
+export async function fakeGetRecordById(id: string): Promise<Blob> {
+  await new Promise(resolve => setTimeout(resolve, 500)); // Simulated latency
+  const res = await fetch(audioFile); // Get from static asset
+  return await res.blob();
 }

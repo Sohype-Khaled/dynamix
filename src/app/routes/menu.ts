@@ -26,5 +26,9 @@ export const menu: Array<Record<string, any>> = [
   {
     label: "Chat",
     to: "/chat",
+  },
+  {
+    label: "Lightbox",
+    to: "/lightbox",
   }
 ];

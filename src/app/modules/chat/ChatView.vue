@@ -4,6 +4,7 @@ import RoomsList from "@/app/modules/chat/RoomsList.vue";
 import {ref} from "vue";
 import DXAvatar from "@/components/DXAvatar.vue";
 import DXChatCondensedForm from "@/components/DXChat/DXChatCondensedForm/DXChatCondensedForm.vue";
+import DXAudioRecorderInput from "@/components/DXAudio/DXAudioRecorderInput/DXRecorderInput.vue";
 
 const avatars = ref([
 	{
@@ -32,13 +33,16 @@ const avatars = ref([
 		alt: "Avatar"
 	}
 ])
-
 </script>
 
 <template>
 	<div class="flex flex-wrap gap-6">
 		<ChatRoom/>
 		<RoomsList/>
+		<div class="w-full p-4">
+			<DXAudioRecorderInput/>
+		</div>
+
 		<div class="flex justify-center items-center p-3 gap-4 bg-gray-100">
 			<DXAvatar size="md"
 			          overlap
