@@ -2,6 +2,8 @@ import {onUnmounted, ref} from 'vue';
 
 interface AudioRecorderOptions {
   mimeType?: string;
+  audioBitsPerSecond?: number;
+  audioTrackConstraints?: MediaTrackConstraints; // Add this line
 }
 
 export function useAudioRecorder(options: AudioRecorderOptions = {}) {
@@ -24,12 +26,41 @@ export function useAudioRecorder(options: AudioRecorderOptions = {}) {
   async function requestPermission() {
     error.value = null;
     try {
-      mediaStream.value = await navigator.mediaDevices.getUserMedia({audio: true});
+      let audioConstraintsConfig: MediaTrackConstraints | boolean;
+
+      if (options.audioTrackConstraints && typeof options.audioTrackConstraints === 'object') {
+        // User has provided specific constraints for the audio track
+        audioConstraintsConfig = options.audioTrackConstraints;
+        // console.log('Using user-defined audioTrackConstraints:', JSON.stringify(audioConstraintsConfig)); // For debugging
+      } else {
+        // Default to disabling common audio processing for potentially clearer/rawer recording
+        audioConstraintsConfig = {
+          autoGainControl: false,
+          noiseSuppression: false,
+          echoCancellation: false,
+          // Consider adding other defaults if needed, e.g.:
+          // sampleRate: 48000,
+          // channelCount: 1
+        };
+        // console.log('Using default audioTrackConstraints:', JSON.stringify(audioConstraintsConfig)); // For debugging
+      }
+
+      const mediaStreamConstraintsConfig: MediaStreamConstraints = { audio: audioConstraintsConfig };
+
+      // console.log('Final MediaStreamConstraints for getUserMedia:', JSON.stringify(mediaStreamConstraintsConfig)); // For debugging
+
+      mediaStream.value = await navigator.mediaDevices.getUserMedia(mediaStreamConstraintsConfig);
       permissionState.value = 'granted';
     } catch (err: any) {
-      console.warn('Microphone access denied:', err);
+      console.warn('Microphone access denied or error with constraints:', err);
       permissionState.value = 'denied';
-      error.value = 'Microphone access denied. Please check browser permissions.';
+      if (err.name === 'OverconstrainedError') {
+          error.value = 'The specified audio constraints are not supported by your device/browser.';
+      } else if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+          error.value = 'Microphone access denied. Please check browser permissions.';
+      } else {
+          error.value = 'Could not access microphone. ' + (err.message || '');
+      }
     }
   }
 
@@ -46,9 +77,51 @@ export function useAudioRecorder(options: AudioRecorderOptions = {}) {
       return;
     }
 
-    const mimeType = options.mimeType || 'audio/webm';
+    let selectedMimeType: string;
+
+    if (options.mimeType) {
+      selectedMimeType = options.mimeType;
+    } else {
+      const preferredMimeTypes = [
+        'audio/webm;codecs=opus',
+        'audio/ogg;codecs=opus', // Opus in Ogg container
+        'audio/webm;codecs=vorbis', // Vorbis in WebM as a fallback
+        'audio/ogg;codecs=vorbis',  // Vorbis in Ogg
+        'audio/webm',               // Generic WebM (browser will choose codec, often Opus/Vorbis)
+        // 'audio/mp4', // Example: if MP4/AAC is desired, though less common for this use case
+      ];
+
+      let foundSupported = false;
+      for (const type of preferredMimeTypes) {
+        if (MediaRecorder.isTypeSupported(type)) {
+          selectedMimeType = type;
+          foundSupported = true;
+          // console.log(`Using preferred MIME type for recording: ${selectedMimeType}`); // Optional: for debugging
+          break;
+        }
+      }
+      if (!foundSupported) {
+        selectedMimeType = 'audio/webm'; // Default fallback if no preferred types are supported
+        // console.log(`Using fallback MIME type for recording: ${selectedMimeType}`); // Optional: for debugging
+      }
+    }
+
+    // Prepare options for MediaRecorder constructor
+    const mediaRecorderConstructorOptions: MediaRecorderOptions = { mimeType: selectedMimeType };
+
+    if (options.audioBitsPerSecond && typeof options.audioBitsPerSecond === 'number' && options.audioBitsPerSecond > 0) {
+      // User has provided a valid, positive bitrate
+      mediaRecorderConstructorOptions.audioBitsPerSecond = options.audioBitsPerSecond;
+    } else {
+      // User has not provided a valid bitrate (it's undefined, null, zero, negative, or not a number).
+      // Apply a default bitrate.
+      mediaRecorderConstructorOptions.audioBitsPerSecond = 128000; // Default to 128kbps
+      // console.log(`Using default audioBitsPerSecond: ${mediaRecorderConstructorOptions.audioBitsPerSecond}`); // Optional: for debugging
+    }
+
     try {
-      const recorder = new MediaRecorder(mediaStream.value, {mimeType});
+      // Use the prepared options object
+      const recorder = new MediaRecorder(mediaStream.value, mediaRecorderConstructorOptions);
 
       recorder.ondataavailable = (e) => {
         if (e.data.size > 0) audioChunks.value.push(e.data);
@@ -58,7 +131,8 @@ export function useAudioRecorder(options: AudioRecorderOptions = {}) {
         if (audioUrl.value) {
           URL.revokeObjectURL(audioUrl.value);
         }
-        audioBlob.value = new Blob(audioChunks.value, {type: mimeType});
+        // IMPORTANT: Use selectedMimeType for Blob creation
+        audioBlob.value = new Blob(audioChunks.value, { type: selectedMimeType });
         audioUrl.value = URL.createObjectURL(audioBlob.value);
       };
 

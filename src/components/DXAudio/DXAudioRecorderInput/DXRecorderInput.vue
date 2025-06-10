@@ -9,23 +9,56 @@ import {vRipple} from '@/directives/ripple';
 // Props & Emits
 const model = defineModel<Blob | null>()
 
+const props = defineProps({
+  audioBitsPerSecond: {
+    type: Number,
+    required: false,
+    // default: undefined, // Explicitly showing it's optional
+  },
+  audioTrackConstraints: {
+    type: Object, // Represents MediaTrackConstraints
+    required: false,
+    // default: undefined, // Explicitly showing it's optional
+    // validator: (value) => typeof value === 'object' // Basic validation
+  }
+});
+
 const emit = defineEmits<{
 	(e: 'reset'): void;
 }>();
 
 // Recorder composable
+
+// Prepare the options object for useAudioRecorder based on props
+const recorderComposableOptions: {
+  mimeType?: string; // Retain if other direct options were ever planned here
+  audioBitsPerSecond?: number;
+  audioTrackConstraints?: MediaTrackConstraints; // Use actual type if available/imported
+} = {};
+
+if (props.audioBitsPerSecond !== undefined) {
+  recorderComposableOptions.audioBitsPerSecond = props.audioBitsPerSecond;
+}
+
+if (props.audioTrackConstraints !== undefined) {
+  // The prop type is Object, which is compatible with MediaTrackConstraints.
+  // The useAudioRecorder composable will handle the actual type checking internally.
+  recorderComposableOptions.audioTrackConstraints = props.audioTrackConstraints as MediaTrackConstraints;
+}
+
+// Call useAudioRecorder with the assembled options
 const {
-	elapsedSeconds,
-	formattedTime,
-	audioUrl,
-	audioBlob,
-	isRecording,
-	isPaused,
-	error,
-	fastStart,
-	stop,
-	reset,
-} = useAudioRecorder();
+  elapsedSeconds,
+  formattedTime,
+  audioUrl,
+  audioBlob,
+  isRecording,
+  isPaused,
+  error,
+  fastStart,
+  stop,
+  reset,
+} = useAudioRecorder(recorderComposableOptions);
 
 const showPlayback = ref(false);
 

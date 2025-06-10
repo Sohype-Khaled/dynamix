@@ -28,7 +28,6 @@ const {
 const options = computed((): WaveformRenderOptions => ({
 		alignment: 'center',
 		barWidth: 3,
-		maxHeight: 80,
 		progressColor: '#10b981',
 		hoverColor: 'transparent',
 		inactiveColor: '#d1d5db',
