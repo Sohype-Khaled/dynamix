@@ -72,6 +72,7 @@ const attrs = useAttrs();
 		v-bind="attrs"
 		v-ripple="props.ripple !== true ? props.ripple : undefined"
 		:href="props.as === 'a' && !props.disabled && !props.loading ? props.href : undefined"
+		:to="props.as === 'router-link' && !props.disabled && !props.loading ? props.href : undefined"
 		:disabled="props.disabled || props.loading"
 		:class="buttonClasses"
 	>
@@ -140,7 +141,7 @@ const attrs = useAttrs();
 }
 
 .btn.btn-xs.btn-icon svg {
-	@apply w-3 h-3;
+	@apply w-5 h-5;
 }
 
 .btn.btn-sm.btn-icon svg {

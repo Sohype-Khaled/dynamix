@@ -30,5 +30,5 @@ export const menu: Array<Record<string, any>> = [
   {
     label: "Lightbox",
     to: "/lightbox",
-  }
+  },
 ];

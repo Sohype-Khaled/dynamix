@@ -107,6 +107,7 @@ export function useAudioRecorder(options: AudioRecorderOptions = {}) {
     }
 
     // Prepare options for MediaRecorder constructor
+    // @ts-ignore
     const mediaRecorderConstructorOptions: MediaRecorderOptions = { mimeType: selectedMimeType };
 
     if (options.audioBitsPerSecond && typeof options.audioBitsPerSecond === 'number' && options.audioBitsPerSecond > 0) {

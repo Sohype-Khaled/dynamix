@@ -40,7 +40,9 @@ const routes = [
     path: '/lightbox',
     name: 'Lightbox',
     component: () => import('@/app/modules/lightbox/LightboxView.vue')
-  }
+  },
+
+
 ]
 
 export const router = createRouter({
