@@ -159,7 +159,7 @@ const resetForm = () => {
 					ref="textInputRef"
 					aria-label="Message"
 					:contentType="editorContentType"
-					v-model="formData.text"
+					v-model="formData.text as string"
 					@submit="handleSubmit"
 					@typing="typing"/>
 

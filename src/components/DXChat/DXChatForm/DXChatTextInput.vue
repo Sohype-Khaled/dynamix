@@ -65,7 +65,7 @@ watch(() => props.modelValue, (newValue) => {
 	if (!editor.value) return
 	const current = serializeEditorContent(editor.value, props.contentType)
 	if (current !== newValue) {
-		setEditorContent(editor.value, props.contentType, newValue)
+		setEditorContent(editor.value, props.contentType, newValue ?? '')
 	}
 })
 

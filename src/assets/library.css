@@ -1,2 +1,4 @@
+
 @import "./plugin.css";
 @import "./card.css";
+@custom-variant dark (&:where(.dark, .dark *));

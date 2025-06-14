@@ -54,7 +54,7 @@ const handleSubmit = (msg: ChatFormDataPayload) => {
 		seen_at: null,
 		isSent: true,
 		state: "delivered",
-		replyTo: replyToId.value,
+		replyTo: replyToId.value as string,
 
 		// safely transform
 		text: msg.text ?? null,
@@ -153,7 +153,7 @@ watch(() => messages.value.length, () => {
 					<template #replyTo>
 						<DXReplyBubble
 							v-if="replyTo"
-							@scroll-to-reference="bubbleRefs[replyToId]?.scrollToSelf?.()"
+							@scroll-to-reference="bubbleRefs[replyToId as string]?.scrollToSelf?.()"
 							@close="replyTo = null; replyToId = null"
 							:bubble="replyTo"
 							:allow-close="true"/>

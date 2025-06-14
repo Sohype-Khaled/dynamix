@@ -414,7 +414,7 @@ export function generateMockMessages(count: number = 20, roomId: string = '123')
       user_id: sender.id.toString(),
       anonymous_user_id: null,
       room_id: roomId,
-      replyTo: null,
+      replyTo: '',
       sender: {
         id: sender.id,
         username: sender.username

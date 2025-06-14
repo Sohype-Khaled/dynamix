@@ -34,6 +34,8 @@ import DXChatBubble from "@/components/DXChat/DXChatBubble/DXChatBubble.vue";
 import DXChatListItem from "@/components/DXChat/DXChatListItem/DXChatListItem.vue";
 import DXTabs from "@/components/DXTabs/DXTabs.vue";
 import DXTab from "@/components/DXTabs/DXTab.vue";
+import DXMenu from "@/components/DXMenu/DXMenu.vue";
+import DXMenuItem from "@/components/DXMenu/DXMenuItem.vue";
 
 export {
   DXButton,
@@ -67,6 +69,9 @@ export {
   DXDialogConfirmation,
   DXTabs,
   DXTab,
+  DXMenu,
+  DXMenuItem,
+
 
 
   DXChatForm,

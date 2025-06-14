@@ -9,12 +9,14 @@ export { useConfirmation } from "@/composables/useConfirmation.ts";
 export { useListing } from "@/components/listing/composables/useListing.ts";
 export { useTipTapOutput } from "@/composables/useTipTapOutput.ts";
 
+
 // Types
 export * from "@/types/listing.d";
 export * from "@/types/button.d";
 export * from "@/types/chat.d";
 export * from "@/types/directives.d";
 export * from "@/types/scroll.d";
+export * from "@/types/menu.d";
 
 // Directives
 export * from "@/directives/directives"; // ✅ this should re-export vRipple etc.
