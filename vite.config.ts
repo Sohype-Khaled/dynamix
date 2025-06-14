@@ -43,8 +43,8 @@ export default defineConfig((command: any, mode: any) => {
           compilerOptions: {
             outDir: "dist/lib",
             sourceMap: true,
-            declaration: true,
-            declarationMap: true,
+            declaration: false,
+            declarationMap: false,
           },
         },
         exclude: ["vite.config.ts"],
