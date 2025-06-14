@@ -58,6 +58,7 @@ function registerTabSection(name: string, el: HTMLElement) {
 
 <style scoped>
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .tabs {
 	@apply flex w-full justify-between flex-nowrap;

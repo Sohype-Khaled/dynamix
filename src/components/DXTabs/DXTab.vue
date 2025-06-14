@@ -84,6 +84,7 @@ const setActiveTab = () => {
 
 <style scoped>
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .tab {
 	@apply inline-flex cursor-pointer items-center justify-center text-center font-medium transition duration-150 ease-in-out focus:outline-none rounded-t-md;

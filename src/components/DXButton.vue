@@ -93,6 +93,7 @@ const attrs = useAttrs();
 
 <style>
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Base */
 .btn {

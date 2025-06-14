@@ -34,6 +34,7 @@ const extraClasses = computed(() => {
 
 <style scoped>
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .dx-chat-container {
 	@apply bg-white shadow-lg border border-gray-50 rounded-2xl;

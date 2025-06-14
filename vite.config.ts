@@ -12,7 +12,6 @@ import {fileURLToPath, URL} from "node:url";
 // @ts-ignore
 export default defineConfig((command: any, mode: any) => {
   const tailwindConfigForBuildLib = {
-    darkMode: "class",
     content: [
       "./src/components/**/*.vue",
       "./src/app/**/*.vue",

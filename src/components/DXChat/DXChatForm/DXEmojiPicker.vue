@@ -205,6 +205,7 @@ const getCategoryIcon = (category: string): string => {
 
 <style scoped>
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .menu {
 	@apply absolute bottom-full -translate-y-2 right-0 w-72 mt-2 rounded-xl border border border-gray-100 bg-white shadow-lg text-sm z-50;
