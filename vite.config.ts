@@ -32,7 +32,7 @@ export default defineConfig((command: any, mode: any) => {
   return {
     plugins: [
       vue(),
-      dts({insertTypesEntry: true}),
+      dts({ insertTypesEntry: true, include: ["src"], copyDtsFiles: true }),
       tailwindcss({
         config: command === 'build' ? tailwindConfigForBuildLib : tailwindConfigForServe
       }),
