@@ -39,7 +39,7 @@ export default defineConfig((command: any, mode: any) => {
       }),
       typescript2({
         check: false,
-        include: ["src/components/**/*.vue"],
+        include: ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
         tsconfigOverride: {
           compilerOptions: {
             outDir: "dist/lib",
