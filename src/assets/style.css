@@ -3,7 +3,7 @@
 
 @import "./card.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/*@custom-variant dark (&:where(.dark, .dark *));*/
 
 @theme {
     --color-primary: oklch(63.913% 0.11533 221.13);
