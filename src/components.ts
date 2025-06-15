@@ -19,6 +19,7 @@ import DXRadio from "@/components/inputs/DXRadio.vue";
 import DXToggle from "@/components/inputs/DXToggle.vue";
 import DXFloatingLabel from "@/components/inputs/DXFloatingLabel.vue";
 import DXSearchInput from "@/components/inputs/DXSearchInput.vue";
+import DXFileInput from "@/components/inputs/DXFileInput.vue";
 import DXInput from "@/components/inputs/DXInput.vue";
 import DXTextarea from "@/components/inputs/DXTextarea.vue";
 import DXTagInput from "@/components/inputs/DXTagInput.vue";
@@ -49,6 +50,7 @@ export {
   DXTagInput,
   DXSearchInput,
   DXTipTapEditor,
+  DXFileInput,
 
   DXTable,
   DXLoader,
