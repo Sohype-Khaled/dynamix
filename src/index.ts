@@ -10,7 +10,7 @@ export * from "@/types/chat.d";
 export * from "@/types/directives.d";
 export * from "@/types/scroll.d";
 export * from "@/types/menu.d";
-
+export * from "@/types/uploader.d";
 // Directives
 export * from "@/directives/directives"; // ✅ this should re-export vRipple etc.
 
