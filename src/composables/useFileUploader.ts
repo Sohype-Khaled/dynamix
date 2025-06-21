@@ -69,7 +69,11 @@ export function useFileUploader(options: UploadController) {
 
   const complete = async (file: File) => {
     const fullChecksum = await computeSHA256(file);
-    await controller.complete(uploadId.value, fullChecksum);
+    const checksum = await controller.complete(uploadId.value);
+
+    if (checksum !== fullChecksum) {
+      throw new Error("Checksum mismatch");
+    }
     controller.onComplete();
   };
 

@@ -12,7 +12,7 @@ export interface UploadController {
     checksum: string,
     abortSignal: AbortSignal
   ) => Promise<any & { checksum: string }>;
-  complete: (uploadId: string, checksum: string) => any;
+  complete: (uploadId: string) => Promise<any & { checksum: string }>;
   abort: () => any;
 
   // callbacks
