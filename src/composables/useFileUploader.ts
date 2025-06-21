@@ -1,5 +1,5 @@
-import {readonly, ref} from "vue";
-import type {UploadController} from "@/types/uploader";
+import { readonly, ref } from "vue";
+import type { UploadController } from "@/types/uploader";
 
 export function useFileUploader(options: UploadController) {
   const controller: UploadController = options;
@@ -46,7 +46,6 @@ export function useFileUploader(options: UploadController) {
         .map(b => b.toString(16).padStart(2, "0"))
         .join("");
     } catch (error) {
-      // Proper error type handling
       if (error instanceof Error) {
         throw new Error(`Failed to compute checksum: ${error.message}`);
       }
@@ -59,7 +58,7 @@ export function useFileUploader(options: UploadController) {
       throw new Error(`Missing checksum for chunk ${partNumber}`);
     }
 
-    const {checksum: serverChecksum} = await controller.uploadChunk(
+    const { checksum: serverChecksum } = await controller.uploadChunk(
       uploadId.value,
       partNumber,
       chunk,
@@ -102,12 +101,11 @@ export function useFileUploader(options: UploadController) {
       const fullChecksum = await computeSHA256(file);
       const response = await controller.complete(uploadId.value);
 
-      // Validate response structure
       if (!response || typeof response !== 'object') {
         throw new Error('Invalid server response format');
       }
 
-      const {checksum} = response;
+      const { checksum } = response;
 
       if (!checksum) {
         throw new Error('Server did not return a checksum');
@@ -124,6 +122,7 @@ export function useFileUploader(options: UploadController) {
       throw error;
     }
   };
+
   const abort = () => {
     if (!isUploading.value) return;
 
@@ -167,5 +166,6 @@ export function useFileUploader(options: UploadController) {
     upload,
     abort,
     isUploading: readonly(isUploading),
+    uploadId,
   };
 }
