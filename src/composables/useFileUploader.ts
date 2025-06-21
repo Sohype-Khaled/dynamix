@@ -77,13 +77,23 @@ export function useFileUploader(options: UploadController) {
   };
 
   const complete = async (file: File) => {
-    const serverFullChecksum = await controller.complete(uploadId.value);
-    const clientFullChecksum = await computeSHA256(file);
+    try {
+      const fullChecksum = await computeSHA256(file);
+      const { checksum } = await controller.complete(uploadId.value);
 
-    if (serverFullChecksum !== clientFullChecksum) {
-      throw new Error("Final file checksum mismatch!");
+      if (!checksum) {
+        throw new Error("Server did not return a checksum");
+      }
+
+      if (checksum !== fullChecksum) {
+        throw new Error("Checksum mismatch");
+      }
+
+      controller.onComplete();
+    } catch (error) {
+      controller.onError(error);
+      throw error; // Re-throw to stop the upload flow
     }
-    controller.onComplete();
   };
 
   const abort = () => {
