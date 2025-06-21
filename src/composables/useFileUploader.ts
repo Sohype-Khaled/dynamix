@@ -6,16 +6,25 @@ export function useFileUploader(options: UploadController) {
   const controller: UploadController = options;
   const abortController = new AbortController();
   const chunks = ref<Blob[]>([]);
+  const chunkChecksums = ref<string[]>([]);
   const chunkSize = controller.chunkSize ?? 1024 * 1024;
   const uploadId = ref<string>('');
   const isAborted = ref(false);
 
-  const splitFileToChunks = (file: File): void => {
+  const splitFileToChunks = async (file: File): Promise<void> => {
     chunks.value = [];
+    chunkChecksums.value = []; // Reset checksums
     let offset = 0;
+
     while (offset < file.size) {
       const end = offset + chunkSize;
-      chunks.value.push(file.slice(offset, end));
+      const chunk = file.slice(offset, end);
+      chunks.value.push(chunk);
+
+      // Compute and store checksum for this chunk
+      const checksum = await computeSHA256(chunk);
+      chunkChecksums.value.push(checksum);
+
       offset = end;
     }
   };
@@ -29,8 +38,8 @@ export function useFileUploader(options: UploadController) {
   };
 
   const uploadChunk = async (partNumber: number, chunk: Blob) => {
-    const checksum = await computeSHA256(chunk);
-    const {checksum: resChecksum} = await controller.uploadChunk(
+    const checksum = chunkChecksums.value[partNumber - 1]; // Retrieve precomputed checksum
+    const { checksum: serverChecksum } = await controller.uploadChunk(
       uploadId.value,
       partNumber,
       chunk,
@@ -38,8 +47,8 @@ export function useFileUploader(options: UploadController) {
       abortController.signal
     );
 
-    if (resChecksum && resChecksum !== checksum) {
-      throw new Error("Checksum mismatch");
+    if (serverChecksum !== checksum) {
+      throw new Error(`Checksum mismatch for chunk ${partNumber}`);
     }
 
     return true;
@@ -68,11 +77,11 @@ export function useFileUploader(options: UploadController) {
   };
 
   const complete = async (file: File) => {
-    const fullChecksum = await computeSHA256(file);
-    const checksum = await controller.complete(uploadId.value);
+    const serverFullChecksum = await controller.complete(uploadId.value);
+    const clientFullChecksum = await computeSHA256(file);
 
-    if (checksum !== fullChecksum) {
-      throw new Error("Checksum mismatch");
+    if (serverFullChecksum !== clientFullChecksum) {
+      throw new Error("Final file checksum mismatch!");
     }
     controller.onComplete();
   };
