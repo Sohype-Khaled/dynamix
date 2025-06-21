@@ -87,7 +87,7 @@ export function useFileUploader(options: UploadController) {
           controller.onProgress(((i + 1) / chunks.value.length) * 100);
           break;
         } catch (error) {
-          lastError = error as Error;
+          lastError = error instanceof Error ? error : new Error(String(error));
           retries--;
           if (retries === 0) {
             throw lastError;
@@ -98,6 +98,7 @@ export function useFileUploader(options: UploadController) {
   };
 
   const complete = async (file: File) => {
+    console.log("To Remove", "complete started")
     const fullChecksum = await computeSHA256(file);
     const { checksum } = await controller.complete(uploadId.value);
 
@@ -108,6 +109,7 @@ export function useFileUploader(options: UploadController) {
     if (checksum !== fullChecksum) {
       throw new Error("Server verification failed: Checksum mismatch");
     }
+    console.log("To Remove", "complete finished")
   };
 
   const abort = () => {
@@ -130,11 +132,13 @@ export function useFileUploader(options: UploadController) {
       resetState();
 
       await splitFileToChunks(file);
+
       const result = await controller.start(file, chunks.value.length);
       uploadId.value = result.uploadId;
 
       await uploadChunks();
 
+      console.log("To Remove", "Upload chunks finished");
       if (!isAborted.value) {
         await complete(file);
         controller.onComplete();
