@@ -84,7 +84,7 @@ export function useFileUploader(options: UploadController) {
     try {
       isAborted.value = false;
       splitFileToChunks(file);
-      const result = await controller.start(file);
+      const result = await controller.start(file, chunks.value.length);
       uploadId.value = result.uploadId;
       await uploadChunks();
       if (!isAborted.value) await complete(file);

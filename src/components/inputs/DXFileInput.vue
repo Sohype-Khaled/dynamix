@@ -18,7 +18,7 @@ const attrs = useAttrs();
 const inputId = computed(() => (attrs.id as string) || `input-${Math.random().toString(36).slice(2, 11)}`);
 
 const inputClasses = computed(() => {
-	const base = "block w-full text-sm cursor-pointer rounded-lg border bg-gray-50 dark:bg-gray-700 dark:placeholder-neutral-400"
+	const base = "inline-flex items-center w-full text-sm cursor-pointer rounded-lg border bg-gray-50 dark:bg-gray-700 dark:placeholder-neutral-400 h-10.5 p-2 gap-2"
 
 	const stateStyles = {
 		default:
@@ -63,10 +63,11 @@ watch(() => props.modelValue, () => {
 				}
 			};
 			reader.readAsDataURL(file);
+		} else {
+			previews.value.push(file.name);
 		}
 	});
 });
-
 
 
 const messageClasses = computed(() => {
@@ -77,6 +78,15 @@ const messageClasses = computed(() => {
 			? 'text-success-600 dark:text-success'
 			: 'text-neutral-600 dark:text-neutral-50';
 	return `${base} ${color}`;
+});
+
+function clearFiles() {
+	emit("update:modelValue", props.multiple ? [] : null);
+	fileInputRef.value!.value = ''; // clear input
+}
+
+defineExpose({
+	clearFiles
 });
 </script>
 
@@ -96,20 +106,38 @@ const messageClasses = computed(() => {
 			:accept="accept"
 			:multiple="multiple"
 			@change="handleChange"
-			class=""
-			:class="inputClasses"
+			:id="inputId"
+			class="sr-only"
 		/>
+		<div class="flex items-center justify-center">
+			<div class="flex-shrink-0">
+				<slot name="prepend"/>
+			</div>
+			<label :for="inputId" :class="inputClasses" class="cursor-pointer">
+				<span class="flex items-center justify-center bg-gray-200 px-2 py-1 rounded dark:bg-gray-700">
+					Choose File
+				</span>
+				<span class="ml-2 text-neutral-500 text-sm truncate">
+					{{
+						multiple && previews.length ? `${previews.length} files selected` : previews.length ? '1 file selected' : 'No files selected'
+					}}
+				</span>
+			</label>
+			<div class="flex-shrink-0">
+				<slot name="append"/>
+			</div>
+		</div>
+		<div class="">
+			<slot name="bottom"/>
+		</div>
 
 		<p v-if="message" :class="messageClasses" v-text="message"/>
 
 		<div v-if="previews.length" class="mt-2 flex gap-2 flex-wrap">
-			<img
-				v-for="(src, index) in previews"
-				:key="index"
-				:src="src"
-				class="w-20 h-20 object-cover rounded border"
-				alt="Preview"
-			/>
+			<div v-for="(src, index) in previews" :key="index">
+				<img v-if="src.startsWith('data:')" :src="src" class="w-20 h-20 object-cover rounded border" alt="Preview"/>
+				<p v-else class="text-xs text-neutral-600 dark:text-neutral-300 truncate max-w-[5rem]">{{ src }}</p>
+			</div>
 		</div>
 	</div>
 </template>

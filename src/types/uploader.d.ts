@@ -4,7 +4,7 @@ export interface UploadController {
   maxRetries?: number,
 
   // functions
-  start: (file: File) => Promise<any & { uploadId: string }>;
+  start: (file: File, totalParts: number) => Promise<any & { uploadId: string }>;
   uploadChunk: (
     uploadId: string,
     partNumber: number,
